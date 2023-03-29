@@ -1,10 +1,9 @@
-# monnani-FE
-몬나니Girl 프론트엔드 레포지토리입니다.
-
+# 🍊 monnani-FE 🍊
 <img src="https://user-images.githubusercontent.com/66112716/228446892-b9c709f9-970a-4572-8528-870af6b2bcb9.png" width />
 
+## 🌱 Commit Convention
 Tag Name|Description
-:---:|:---:
+:---|:---
 feat|새로운 기능을 추가
 fix|버그 수정
 design|CSS 등 사용자 UI 디자인 변경
