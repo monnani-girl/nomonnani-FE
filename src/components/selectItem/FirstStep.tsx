@@ -18,33 +18,33 @@ const FirstStep = () => {
         <SelectContainer>
           <SelectItem
             id="1"
-            value="warm"
+            value="spring"
             onClick={handleSelectItem}
-            selected={selectedItem === 'warm'}
+            selected={selectedItem === 'spring'}
           >
             왕벚꽃이 펼쳐진 따뜻한 봄의 제주
           </SelectItem>
           <SelectItem
             id="2"
-            value="cool"
+            value="summer"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cool'}
+            selected={selectedItem === 'summer'}
           >
             에너지가 넘치는 여름의 제주
           </SelectItem>
           <SelectItem
             id="3"
-            value="hot"
+            value="fall"
             onClick={handleSelectItem}
-            selected={selectedItem === 'hot'}
+            selected={selectedItem === 'fall'}
           >
             감성 넘치는 단풍이 있는 가을의 제주
           </SelectItem>
           <SelectItem
             id="4"
-            value="cold"
+            value="winter"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cold'}
+            selected={selectedItem === 'winter'}
           >
             한 해를 마무리하는 연말 겨울의 제주
           </SelectItem>

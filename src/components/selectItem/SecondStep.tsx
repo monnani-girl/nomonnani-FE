@@ -18,33 +18,33 @@ const SecondStep = () => {
         <SelectContainer>
           <SelectItem
             id="1"
-            value="warm"
+            value="normal"
             onClick={handleSelectItem}
-            selected={selectedItem === 'warm'}
+            selected={selectedItem === 'normal'}
           >
             바람 한 점 없는 고요한 날씨
           </SelectItem>
           <SelectItem
             id="2"
-            value="cool"
+            value="sunny"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cool'}
+            selected={selectedItem === 'sunny'}
           >
             햇빛이 잘 드는 따뜻한 날씨
           </SelectItem>
           <SelectItem
             id="3"
-            value="hot"
+            value="rainny"
             onClick={handleSelectItem}
-            selected={selectedItem === 'hot'}
+            selected={selectedItem === 'rainny'}
           >
             비가 내리는 센치한 날씨
           </SelectItem>
           <SelectItem
             id="4"
-            value="cold"
+            value="snowy"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cold'}
+            selected={selectedItem === 'snowy'}
           >
             눈이 펑펑오는 낭만적인 날씨
           </SelectItem>

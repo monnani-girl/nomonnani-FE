@@ -18,33 +18,33 @@ const FourthStep = () => {
         <SelectContainer>
           <SelectItem
             id="1"
-            value="warm"
+            value="shopping"
             onClick={handleSelectItem}
-            selected={selectedItem === 'warm'}
+            selected={selectedItem === 'shopping'}
           >
             소비가 최고! 쇼핑을 즐기자
           </SelectItem>
           <SelectItem
             id="2"
-            value="cool"
+            value="running"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cool'}
+            selected={selectedItem === 'runnung'}
           >
             바다앞에서 러닝하는 건강루틴 실천
           </SelectItem>
           <SelectItem
             id="3"
-            value="hot"
+            value="coffee"
             onClick={handleSelectItem}
-            selected={selectedItem === 'hot'}
+            selected={selectedItem === 'coffee'}
           >
             분위기 좋은 카페에서 커피 한 잔!
           </SelectItem>
           <SelectItem
             id="4"
-            value="cold"
+            value="eating"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cold'}
+            selected={selectedItem === 'eating'}
           >
             맛집이 최고지~ 맛집 코스 여행
           </SelectItem>

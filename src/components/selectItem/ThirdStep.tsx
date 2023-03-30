@@ -18,33 +18,33 @@ const ThirdStep = () => {
         <SelectContainer>
           <SelectItem
             id="1"
-            value="warm"
+            value="energetic"
             onClick={handleSelectItem}
-            selected={selectedItem === 'warm'}
+            selected={selectedItem === 'energetic'}
           >
             활기차고 에너지가 넘쳐요
           </SelectItem>
           <SelectItem
             id="2"
-            value="cool"
+            value="angry"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cool'}
+            selected={selectedItem === 'angry'}
           >
             화나는 일이 있어요
           </SelectItem>
           <SelectItem
             id="3"
-            value="hot"
+            value="tired"
             onClick={handleSelectItem}
-            selected={selectedItem === 'hot'}
+            selected={selectedItem === 'tired'}
           >
             힐링이 필요해요
           </SelectItem>
           <SelectItem
             id="4"
-            value="cold"
+            value="normal"
             onClick={handleSelectItem}
-            selected={selectedItem === 'cold'}
+            selected={selectedItem === 'normal'}
           >
             대체적으로 평범해요
           </SelectItem>
