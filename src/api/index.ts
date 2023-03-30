@@ -22,19 +22,12 @@ export interface BodyProps {
   photo: string;
 }
 
-const headers = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-};
-
-const localUrl = `http://172.20.10.7:8000/result/product`;
+const localUrl = `http://172.20.10.7:8001/result/product`;
 const prdUrl = `http://k8s-monnani-aialb-7c65cd5e8f-996929609.ap-northeast-2.elb.amazonaws.com/result/product`;
 
 export const getResult = async (data: BodyProps) => {
   try {
-    const res = await axios.post(localUrl, data, {
-      headers,
-    });
+    const res = await axios.post(localUrl, data);
     return res;
   } catch (e) {
     console.log(e);
