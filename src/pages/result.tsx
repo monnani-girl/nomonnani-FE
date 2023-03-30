@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import testCarrot from '../assets/carrot.png';
+import testCarrot from '../assets/main.png';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 
 function Result() {
@@ -11,18 +11,17 @@ function Result() {
     setOriginActive((prev) => !prev);
   };
 
-  //TODO: 결과 받아오기 (w/ react-query)
-
   return (
     <div>
       <div>
-        <Title>나의 못난이</Title>
         <ResultImage src={testCarrot} alt="result-image" />
+        <Title>나의 못난이</Title>
         <ResultName>당근 근육맨</ResultName>
         <ResultDescription>
-          당신의 닮은 꼴은 당근 근육맨입니다! 어쩌구 저쩌구 못난이 당근은 사실
-          못나지 않았어요. 영양소도 똑같고 맛도 똑같고 식감도 똑같고 마트에서
-          파는 당근과 차이가 없는 모양새만 특별한 당근이에요~ 어쩌구 저쩌구
+          튼튼한 제 알통이 보이시나요? 사람들은 제 팔다리가 곧게 뻗지 않았다는
+          이유로 못난이 당근이라며 먹지 않아요. 은은한 단맛과 아삭한 식감,
+          비타민이 가득한 제 매력을 몰라주지만, 저는 각양각색 개성만점인 못난이
+          당근 친구들이 자랑스러워요!
         </ResultDescription>
       </div>
       <CommonDescription>
@@ -117,10 +116,10 @@ function Result() {
 export default Result;
 
 const Title = styled.div`
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
   text-align: center;
-  margin-bottom: 44px;
+  margin-top: 35px;
+  color: #656565;
 `;
 
 const ResultImage = styled.img`
@@ -134,20 +133,24 @@ const ResultName = styled.div`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: 40px 0 18px 0;
+  margin: 6px 0 16px 0;
 `;
 
 const ResultDescription = styled.div`
-  font-size: 14px;
-  color: #555555;
+  font-size: 16px;
+  width: 340px;
+  margin: 0 auto;
 `;
 
 const CommonDescription = styled.div`
-  border: 2px solid #27df91;
-  border-radius: 32px;
-  background: #f8f8f8;
-  padding: 40px;
-  margin: 36px 0 55px 0;
+  display: flex;
+  width: 390px;
+  height: 466px;
+  border: 2px solid #379100;
+  border-radius: 20px;
+  background: #fff;
+  padding: 36px;
+  margin: 48px 0 68px 0;
 `;
 
 const CommonText = styled.div`
