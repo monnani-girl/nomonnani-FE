@@ -55,12 +55,10 @@ const Select = () => {
       {currentStep === 40 && <SecondStep />}
       {currentStep === 60 && <ThirdStep />}
       {currentStep === 80 && <FourthStep />}
-      {/* {currentStep === 100 && (
+      {currentStep === 100 && 
         <>
-          console.log(`{firstValue}, {secondValue}, {thirdValue}, {fourthValue}
-          `);
         </>
-      )} */}
+      }
       <BtnContainer>
         <Button
           label="Prev Step"

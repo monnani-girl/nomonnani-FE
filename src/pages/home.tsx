@@ -55,6 +55,7 @@ const Description = styled.div`
 `;
 
 const Button = styled(Link)`
+  font-family: 'Gmarket Sans';
   width: 250px;
   height: 72px;
   display: flex;
@@ -62,7 +63,8 @@ const Button = styled(Link)`
   align-items: center;
   font-size: 22px;
   border: none;
-  background: #caf495;
+  background: #379100;
+  color: #ffffff;
   border-radius: 100px;
   cursor: pointer;
 `;
