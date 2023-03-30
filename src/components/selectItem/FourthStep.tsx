@@ -29,7 +29,7 @@ const FourthStep = () => {
             id="2"
             value="running"
             onClick={handleSelectItem}
-            selected={fourthSelected === 'runnung'}
+            selected={fourthSelected === 'running'}
           >
             바다앞에서 러닝하는 건강루틴 실천
           </SelectItem>
