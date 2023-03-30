@@ -47,14 +47,18 @@ table {
 *{
   box-sizing: border-box;
 }
+
 body{
-  font-family: 'Source Sans Pro', sans-serif;
-  max-width: 486px;
-  min-width: 486px;
-  margin: 0 auto;
-  padding: 30px;
+    font-family: 'Source Sans Pro', sans-serif;
+    max-width: 486px;
+    min-width: 486px;
+    margin: 0 auto;
+    padding: 30px;
+    line-height: 1.5;
+    background-color: #fffbf8;
 }
 a{
   text-decoration: none;
+  color: inherit;
 }
 `;
