@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import testCarrot from '../assets/main.png';
+import introImage from '../assets/introduction.svg';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 
 function Result() {
@@ -25,12 +26,7 @@ function Result() {
         </ResultDescription>
       </div>
       <CommonDescription>
-        <CommonText>'못난이'를 아시나요?</CommonText>
-        <CommonSubText>
-          '못난이'는 어쩌구 저쩌구 더미 데이터 더미 데이터 더미 데이터 더미
-          데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이
-          데이터 더미 데이터 더미 데이터 더미 데이 데이터 더미{' '}
-        </CommonSubText>
+        <img src={introImage} />
       </CommonDescription>
       <ButtonContainer>
         <SaleButton
@@ -95,6 +91,7 @@ function Result() {
       </SaleContainer>
 
       <SaveShareButtonContainer>
+        <SaveShareButton bgColor="#F5F2F0">다시하기</SaveShareButton>
         <SaveShareButton bgColor="#E3F2FF">저장하기</SaveShareButton>
         <SaveShareButton
           bgColor="#4AE7A4"
@@ -144,12 +141,7 @@ const ResultDescription = styled.div`
 
 const CommonDescription = styled.div`
   display: flex;
-  width: 390px;
-  height: 466px;
-  border: 2px solid #379100;
-  border-radius: 20px;
-  background: #fff;
-  padding: 36px;
+  padding: 10px;
   margin: 48px 0 68px 0;
 `;
 
@@ -169,10 +161,11 @@ const ButtonContainer = styled.div`
 `;
 
 const SaleButton = styled.button<{ loc: string; active: boolean }>`
-  font-size: 18px;
+  font-size: ${(props) => (props.active ? '21px' : '20px')};
   font-weight: 600;
   padding: 14px 32px;
-  background: ${(props) => (props.active ? '#27DF91' : '#F8F8F8')};
+  background: ${(props) => (props.active ? '#ffffff' : '#F8F8F8')};
+  color: ${(props) => (props.active ? '#379100' : '#818181')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.loc === 'right' && 'border-top-left-radius: 10px'};
@@ -181,7 +174,7 @@ const SaleButton = styled.button<{ loc: string; active: boolean }>`
 
 const SaleContainer = styled.div`
   padding: 32px 20px;
-  background: #f8f8f8;
+  background: #ffffff;
 `;
 
 const SaleText = styled.div`
