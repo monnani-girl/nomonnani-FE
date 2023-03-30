@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Line } from 'rc-progress';
 import headerLogo from '../assets/header.png';
+import FirstStep from '../components/selectItem/FirstStep';
+import SecondStep from '../components/selectItem/SecondStep';
+import ThirdStep from '../components/selectItem/ThirdStep';
+import FourthStep from '../components/selectItem/FourthStep';
 
 interface ButtonProps {
   label?: string;
@@ -14,7 +18,6 @@ const PERCENTAGE = ~~(100 / STEP);
 
 const Select = () => {
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
-  const [selectedItem, setSelectedItem] = useState('');
 
   const handlePrevStep = () => {
     setCurrentStep(
@@ -26,61 +29,34 @@ const Select = () => {
     setCurrentStep(currentStep < 100 ? currentStep + PERCENTAGE : currentStep);
   };
 
-  const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setSelectedItem(value);
-  };
-
   return (
     <Container>
       <HeaderLogo src={headerLogo} />
-      <div>
-        <Line
-          percent={currentStep}
-          strokeWidth={3}
-          trailWidth={3}
-          strokeColor="#4AE7A4"
-          trailColor="#e3f2ff"
-          style={{ width: '333px', marginTop: '46px' }}
-        />
-        <Title>제주와 어울리는 날씨는?</Title>
-      </div>
-      <SelectContainer>
-        <SelectItem
-          id="1"
-          value="warm"
-          onClick={handleSelectItem}
-          selected={selectedItem === 'warm'}
-        >
-          바다 가기 좋은 햇살 좋은 따뜻한 날
-        </SelectItem>
-        <SelectItem
-          id="2"
-          value="cool"
-          onClick={handleSelectItem}
-          selected={selectedItem === 'cool'}
-        >
-          에너지가 넘치는 여름의 제주
-        </SelectItem>
-        <SelectItem
-          id="3"
-          value="hot"
-          onClick={handleSelectItem}
-          selected={selectedItem === 'hot'}
-        >
-          감성 넘치는 단풍이 있는 가을의 제주
-        </SelectItem>
-        <SelectItem
-          id="4"
-          value="cold"
-          onClick={handleSelectItem}
-          selected={selectedItem === 'cold'}
-        >
-          한 해를 마무리하는 연말 겨울의 제주
-        </SelectItem>
-      </SelectContainer>
+      <Line
+        percent={currentStep}
+        strokeWidth={3}
+        trailWidth={3}
+        strokeColor="#379100"
+        trailColor="#e3f2ff"
+        style={{ width: '333px', marginTop: '46px' }}
+      />
+      {currentStep === 20 && (
+          <FirstStep />
+      )}
+      {currentStep === 40 && (
+          <SecondStep />
+      )}
+      {currentStep === 60 && (
+          <ThirdStep />
+      )}
+      {currentStep === 80 && (
+          <FourthStep />
+      )}
+      {currentStep === 100 && (
+        <>
+          currentStep 5 
+        </>
+      )}
       <BtnContainer>
         <Button label="Prev Step" prev onClick={handlePrevStep}>
           이전
@@ -115,46 +91,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const Title = styled.div`
-  font-family: Gmarket Sans;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: center;
-  margin: 76px 0 59px 0;
-`;
-
-const SelectContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const SelectItem = styled.button<{ selected: boolean }>`
-  width: 332px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${(props) => (props.selected ? '#379100' : '#fff')};
-  color: ${(props) => (props.selected ? '#fff' : '#001358')};
-  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
-  border-radius: 40px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  margin: 16px 0;
-  font-family: 'Gmarket Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-
-  &:hover {
-    border: 2px solid #379100;
-  }
 `;
 
 const BtnContainer = styled.div`
