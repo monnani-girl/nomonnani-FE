@@ -6,6 +6,8 @@ import FirstStep from '../components/selectItem/FirstStep';
 import SecondStep from '../components/selectItem/SecondStep';
 import ThirdStep from '../components/selectItem/ThirdStep';
 import FourthStep from '../components/selectItem/FourthStep';
+import { useRecoilValue} from 'recoil';
+import { firstState, secondState, thirdState, fourthState } from "../atoms";
 
 interface ButtonProps {
   label?: string;
@@ -18,6 +20,10 @@ const PERCENTAGE = ~~(100 / STEP);
 
 const Select = () => {
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
+  const firstValue = useRecoilValue(firstState);
+  const secondValue = useRecoilValue(secondState);
+  const thirdValue = useRecoilValue(thirdState);
+  const fourthValue = useRecoilValue(fourthState);
 
   const handlePrevStep = () => {
     setCurrentStep(
@@ -54,7 +60,7 @@ const Select = () => {
       )}
       {currentStep === 100 && (
         <>
-          currentStep 5 
+          console.log(`{firstValue}, {secondValue}, {thirdValue}, {fourthValue}`);
         </>
       )}
       <BtnContainer>
@@ -77,12 +83,12 @@ const HeaderLogo = styled.img`
 
 const ButtonType = {
   bgcolor: {
-    prev: '#FF8D4D',
-    next: '#F8F8F8',
+    prev: '#F5F2F0',
+    next: 'rgba(245,242,240,0.5)',
   },
   color: {
-    prev: '#ffffff',
-    next: '#818181',
+    prev: '#525463',
+    next: 'rgba(82,84,99,0.5)',
   },
 };
 

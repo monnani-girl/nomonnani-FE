@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import { useRecoilState } from "recoil";
+import { secondState } from "../../atoms";
 
 const SecondStep = () => {
-    const [selectedItem, setSelectedItem] = useState('');
+    const [secondSelected, setSecondSelected] = useRecoilState<string>(secondState);
     const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
         const {
           currentTarget: { value },
         } = e;
-        setSelectedItem(value);
-        console.log(value);
+        setSecondSelected(value);
     };
 
     return (
@@ -20,7 +21,7 @@ const SecondStep = () => {
             id="1"
             value="normal"
             onClick={handleSelectItem}
-            selected={selectedItem === 'normal'}
+            selected={secondSelected === 'normal'}
           >
             바람 한 점 없는 고요한 날씨
           </SelectItem>
@@ -28,7 +29,7 @@ const SecondStep = () => {
             id="2"
             value="sunny"
             onClick={handleSelectItem}
-            selected={selectedItem === 'sunny'}
+            selected={secondSelected === 'sunny'}
           >
             햇빛이 잘 드는 따뜻한 날씨
           </SelectItem>
@@ -36,7 +37,7 @@ const SecondStep = () => {
             id="3"
             value="rainny"
             onClick={handleSelectItem}
-            selected={selectedItem === 'rainny'}
+            selected={secondSelected === 'rainny'}
           >
             비가 내리는 센치한 날씨
           </SelectItem>
@@ -44,7 +45,7 @@ const SecondStep = () => {
             id="4"
             value="snowy"
             onClick={handleSelectItem}
-            selected={selectedItem === 'snowy'}
+            selected={secondSelected === 'snowy'}
           >
             눈이 펑펑오는 낭만적인 날씨
           </SelectItem>

@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import { useRecoilState } from "recoil";
+import { firstState } from "../../atoms";
 
 const FirstStep = () => {
-    const [selectedItem, setSelectedItem] = useState('');
+    const [firstSelected, setFirstSelected] = useRecoilState<string>(firstState);
     const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
         const {
           currentTarget: { value },
         } = e;
-        setSelectedItem(value);
-        console.log(value);
+        setFirstSelected(value);
     };
 
     return (
@@ -20,7 +21,7 @@ const FirstStep = () => {
             id="1"
             value="spring"
             onClick={handleSelectItem}
-            selected={selectedItem === 'spring'}
+            selected={firstSelected === 'spring'}
           >
             왕벚꽃이 펼쳐진 따뜻한 봄의 제주
           </SelectItem>
@@ -28,7 +29,7 @@ const FirstStep = () => {
             id="2"
             value="summer"
             onClick={handleSelectItem}
-            selected={selectedItem === 'summer'}
+            selected={firstSelected === 'summer'}
           >
             에너지가 넘치는 여름의 제주
           </SelectItem>
@@ -36,7 +37,7 @@ const FirstStep = () => {
             id="3"
             value="fall"
             onClick={handleSelectItem}
-            selected={selectedItem === 'fall'}
+            selected={firstSelected === 'fall'}
           >
             감성 넘치는 단풍이 있는 가을의 제주
           </SelectItem>
@@ -44,7 +45,7 @@ const FirstStep = () => {
             id="4"
             value="winter"
             onClick={handleSelectItem}
-            selected={selectedItem === 'winter'}
+            selected={firstSelected === 'winter'}
           >
             한 해를 마무리하는 연말 겨울의 제주
           </SelectItem>

@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import { useRecoilState } from "recoil";
+import { fourthState } from "../../atoms";
 
 const FourthStep = () => {
-    const [selectedItem, setSelectedItem] = useState('');
+    const [fourthSelected, setFourthSelected] = useRecoilState<string>(fourthState);
     const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
         const {
           currentTarget: { value },
         } = e;
-        setSelectedItem(value);
-        console.log(value);
+        setFourthSelected(value);
     };
 
     return (
@@ -20,7 +21,7 @@ const FourthStep = () => {
             id="1"
             value="shopping"
             onClick={handleSelectItem}
-            selected={selectedItem === 'shopping'}
+            selected={fourthSelected === 'shopping'}
           >
             소비가 최고! 쇼핑을 즐기자
           </SelectItem>
@@ -28,7 +29,7 @@ const FourthStep = () => {
             id="2"
             value="running"
             onClick={handleSelectItem}
-            selected={selectedItem === 'runnung'}
+            selected={fourthSelected === 'runnung'}
           >
             바다앞에서 러닝하는 건강루틴 실천
           </SelectItem>
@@ -36,7 +37,7 @@ const FourthStep = () => {
             id="3"
             value="coffee"
             onClick={handleSelectItem}
-            selected={selectedItem === 'coffee'}
+            selected={fourthSelected === 'coffee'}
           >
             분위기 좋은 카페에서 커피 한 잔!
           </SelectItem>
@@ -44,7 +45,7 @@ const FourthStep = () => {
             id="4"
             value="eating"
             onClick={handleSelectItem}
-            selected={selectedItem === 'eating'}
+            selected={fourthSelected === 'eating'}
           >
             맛집이 최고지~ 맛집 코스 여행
           </SelectItem>

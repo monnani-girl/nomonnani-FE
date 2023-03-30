@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import { useRecoilState } from "recoil";
+import { thirdState } from "../../atoms";
 
 const ThirdStep = () => {
-    const [selectedItem, setSelectedItem] = useState('');
+    const [thirdSelected, setThirdSelected] = useRecoilState<string>(thirdState);
     const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
         const {
           currentTarget: { value },
         } = e;
-        setSelectedItem(value);
-        console.log(value);
+        setThirdSelected(value);
     };
 
     return (
@@ -20,7 +21,7 @@ const ThirdStep = () => {
             id="1"
             value="energetic"
             onClick={handleSelectItem}
-            selected={selectedItem === 'energetic'}
+            selected={thirdSelected === 'energetic'}
           >
             활기차고 에너지가 넘쳐요
           </SelectItem>
@@ -28,7 +29,7 @@ const ThirdStep = () => {
             id="2"
             value="angry"
             onClick={handleSelectItem}
-            selected={selectedItem === 'angry'}
+            selected={thirdSelected === 'angry'}
           >
             화나는 일이 있어요
           </SelectItem>
@@ -36,7 +37,7 @@ const ThirdStep = () => {
             id="3"
             value="tired"
             onClick={handleSelectItem}
-            selected={selectedItem === 'tired'}
+            selected={thirdSelected === 'tired'}
           >
             힐링이 필요해요
           </SelectItem>
@@ -44,7 +45,7 @@ const ThirdStep = () => {
             id="4"
             value="normal"
             onClick={handleSelectItem}
-            selected={selectedItem === 'normal'}
+            selected={thirdSelected === 'normal'}
           >
             대체적으로 평범해요
           </SelectItem>
