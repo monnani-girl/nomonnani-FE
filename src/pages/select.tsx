@@ -6,14 +6,8 @@ import FirstStep from '../components/selectItem/FirstStep';
 import SecondStep from '../components/selectItem/SecondStep';
 import ThirdStep from '../components/selectItem/ThirdStep';
 import FourthStep from '../components/selectItem/FourthStep';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  firstState,
-  secondState,
-  thirdState,
-  fourthState,
-  selectedAtom,
-} from '../atoms';
+import { useRecoilState } from 'recoil';
+import { selectedAtom } from '../atoms';
 
 interface ButtonProps {
   label?: string;
@@ -28,7 +22,6 @@ const steps = ['season', 'weather', 'feel', 'travel', 'photo'];
 
 const Select = () => {
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
-
   const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
   console.log(selectedState);
 
@@ -125,12 +118,20 @@ const Button = styled.button<ButtonProps>`
   width: 79px;
   height: 52px;
   background-color: ${(props) =>
-    props.prev ? ButtonType.bgcolor.prev : ButtonType.bgcolor.next};
+    props.prev 
+      ? ButtonType.bgcolor.prev 
+      : (props.disabled ? ButtonType.bgcolor.next : 'rgba(55,145,0,0.08)')};
   color: ${(props) =>
-    props.prev ? ButtonType.color.prev : ButtonType.color.next};
-  border: none;
+    props.prev 
+      ? ButtonType.color.prev 
+      : (props.disabled ? ButtonType.color.next : '#379100')};
+  border: ${(props) => 
+    props.prev 
+    ? 'none'
+    : (props.disabled ? ButtonType.bgcolor.next : '1px solid #379100')};
   outline: none;
-  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${(props) => (props.disabled 
+    ? 'not-allowed' : 'pointer')};
   font-size: 16px;
   line-height: 52px;
   text-align: center;
