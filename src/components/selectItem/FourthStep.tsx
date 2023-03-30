@@ -1,58 +1,63 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { FormEvent } from 'react';
-import { useRecoilState } from "recoil";
-import { fourthState } from "../../atoms";
+import { useRecoilState } from 'recoil';
+import { selectedAtom } from '../../atoms';
 
 const FourthStep = () => {
-    const [fourthSelected, setFourthSelected] = useRecoilState<string>(fourthState);
-    const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
-        const {
-          currentTarget: { value },
-        } = e;
-        setFourthSelected(value);
-    };
+  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
 
-    return (
-        <>
-        <SubTitle>제주 여행을 가게 된 당신!</SubTitle>
-        <Title>제주 여행의 테마를 골라주세요!</Title>
-        <SelectContainer>
-          <SelectItem
-            id="1"
-            value="shopping"
-            onClick={handleSelectItem}
-            selected={fourthSelected === 'shopping'}
-          >
-            소비가 최고! 쇼핑을 즐기자
-          </SelectItem>
-          <SelectItem
-            id="2"
-            value="running"
-            onClick={handleSelectItem}
-            selected={fourthSelected === 'running'}
-          >
-            바다앞에서 러닝하는 건강루틴 실천
-          </SelectItem>
-          <SelectItem
-            id="3"
-            value="coffee"
-            onClick={handleSelectItem}
-            selected={fourthSelected === 'coffee'}
-          >
-            분위기 좋은 카페에서 커피 한 잔!
-          </SelectItem>
-          <SelectItem
-            id="4"
-            value="eating"
-            onClick={handleSelectItem}
-            selected={fourthSelected === 'eating'}
-          >
-            맛집이 최고지~ 맛집 코스 여행
-          </SelectItem>
-        </SelectContainer>
-        </>
-    );
-}
+  const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+
+    setSelectedState((prev) => {
+      const newObj = { ...prev, travel: value };
+      return newObj;
+    });
+  };
+
+  return (
+    <>
+      <SubTitle>제주 여행을 가게 된 당신!</SubTitle>
+      <Title>제주 여행의 테마를 골라주세요!</Title>
+      <SelectContainer>
+        <SelectItem
+          id="1"
+          value="shopping"
+          onClick={handleSelectItem}
+          selected={selectedState['travel'] === 'shopping'}
+        >
+          소비가 최고! 쇼핑을 즐기자
+        </SelectItem>
+        <SelectItem
+          id="2"
+          value="running"
+          onClick={handleSelectItem}
+          selected={selectedState['travel'] === 'running'}
+        >
+          바다앞에서 러닝하는 건강루틴 실천
+        </SelectItem>
+        <SelectItem
+          id="3"
+          value="coffee"
+          onClick={handleSelectItem}
+          selected={selectedState['travel'] === 'coffee'}
+        >
+          분위기 좋은 카페에서 커피 한 잔!
+        </SelectItem>
+        <SelectItem
+          id="4"
+          value="eating"
+          onClick={handleSelectItem}
+          selected={selectedState['travel'] === 'eating'}
+        >
+          맛집이 최고지~ 맛집 코스 여행
+        </SelectItem>
+      </SelectContainer>
+    </>
+  );
+};
 
 export default FourthStep;
 

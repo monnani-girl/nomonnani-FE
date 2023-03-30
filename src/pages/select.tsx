@@ -6,8 +6,14 @@ import FirstStep from '../components/selectItem/FirstStep';
 import SecondStep from '../components/selectItem/SecondStep';
 import ThirdStep from '../components/selectItem/ThirdStep';
 import FourthStep from '../components/selectItem/FourthStep';
-import { useRecoilValue} from 'recoil';
-import { firstState, secondState, thirdState, fourthState } from "../atoms";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  firstState,
+  secondState,
+  thirdState,
+  fourthState,
+  selectedAtom,
+} from '../atoms';
 
 interface ButtonProps {
   label?: string;
@@ -16,14 +22,20 @@ interface ButtonProps {
 }
 
 const STEP = 5;
-const PERCENTAGE = ~~(100 / STEP);
+const PERCENTAGE = 100 / STEP;
+
+const steps = ['season', 'weather', 'feel', 'travel', 'photo'];
 
 const Select = () => {
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
-  const firstValue = useRecoilValue(firstState);
-  const secondValue = useRecoilValue(secondState);
-  const thirdValue = useRecoilValue(thirdState);
-  const fourthValue = useRecoilValue(fourthState);
+
+  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
+  console.log(selectedState);
+
+  const isActivePrevBtn = currentStep !== PERCENTAGE;
+  const isActiveNextBtn =
+    currentStep !== 100 &&
+    Boolean(selectedState[steps[currentStep / PERCENTAGE - 1]]);
 
   const handlePrevStep = () => {
     setCurrentStep(
@@ -46,28 +58,30 @@ const Select = () => {
         trailColor="#e3f2ff"
         style={{ width: '333px', marginTop: '46px' }}
       />
-      {currentStep === 20 && (
-          <FirstStep />
-      )}
-      {currentStep === 40 && (
-          <SecondStep />
-      )}
-      {currentStep === 60 && (
-          <ThirdStep />
-      )}
-      {currentStep === 80 && (
-          <FourthStep />
-      )}
-      {currentStep === 100 && (
+      {currentStep === 20 && <FirstStep />}
+      {currentStep === 40 && <SecondStep />}
+      {currentStep === 60 && <ThirdStep />}
+      {currentStep === 80 && <FourthStep />}
+      {/* {currentStep === 100 && (
         <>
-          console.log(`{firstValue}, {secondValue}, {thirdValue}, {fourthValue}`);
+          console.log(`{firstValue}, {secondValue}, {thirdValue}, {fourthValue}
+          `);
         </>
-      )}
+      )} */}
       <BtnContainer>
-        <Button label="Prev Step" prev onClick={handlePrevStep}>
+        <Button
+          label="Prev Step"
+          prev
+          onClick={handlePrevStep}
+          disabled={!isActivePrevBtn}
+        >
           이전
         </Button>
-        <Button label="Next Step" onClick={handleNextStep}>
+        <Button
+          label="Next Step"
+          onClick={handleNextStep}
+          disabled={!isActiveNextBtn}
+        >
           다음
         </Button>
       </BtnContainer>
@@ -116,7 +130,7 @@ const Button = styled.button<ButtonProps>`
     props.prev ? ButtonType.color.prev : ButtonType.color.next};
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 16px;
   line-height: 52px;
   text-align: center;

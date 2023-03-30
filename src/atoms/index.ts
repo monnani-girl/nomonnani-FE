@@ -2,21 +2,32 @@ import React from 'react';
 import { RecoilRoot, atom, useRecoilState } from 'recoil';
 
 export const firstState = atom<string>({
-    key: 'firstSelected',
-    default: '',
+  key: 'firstSelected',
+  default: '',
 });
 
 export const secondState = atom<string>({
-    key: 'secondSelected',
-    default: '',
+  key: 'secondSelected',
+  default: '',
 });
 
 export const thirdState = atom<string>({
-    key: 'thirdSelected',
-    default: '',
+  key: 'thirdSelected',
+  default: '',
 });
 
 export const fourthState = atom<string>({
-    key: 'fourthSeleted',
-    default: '',
+  key: 'fourthSeleted',
+  default: '',
+});
+
+export const selectedAtom = atom<Record<string, string>>({
+  key: 'selectedAtom',
+  default: {
+    season: '',
+    weather: '',
+    feel: '',
+    travel: '',
+    photo: '',
+  },
 });

@@ -1,58 +1,63 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { FormEvent } from 'react';
-import { useRecoilState } from "recoil";
-import { secondState } from "../../atoms";
+import { useRecoilState } from 'recoil';
+import { selectedAtom } from '../../atoms';
 
 const SecondStep = () => {
-    const [secondSelected, setSecondSelected] = useRecoilState<string>(secondState);
-    const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
-        const {
-          currentTarget: { value },
-        } = e;
-        setSecondSelected(value);
-    };
+  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
 
-    return (
-        <>
-        <SubTitle>난 햇빛을 받으면 ... 기분이 좋아지곤 해 ...</SubTitle>
-        <Title>가장 좋아하는 날씨가 있다면?</Title>
-        <SelectContainer>
-          <SelectItem
-            id="1"
-            value="normal"
-            onClick={handleSelectItem}
-            selected={secondSelected === 'normal'}
-          >
-            바람 한 점 없는 고요한 날씨
-          </SelectItem>
-          <SelectItem
-            id="2"
-            value="sunny"
-            onClick={handleSelectItem}
-            selected={secondSelected === 'sunny'}
-          >
-            햇빛이 잘 드는 따뜻한 날씨
-          </SelectItem>
-          <SelectItem
-            id="3"
-            value="rainny"
-            onClick={handleSelectItem}
-            selected={secondSelected === 'rainny'}
-          >
-            비가 내리는 센치한 날씨
-          </SelectItem>
-          <SelectItem
-            id="4"
-            value="snowy"
-            onClick={handleSelectItem}
-            selected={secondSelected === 'snowy'}
-          >
-            눈이 펑펑오는 낭만적인 날씨
-          </SelectItem>
-        </SelectContainer>
-        </>
-    );
-}
+  const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+
+    setSelectedState((prev) => {
+      const newObj = { ...prev, weather: value };
+      return newObj;
+    });
+  };
+
+  return (
+    <>
+      <SubTitle>난 햇빛을 받으면 ... 기분이 좋아지곤 해 ...</SubTitle>
+      <Title>가장 좋아하는 날씨가 있다면?</Title>
+      <SelectContainer>
+        <SelectItem
+          id="1"
+          value="normal"
+          onClick={handleSelectItem}
+          selected={selectedState['weather'] === 'normal'}
+        >
+          바람 한 점 없는 고요한 날씨
+        </SelectItem>
+        <SelectItem
+          id="2"
+          value="sunny"
+          onClick={handleSelectItem}
+          selected={selectedState['weather'] === 'sunny'}
+        >
+          햇빛이 잘 드는 따뜻한 날씨
+        </SelectItem>
+        <SelectItem
+          id="3"
+          value="rainny"
+          onClick={handleSelectItem}
+          selected={selectedState['weather'] === 'rainny'}
+        >
+          비가 내리는 센치한 날씨
+        </SelectItem>
+        <SelectItem
+          id="4"
+          value="snowy"
+          onClick={handleSelectItem}
+          selected={selectedState['weather'] === 'snowy'}
+        >
+          눈이 펑펑오는 낭만적인 날씨
+        </SelectItem>
+      </SelectContainer>
+    </>
+  );
+};
 
 export default SecondStep;
 

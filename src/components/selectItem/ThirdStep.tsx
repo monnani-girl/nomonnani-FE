@@ -1,58 +1,63 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { FormEvent } from 'react';
-import { useRecoilState } from "recoil";
-import { thirdState } from "../../atoms";
+import { useRecoilState } from 'recoil';
+import { selectedAtom } from '../../atoms';
 
 const ThirdStep = () => {
-    const [thirdSelected, setThirdSelected] = useRecoilState<string>(thirdState);
-    const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
-        const {
-          currentTarget: { value },
-        } = e;
-        setThirdSelected(value);
-    };
+  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
 
-    return (
-        <>
-        <SubTitle>지금 이 질문을 본 당신!</SubTitle>
-        <Title>오늘 당신의 기분은 어떠신가요?</Title>
-        <SelectContainer>
-          <SelectItem
-            id="1"
-            value="energetic"
-            onClick={handleSelectItem}
-            selected={thirdSelected === 'energetic'}
-          >
-            활기차고 에너지가 넘쳐요
-          </SelectItem>
-          <SelectItem
-            id="2"
-            value="angry"
-            onClick={handleSelectItem}
-            selected={thirdSelected === 'angry'}
-          >
-            화나는 일이 있어요
-          </SelectItem>
-          <SelectItem
-            id="3"
-            value="tired"
-            onClick={handleSelectItem}
-            selected={thirdSelected === 'tired'}
-          >
-            힐링이 필요해요
-          </SelectItem>
-          <SelectItem
-            id="4"
-            value="normal"
-            onClick={handleSelectItem}
-            selected={thirdSelected === 'normal'}
-          >
-            대체적으로 평범해요
-          </SelectItem>
-        </SelectContainer>
-        </>
-    );
-}
+  const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+
+    setSelectedState((prev) => {
+      const newObj = { ...prev, feel: value };
+      return newObj;
+    });
+  };
+
+  return (
+    <>
+      <SubTitle>지금 이 질문을 본 당신!</SubTitle>
+      <Title>오늘 당신의 기분은 어떠신가요?</Title>
+      <SelectContainer>
+        <SelectItem
+          id="1"
+          value="energetic"
+          onClick={handleSelectItem}
+          selected={selectedState['feel'] === 'energetic'}
+        >
+          활기차고 에너지가 넘쳐요
+        </SelectItem>
+        <SelectItem
+          id="2"
+          value="angry"
+          onClick={handleSelectItem}
+          selected={selectedState['feel'] === 'angry'}
+        >
+          화나는 일이 있어요
+        </SelectItem>
+        <SelectItem
+          id="3"
+          value="tired"
+          onClick={handleSelectItem}
+          selected={selectedState['feel'] === 'tired'}
+        >
+          힐링이 필요해요
+        </SelectItem>
+        <SelectItem
+          id="4"
+          value="normal"
+          onClick={handleSelectItem}
+          selected={selectedState['feel'] === 'normal'}
+        >
+          대체적으로 평범해요
+        </SelectItem>
+      </SelectContainer>
+    </>
+  );
+};
 
 export default ThirdStep;
 
