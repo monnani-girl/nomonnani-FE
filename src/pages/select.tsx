@@ -9,6 +9,8 @@ import FourthStep from '../components/selectItem/FourthStep';
 import { useRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
 import WebcamCapture from '../components/WebcamCapture';
+import { useQuery } from 'react-query';
+import { getResult, ResultProps } from '../api';
 
 interface ButtonProps {
   label?: string;
@@ -25,8 +27,6 @@ const Select = () => {
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
   const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
   const [uploadType, setUploadType] = useState('');
-
-  console.log(selectedState);
 
   const isActivePrevBtn = currentStep !== PERCENTAGE;
   const isActiveNextBtn =

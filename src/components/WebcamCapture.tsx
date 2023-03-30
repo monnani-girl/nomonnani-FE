@@ -1,7 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 import Webcam from 'react-webcam';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
 
 const videoConstraints = {
@@ -18,11 +20,21 @@ const WebcamCapture = () => {
   const handleCapture = useCallback(() => {
     if (webcamRef.current !== null) {
       const imageSrc = webcamRef.current.getScreenshot();
+      console.log(imageSrc?.split(',')[1]);
 
       setSelectedState((prev) => {
-        const newObj = { ...prev, photo: imageSrc ?? '' };
+        const newObj = { ...prev, photo: imageSrc?.split(',')[1] ?? '' };
         return newObj;
       });
+
+      const test = {
+        season: selectedState['season'],
+        weather: selectedState['weather'],
+        feel: selectedState['feel'],
+        travel: selectedState['travel'],
+        photo: selectedState['photo'],
+      };
+      getResult(test).then((res) => console.log(res));
     }
   }, [webcamRef]);
 
