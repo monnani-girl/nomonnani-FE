@@ -9,7 +9,7 @@ interface ButtonProps {
     onClick?: () => void;
 }
 
-const Select = ({label, prev, onClick}: ButtonProps) => {
+const Select = () => {
     const [currentStep, setCurrentStep] = useState<number>(20);
 
     const handlePrevStep = () => {
