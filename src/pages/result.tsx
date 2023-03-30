@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import testCarrot from '../assets/carrot.png';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
@@ -53,7 +54,10 @@ function Result() {
         <SaleText>못난이 '당근'의 판매처에요</SaleText>
         <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-        <SaleBox>
+        <SaleBox
+          to="https://www.ssg.com/item/itemView.ssg?itemId=1000532302549"
+          target="_blank"
+        >
           <SaleImage src={testCarrot} alt="sale-image" />
           <SaleTextBox>
             <div>
@@ -63,7 +67,10 @@ function Result() {
             <SalePrice>12,000원</SalePrice>
           </SaleTextBox>
         </SaleBox>
-        <SaleBox>
+        <SaleBox
+          to="https://www.ssg.com/item/itemView.ssg?itemId=1000532302549"
+          target="_blank"
+        >
           <SaleImage src={testCarrot} alt="sale-image" />
           <SaleTextBox>
             <div>
@@ -73,7 +80,10 @@ function Result() {
             <SalePrice>12,000원</SalePrice>
           </SaleTextBox>
         </SaleBox>
-        <SaleBox>
+        <SaleBox
+          to="https://www.ssg.com/item/itemView.ssg?itemId=1000532302549"
+          target="_blank"
+        >
           <SaleImage src={testCarrot} alt="sale-image" />
           <SaleTextBox>
             <div>
@@ -182,13 +192,18 @@ const SaleSubText = styled.div`
   margin-bottom: 20px;
 `;
 
-const SaleBox = styled.div`
+const SaleBox = styled(Link)`
   display: flex;
   height: 150px;
   padding: 12px;
   margin-bottom: 14px;
   background: #ffffff;
   border: 1px solid #f0f0f0;
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    border: 2px solid #27df91;
+  }
 `;
 
 const SaleImage = styled.img`
