@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import testCarrot from '../assets/carrot.png';
+import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 
 function Result() {
   const [originActive, setOriginActive] = useState(true);
@@ -8,6 +9,8 @@ function Result() {
   const onClickSaleButton = () => {
     setOriginActive((prev) => !prev);
   };
+
+  //TODO: 결과 받아오기 (w/ react-query)
 
   return (
     <div>
@@ -84,7 +87,18 @@ function Result() {
 
       <SaveShareButtonContainer>
         <SaveShareButton bgColor="#E3F2FF">저장하기</SaveShareButton>
-        <SaveShareButton bgColor="#4AE7A4">공유하기</SaveShareButton>
+        <SaveShareButton
+          bgColor="#4AE7A4"
+          onClick={() =>
+            handleKaKaoShareBtn({
+              title: '못나니 근육 당근',
+              description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!!!!!',
+              imageUrl: 'https://ifh.cc/g/NzSxkR.png',
+            })
+          }
+        >
+          공유하기
+        </SaveShareButton>
       </SaveShareButtonContainer>
     </div>
   );
@@ -214,4 +228,5 @@ const SaveShareButton = styled.button<{ bgColor: string }>`
   border: none;
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
+  cursor: pointer;
 `;
