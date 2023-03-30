@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Line } from 'rc-progress';
 import headerLogo from '../assets/header.png';
 import FirstStep from '../components/selectItem/FirstStep';
@@ -8,6 +8,7 @@ import ThirdStep from '../components/selectItem/ThirdStep';
 import FourthStep from '../components/selectItem/FourthStep';
 import { useRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
+import WebcamCapture from '../components/WebcamCapture';
 
 interface ButtonProps {
   label?: string;
@@ -23,6 +24,8 @@ const steps = ['season', 'weather', 'feel', 'travel', 'photo'];
 const Select = () => {
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
   const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
+  const [uploadType, setUploadType] = useState('');
+
   console.log(selectedState);
 
   const isActivePrevBtn = currentStep !== PERCENTAGE;
@@ -40,6 +43,13 @@ const Select = () => {
     setCurrentStep(currentStep < 100 ? currentStep + PERCENTAGE : currentStep);
   };
 
+  const handleUploadBtn = (e: FormEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    setUploadType(value);
+  };
+
   return (
     <Container>
       <HeaderLogo src={headerLogo} />
@@ -55,12 +65,27 @@ const Select = () => {
       {currentStep === 40 && <SecondStep />}
       {currentStep === 60 && <ThirdStep />}
       {currentStep === 80 && <FourthStep />}
-      {/* {currentStep === 100 && (
+      {currentStep === 100 && (
         <>
-          console.log(`{firstValue}, {secondValue}, {thirdValue}, {fourthValue}
-          `);
+          <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
+          <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
+          {uploadType === 'upload' && <div>업로드</div>}
+          {uploadType === 'capture' && <WebcamCapture />}
+
+          {!uploadType && (
+            <UploadBtnContainer>
+              <UploadButton value="upload" onClick={handleUploadBtn}>
+                사진 업로드
+              </UploadButton>
+              <UploadButton value="capture" onClick={handleUploadBtn}>
+                사진 촬영
+              </UploadButton>
+            </UploadBtnContainer>
+          )}
+
+          {/* <FindButton>캐릭터 찾기</FindButton> */}
         </>
-      )} */}
+      )}
       <BtnContainer>
         <Button
           label="Prev Step"
@@ -118,20 +143,25 @@ const Button = styled.button<ButtonProps>`
   width: 79px;
   height: 52px;
   background-color: ${(props) =>
-    props.prev 
-      ? ButtonType.bgcolor.prev 
-      : (props.disabled ? ButtonType.bgcolor.next : 'rgba(55,145,0,0.08)')};
+    props.prev
+      ? ButtonType.bgcolor.prev
+      : props.disabled
+      ? ButtonType.bgcolor.next
+      : 'rgba(55,145,0,0.08)'};
   color: ${(props) =>
-    props.prev 
-      ? ButtonType.color.prev 
-      : (props.disabled ? ButtonType.color.next : '#379100')};
-  border: ${(props) => 
-    props.prev 
-    ? 'none'
-    : (props.disabled ? ButtonType.bgcolor.next : '1px solid #379100')};
+    props.prev
+      ? ButtonType.color.prev
+      : props.disabled
+      ? ButtonType.color.next
+      : '#379100'};
+  border: ${(props) =>
+    props.prev
+      ? 'none'
+      : props.disabled
+      ? ButtonType.bgcolor.next
+      : '1px solid #379100'};
   outline: none;
-  cursor: ${(props) => (props.disabled 
-    ? 'not-allowed' : 'pointer')};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 16px;
   line-height: 52px;
   text-align: center;
@@ -139,4 +169,48 @@ const Button = styled.button<ButtonProps>`
   font-family: 'Gmarket Sans';
   font-style: normal;
   font-weight: 400;
+`;
+
+const StepTitle = styled.div`
+  font-size: 24px;
+  margin-top: 77px;
+`;
+
+const StepSubText = styled.div`
+  font-size: 16px;
+  margin-top: 10px;
+  color: #818181;
+`;
+
+const UploadButton = styled.button`
+  width: 136px;
+  height: 136px;
+  border: 1px solid #e1e1e1;
+  border-radius: 90px;
+  background: #ffffff;
+  color: #001358;
+  cursor: pointer;
+  font-size: 18px;
+  &:hover {
+    border: 2px solid #379100;
+  }
+`;
+
+const UploadBtnContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin: 80px 0 66px 0;
+`;
+
+const FindButton = styled.button`
+  width: 284px;
+  height: 72px;
+  background-color: #f5f2f0;
+  opacity: 0.5;
+  border-radius: 100px;
+  color: #525463;
+  font-size: 24px;
+  border: none;
+  cursor: not-allowed;
 `;
