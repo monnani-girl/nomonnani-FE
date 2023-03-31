@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { BodyProps, getResult } from '../api';
-import testCarrot from '../assets/carrot.png';
 import { selectedAtom } from '../atoms';
 import { quote } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
@@ -38,6 +37,9 @@ function Result() {
   const [quoteName, setquoteName] = useState('');
   const [quoteText, setquoteText] = useState('');
 
+  const location = useLocation();
+  const isEmptyImage = Boolean(location.state.imageSrc);
+
   const test = {
     season: result['season'],
     weather: result['weather'],
@@ -48,8 +50,6 @@ function Result() {
 
   useEffect(() => {
     getResult(test).then((res) => {
-      console.log(res);
-
       setIsLoading(false);
       setRes(res);
     });
