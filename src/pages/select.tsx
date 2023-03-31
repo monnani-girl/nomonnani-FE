@@ -11,6 +11,7 @@ import { selectedAtom } from '../atoms';
 import WebcamCapture from '../components/WebcamCapture';
 import { useQuery } from 'react-query';
 import { getResult, ResultProps } from '../api';
+import ImageFileUpload from '../components/ImageUpload';
 
 interface ButtonProps {
   label?: string;
@@ -69,7 +70,7 @@ const Select = () => {
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
           <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
-          {uploadType === 'upload' && <div>업로드</div>}
+          {uploadType === 'upload' && <ImageFileUpload />}
           {uploadType === 'capture' && <WebcamCapture />}
 
           {!uploadType && (
@@ -77,7 +78,14 @@ const Select = () => {
               <UploadButton value="upload" onClick={handleUploadBtn}>
                 사진 업로드
               </UploadButton>
-              <UploadButton value="capture" onClick={handleUploadBtn}>
+              <UploadButton
+                value="capture"
+                onClick={() =>
+                  alert(
+                    'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)'
+                  )
+                }
+              >
                 사진 촬영
               </UploadButton>
             </UploadBtnContainer>

@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { BodyProps, getResult } from '../api';
-import testCarrot from '../assets/carrot.png';
 import { selectedAtom } from '../atoms';
 import { quote } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
+import Loading from '../components/Loading';
+
+import pumkinImg from '../assets/pumpkin.png';
+import broccoliImg from '../assets/broccoli.png';
+import potatoImg from '../assets/potato.png';
+import tangerineImg from '../assets/tangerine.png';
+import carrotImg from '../assets/carrot.png';
+import cabbageImg from '../assets/cabbage.png';
+import introductionImg from '../assets/introduction.svg';
 
 interface resProps {
   type: string;
@@ -29,6 +37,9 @@ function Result() {
   const [quoteName, setquoteName] = useState('');
   const [quoteText, setquoteText] = useState('');
 
+  const location = useLocation();
+  const isEmptyImage = Boolean(location.state.imageSrc);
+
   const test = {
     season: result['season'],
     weather: result['weather'],
@@ -39,8 +50,6 @@ function Result() {
 
   useEffect(() => {
     getResult(test).then((res) => {
-      console.log(res);
-
       setIsLoading(false);
       setRes(res);
     });
@@ -60,22 +69,33 @@ function Result() {
   return (
     <>
       {isLoading ? (
-        'Loading..'
+        <Loading />
       ) : (
         <div>
           <div>
             <Title>나의 못난이</Title>
-            <ResultImage src={testCarrot} alt="result-image" />
+            <ResultImage
+              src={
+                quoteName === 'pumpkin'
+                  ? pumkinImg
+                  : quoteName === 'broccoli'
+                  ? broccoliImg
+                  : quoteName === 'potato'
+                  ? potatoImg
+                  : quoteName === 'tangerine'
+                  ? tangerineImg
+                  : quoteName === 'cabbage'
+                  ? cabbageImg
+                  : carrotImg
+              }
+              alt="result-image"
+            />
+
             <ResultName>{quoteName}</ResultName>
             <ResultDescription>{quoteText}</ResultDescription>
           </div>
           <CommonDescription>
-            <CommonText>'못난이'를 아시나요?</CommonText>
-            <CommonSubText>
-              '못난이'는 어쩌구 저쩌구 더미 데이터 더미 데이터 더미 데이터 더미
-              데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이
-              데이터 더미 데이터 더미 데이터 더미 데이 데이터 더미{' '}
-            </CommonSubText>
+            <img src={introductionImg} alt="introduction" />
           </CommonDescription>
           <ButtonContainer>
             <SaleButton
@@ -104,7 +124,7 @@ function Result() {
                 <SaleTextBox>
                   <div>
                     <SalePlace>{sale.place}</SalePlace>
-                    <SaleName>{sale.product}</SaleName>
+                    <SaleName>{sale.name}</SaleName>
                   </div>
                   <SalePrice>{sale.price}원</SalePrice>
                 </SaleTextBox>
@@ -163,10 +183,6 @@ const ResultDescription = styled.div`
 `;
 
 const CommonDescription = styled.div`
-  border: 2px solid #27df91;
-  border-radius: 32px;
-  background: #f8f8f8;
-  padding: 40px;
   margin: 36px 0 55px 0;
 `;
 
