@@ -19,6 +19,9 @@ const ImageFileUpload = () => {
   const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
   const inputRef = useRef(null);
 
+  const disableButton = Boolean(!imageSrc);
+  console.log(disableButton);
+
   const handleUploadClick = () => {
     if (inputRef.current) {
       (inputRef.current as any).click();
@@ -66,7 +69,9 @@ const ImageFileUpload = () => {
           )}
         </label>
       </WebCamContainer>
-      <FindButton onClick={handleCapture}>캐릭터 찾기</FindButton>
+      <FindButton onClick={handleCapture} disabled={disableButton}>
+        캐릭터 찾기
+      </FindButton>
     </>
   );
 };
@@ -91,7 +96,7 @@ const FileSelctButton = styled.button`
   cursor: pointer;
 `;
 
-const FindButton = styled.button`
+const FindButton = styled.button<{ disabled: boolean }>`
   width: 284px;
   height: 72px;
   font-size: 24px;
@@ -99,7 +104,7 @@ const FindButton = styled.button`
   background-color: #379100;
   border-radius: 100px;
   border: none;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 `;
 
 const Image = styled.img`

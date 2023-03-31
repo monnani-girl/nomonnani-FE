@@ -29,17 +29,6 @@ const WebcamCapture = () => {
         return newObj;
       });
       navigate('/result');
-
-      // const test = {
-      //   season: selectedState['season'],
-      //   weather: selectedState['weather'],
-      //   feel: selectedState['feel'],
-      //   travel: selectedState['travel'],
-      //   photo: imageSrc?.split(',')[1] as any,
-      // };
-      // getResult(test).then((res) => {
-      //   navigate('/result');
-      // });
     }
   }, [webcamRef]);
 
