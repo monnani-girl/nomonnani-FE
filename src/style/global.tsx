@@ -51,7 +51,7 @@ table {
 body{
     font-family: 'Source Sans Pro', sans-serif;
     max-width: 486px;
-    min-width: 486px;
+    min-width: 375px;
     margin: 0 auto;
     padding: 30px;
     line-height: 1.5;
