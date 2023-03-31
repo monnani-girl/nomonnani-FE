@@ -20,7 +20,6 @@ const ImageFileUpload = () => {
   const inputRef = useRef(null);
 
   const disableButton = Boolean(!imageSrc);
-  console.log(disableButton);
 
   const handleUploadClick = () => {
     if (inputRef.current) {

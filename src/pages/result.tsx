@@ -37,9 +37,6 @@ function Result() {
   const [quoteName, setquoteName] = useState('');
   const [quoteText, setquoteText] = useState('');
 
-  const location = useLocation();
-  const isEmptyImage = Boolean(location.state.imageSrc);
-
   const test = {
     season: result['season'],
     weather: result['weather'],
@@ -66,6 +63,15 @@ function Result() {
     setOriginActive((prev) => !prev);
   };
 
+  const getProductImage = () => {
+    if (quoteName === '스윗한 밤호박') return pumkinImg;
+    else if (quoteName === '키다리 브로콜리') return broccoliImg;
+    else if (quoteName === '코훌쩍 아기감자') return potatoImg;
+    else if (quoteName === '화가난 한라봉') return tangerineImg;
+    else if (quoteName === '멋쟁이 고깔오빠') return cabbageImg;
+    else if (quoteName === '근육맨 당근') return carrotImg;
+  };
+
   return (
     <>
       {isLoading ? (
@@ -74,22 +80,7 @@ function Result() {
         <div>
           <div>
             <Title>나의 못난이</Title>
-            <ResultImage
-              src={
-                quoteName === 'pumpkin'
-                  ? pumkinImg
-                  : quoteName === 'broccoli'
-                  ? broccoliImg
-                  : quoteName === 'potato'
-                  ? potatoImg
-                  : quoteName === 'tangerine'
-                  ? tangerineImg
-                  : quoteName === 'cabbage'
-                  ? cabbageImg
-                  : carrotImg
-              }
-              alt="result-image"
-            />
+            <ResultImage src={getProductImage()} alt="result-image" />
 
             <ResultName>{quoteName}</ResultName>
             <ResultDescription>{quoteText}</ResultDescription>
