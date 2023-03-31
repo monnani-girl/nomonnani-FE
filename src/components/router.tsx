@@ -4,6 +4,7 @@ import Result from '../pages/result';
 import Select from '../pages/select';
 import WebcamCapture from './WebcamCapture';
 import Test from './test';
+import ResultStyle from '../pages/result-style';
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
         <Route path="/result" element={<Result />} />
         <Route path="/select" element={<Select />} />
         <Route path="/upload" element={<WebcamCapture />} />
+        <Route path="/result-style" element={<ResultStyle />} />
       </Routes>
     </BrowserRouter>
   );
