@@ -124,9 +124,9 @@ function Result() {
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <SaveShareButton bgColor="#E3F2FF">저장하기</SaveShareButton>
+            <SaveShareButton bgColor="#379100">저장하기</SaveShareButton>
             <SaveShareButton
-              bgColor="#4AE7A4"
+              bgColor="#379100"
               onClick={() =>
                 handleKaKaoShareBtn({
                   title: '못나니 근육 당근',
@@ -196,7 +196,8 @@ const SaleButton = styled.button<{ loc: string; active: boolean }>`
   font-size: 18px;
   font-weight: 600;
   padding: 14px 32px;
-  background: ${(props) => (props.active ? '#27DF91' : '#F8F8F8')};
+  background: ${(props) => (props.active ? '#379100' : '#F8F8F8')};
+  color: ${(props) => (props.active ? '#fff' : '#000')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.loc === 'right' && 'border-top-left-radius: 10px'};
@@ -229,7 +230,7 @@ const SaleBox = styled(Link)`
   color: inherit;
   text-decoration: none;
   &:hover {
-    border: 2px solid #27df91;
+    border: 2px solid #379100;
   }
 `;
 
@@ -270,5 +271,7 @@ const SaveShareButton = styled.button<{ bgColor: string }>`
   border: none;
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
+  color: #fff;
+  opacity: 0.8;
   cursor: pointer;
 `;
