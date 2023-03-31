@@ -53,6 +53,6 @@ spec:
     spec:
       containers:
         - name: monnani-web-2
-          image: haesummy/monnani-web:5 # 각자 서비스의 이미지로 변경
+          image: haesummy/monnani-web:7 # 각자 서비스의 이미지로 변경
           ports:
             - containerPort: 8000
