@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -17,24 +18,28 @@ const WebcamCapture = () => {
 
   const webcamRef = useRef<Webcam>(null);
 
+  const navigate = useNavigate();
+
   const handleCapture = useCallback(() => {
     if (webcamRef.current !== null) {
       const imageSrc = webcamRef.current.getScreenshot();
-      console.log(imageSrc?.split(',')[1]);
 
       setSelectedState((prev) => {
         const newObj = { ...prev, photo: imageSrc?.split(',')[1] ?? '' };
         return newObj;
       });
+      navigate('/result');
 
-      const test = {
-        season: selectedState['season'],
-        weather: selectedState['weather'],
-        feel: selectedState['feel'],
-        travel: selectedState['travel'],
-        photo: selectedState['photo'],
-      };
-      getResult(test).then((res) => console.log(res));
+      // const test = {
+      //   season: selectedState['season'],
+      //   weather: selectedState['weather'],
+      //   feel: selectedState['feel'],
+      //   travel: selectedState['travel'],
+      //   photo: imageSrc?.split(',')[1] as any,
+      // };
+      // getResult(test).then((res) => {
+      //   navigate('/result');
+      // });
     }
   }, [webcamRef]);
 
