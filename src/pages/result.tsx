@@ -1,116 +1,136 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { BodyProps, getResult } from '../api';
 import testCarrot from '../assets/carrot.png';
+import { selectedAtom } from '../atoms';
+import { quote } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 
+interface resProps {
+  type: string;
+  sales: {
+    id: number;
+    product: string;
+    type: string;
+    name: string;
+    price: number;
+    place: string;
+    image: string;
+    site: string;
+  }[];
+}
 function Result() {
+  const [isLoading, setIsLoading] = useState(true);
+  const result = useRecoilValue(selectedAtom);
+  const [res, setRes] = useState({} as resProps);
+  const [quoteName, setquoteName] = useState('');
+  const [quoteText, setquoteText] = useState('');
+
+  const test = {
+    season: result['season'],
+    weather: result['weather'],
+    feel: result['feel'],
+    travel: result['travel'],
+    photo: result['photo'],
+  };
+
+  useEffect(() => {
+    getResult(test).then((res) => {
+      console.log(res);
+
+      setIsLoading(false);
+      setRes(res);
+    });
+  }, [result]);
+
+  useEffect(() => {
+    setquoteName(quote[`${res.type}`]?.name);
+    setquoteText(quote[`${res.type}`]?.quote);
+  }, [res]);
+
   const [originActive, setOriginActive] = useState(true);
 
   const onClickSaleButton = () => {
     setOriginActive((prev) => !prev);
   };
 
-  //TODO: 결과 받아오기 (w/ react-query)
-
   return (
-    <div>
-      <div>
-        <Title>나의 못난이</Title>
-        <ResultImage src={testCarrot} alt="result-image" />
-        <ResultName>당근 근육맨</ResultName>
-        <ResultDescription>
-          당신의 닮은 꼴은 당근 근육맨입니다! 어쩌구 저쩌구 못난이 당근은 사실
-          못나지 않았어요. 영양소도 똑같고 맛도 똑같고 식감도 똑같고 마트에서
-          파는 당근과 차이가 없는 모양새만 특별한 당근이에요~ 어쩌구 저쩌구
-        </ResultDescription>
-      </div>
-      <CommonDescription>
-        <CommonText>'못난이'를 아시나요?</CommonText>
-        <CommonSubText>
-          '못난이'는 어쩌구 저쩌구 더미 데이터 더미 데이터 더미 데이터 더미
-          데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이
-          데이터 더미 데이터 더미 데이터 더미 데이 데이터 더미{' '}
-        </CommonSubText>
-      </CommonDescription>
-      <ButtonContainer>
-        <SaleButton
-          loc="right"
-          active={originActive}
-          onClick={onClickSaleButton}
-        >
-          못난이 파는 곳
-        </SaleButton>
-        <SaleButton
-          loc="left"
-          active={!originActive}
-          onClick={onClickSaleButton}
-        >
-          못난이의 재탄생
-        </SaleButton>
-      </ButtonContainer>
+    <>
+      {isLoading ? (
+        'Loading..'
+      ) : (
+        <div>
+          <div>
+            <Title>나의 못난이</Title>
+            <ResultImage src={testCarrot} alt="result-image" />
+            <ResultName>{quoteName}</ResultName>
+            <ResultDescription>{quoteText}</ResultDescription>
+          </div>
+          <CommonDescription>
+            <CommonText>'못난이'를 아시나요?</CommonText>
+            <CommonSubText>
+              '못난이'는 어쩌구 저쩌구 더미 데이터 더미 데이터 더미 데이터 더미
+              데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이터 더미 데이
+              데이터 더미 데이터 더미 데이터 더미 데이 데이터 더미{' '}
+            </CommonSubText>
+          </CommonDescription>
+          <ButtonContainer>
+            <SaleButton
+              loc="right"
+              active={originActive}
+              onClick={onClickSaleButton}
+            >
+              못난이 파는 곳
+            </SaleButton>
+            <SaleButton
+              loc="left"
+              active={!originActive}
+              onClick={onClickSaleButton}
+            >
+              못난이의 재탄생
+            </SaleButton>
+          </ButtonContainer>
 
-      <SaleContainer>
-        <SaleText>못난이 '당근'의 판매처에요</SaleText>
-        <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
+          <SaleContainer>
+            <SaleText>못난이 {res.type}의 판매처에요</SaleText>
+            <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-        <SaleBox
-          to="https://www.ssg.com/item/itemView.ssg?itemId=1000532302549"
-          target="_blank"
-        >
-          <SaleImage src={testCarrot} alt="sale-image" />
-          <SaleTextBox>
-            <div>
-              <SalePlace>어글리어스</SalePlace>
-              <SaleName>못난이 당근 주스 500ml</SaleName>
-            </div>
-            <SalePrice>12,000원</SalePrice>
-          </SaleTextBox>
-        </SaleBox>
-        <SaleBox
-          to="https://www.ssg.com/item/itemView.ssg?itemId=1000532302549"
-          target="_blank"
-        >
-          <SaleImage src={testCarrot} alt="sale-image" />
-          <SaleTextBox>
-            <div>
-              <SalePlace>어글리어스</SalePlace>
-              <SaleName>못난이 당근 주스 500ml</SaleName>
-            </div>
-            <SalePrice>12,000원</SalePrice>
-          </SaleTextBox>
-        </SaleBox>
-        <SaleBox
-          to="https://www.ssg.com/item/itemView.ssg?itemId=1000532302549"
-          target="_blank"
-        >
-          <SaleImage src={testCarrot} alt="sale-image" />
-          <SaleTextBox>
-            <div>
-              <SalePlace>어글리어스</SalePlace>
-              <SaleName>못난이 당근 주스 500ml</SaleName>
-            </div>
-            <SalePrice>12,000원</SalePrice>
-          </SaleTextBox>
-        </SaleBox>
-      </SaleContainer>
+            {res?.sales?.map((sale) => (
+              <SaleBox key={sale.id} to={sale.site} target="_blank">
+                <SaleImage src={sale.image} alt="sale-image" />
+                <SaleTextBox>
+                  <div>
+                    <SalePlace>{sale.place}</SalePlace>
+                    <SaleName>{sale.product}</SaleName>
+                  </div>
+                  <SalePrice>{sale.price}원</SalePrice>
+                </SaleTextBox>
+              </SaleBox>
+            ))}
+          </SaleContainer>
 
-      <SaveShareButtonContainer>
-        <SaveShareButton bgColor="#E3F2FF">저장하기</SaveShareButton>
-        <SaveShareButton
-          bgColor="#4AE7A4"
-          onClick={() =>
-            handleKaKaoShareBtn({
-              title: '못나니 근육 당근',
-              description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!!!!!',
-              imageUrl: 'https://ifh.cc/g/NzSxkR.png',
-            })
-          }
-        >
-          공유하기
-        </SaveShareButton>
-      </SaveShareButtonContainer>
-    </div>
+          <SaveShareButtonContainer>
+            <SaveShareButton bgColor="#E3F2FF">저장하기</SaveShareButton>
+            <SaveShareButton
+              bgColor="#4AE7A4"
+              onClick={() =>
+                handleKaKaoShareBtn({
+                  title: '못나니 근육 당근',
+                  description:
+                    '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!!!!!',
+                  imageUrl: 'https://ifh.cc/g/NzSxkR.png',
+                })
+              }
+            >
+              공유하기
+            </SaveShareButton>
+          </SaveShareButtonContainer>
+        </div>
+      )}
+    </>
   );
 }
 
