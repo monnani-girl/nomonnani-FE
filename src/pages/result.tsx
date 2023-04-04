@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { BodyProps, getResult } from '../api';
+import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
 import { quote } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
