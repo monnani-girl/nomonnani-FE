@@ -6,6 +6,7 @@ import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
 import { quote } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
+import { handleImageDownload } from '../utils/ImageDownload';
 import Loading from '../components/Loading';
 
 import pumkinImg from '../assets/pumpkin.png';
@@ -15,7 +16,6 @@ import tangerineImg from '../assets/tangerine.png';
 import carrotImg from '../assets/carrot.png';
 import cabbageImg from '../assets/cabbage.png';
 import introductionImg from '../assets/introduction.svg';
-import ImgDownloadBtn from '../components/ImgDownloadBtn';
 
 interface resProps {
   type: string;
@@ -124,10 +124,17 @@ function Result() {
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <ImgDownloadBtn src={getProductImage()} fileName="ddocdarman.png" 
+            <SaveShareButton 
+              bgColor="#379100" 
+              onClick={() =>
+                handleImageDownload({
+                  src: `${getProductImage()}`,
+                  fileName: 'ddokdarman.png',
+                })
+              }
             >
               저장하기
-            </ImgDownloadBtn>
+            </SaveShareButton>
             <SaveShareButton
               bgColor="#379100"
               onClick={() =>
