@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Line } from 'rc-progress';
 import headerLogo from '../assets/header.png';
 import FirstStep from '../components/selectItem/FirstStep';
@@ -9,8 +9,6 @@ import FourthStep from '../components/selectItem/FourthStep';
 import { useRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
 import WebcamCapture from '../components/WebcamCapture';
-import { useQuery } from 'react-query';
-import { getResult, ResultProps } from '../api';
 import ImageFileUpload from '../components/ImageUpload';
 
 interface ButtonProps {

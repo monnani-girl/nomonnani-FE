@@ -1,17 +1,8 @@
-import { ChangeEvent, useCallback, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Webcam from 'react-webcam';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
-
-const videoConstraints = {
-  width: 198,
-  height: 198,
-  facingMode: 'user',
-};
 
 const ImageFileUpload = () => {
   const navigate = useNavigate();
