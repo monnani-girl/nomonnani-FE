@@ -15,6 +15,7 @@ import tangerineImg from '../assets/tangerine.png';
 import carrotImg from '../assets/carrot.png';
 import cabbageImg from '../assets/cabbage.png';
 import introductionImg from '../assets/introduction.svg';
+import ImgDownloadBtn from '../components/ImgDownloadBtn';
 
 interface resProps {
   type: string;
@@ -123,7 +124,11 @@ function Result() {
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <SaveShareButton bgColor="#379100">저장하기</SaveShareButton>
+            <ImgDownloadBtn src={getProductImage()} fileName="ddocdarman.png" 
+              style={{"backgroundColor":"#379100"}} 
+            >
+              저장하기
+            </ImgDownloadBtn>
             <SaveShareButton
               bgColor="#379100"
               onClick={() =>
