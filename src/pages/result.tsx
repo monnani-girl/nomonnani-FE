@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -22,7 +22,6 @@ function Result() {
   const [result, setResult] = useState<ResultProps>();
   const [resultType, setResultType] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  console.log(result);
 
   useEffect(() => {
     getResult(selected).then((res) => {
@@ -32,10 +31,13 @@ function Result() {
     });
   }, [selected]);
 
-  const [originActive, setOriginActive] = useState(true);
+  const [saleType, setSaleType] = useState('origin');
 
-  const onClickSaleButton = () => {
-    setOriginActive((prev) => !prev);
+  const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    setSaleType(value);
   };
 
   const getProductImage = () => {
@@ -65,15 +67,15 @@ function Result() {
           </CommonDescription>
           <ButtonContainer>
             <SaleButton
-              loc="right"
-              active={originActive}
+              value="origin"
+              active={saleType === 'origin'}
               onClick={onClickSaleButton}
             >
               못난이 파는 곳
             </SaleButton>
             <SaleButton
-              loc="left"
-              active={!originActive}
+              value="upcycling"
+              active={saleType === 'upcycling'}
               onClick={onClickSaleButton}
             >
               못난이의 재탄생
@@ -81,21 +83,27 @@ function Result() {
           </ButtonContainer>
 
           <SaleContainer>
-            <SaleText>못난이 {result?.type}의 판매처에요</SaleText>
+            <SaleText>못난이 {QUOTE[resultType].type}의 판매처에요</SaleText>
             <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-            {result?.sales?.map((sale) => (
-              <SaleBox key={sale.id} to={sale.site} target="_blank">
-                <SaleImage src={sale.image} alt="sale-image" />
-                <SaleTextBox>
-                  <div>
-                    <SalePlace>{sale.place}</SalePlace>
-                    <SaleName>{sale.name}</SaleName>
-                  </div>
-                  <SalePrice>{sale.price}원</SalePrice>
-                </SaleTextBox>
-              </SaleBox>
-            ))}
+            {result?.sales
+              .filter(
+                (sale) =>
+                  sale.type ===
+                  (saleType === 'origin' ? '원물판매자' : '업사이클링'),
+              )
+              .map((sale) => (
+                <SaleBox key={sale.id} to={sale.site} target="_blank">
+                  <SaleImage src={sale.image} alt="sale-image" />
+                  <SaleTextBox>
+                    <div>
+                      <SalePlace>{sale.place}</SalePlace>
+                      <SaleName>{sale.name}</SaleName>
+                    </div>
+                    <SalePrice>{sale.price}원</SalePrice>
+                  </SaleTextBox>
+                </SaleBox>
+              ))}
           </SaleContainer>
 
           <SaveShareButtonContainer>
@@ -167,16 +175,16 @@ const ButtonContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
 `;
 
-const SaleButton = styled.button<{ loc: string; active: boolean }>`
+const SaleButton = styled.button<{ value: string; active: boolean }>`
   font-size: 18px;
   font-weight: 600;
   padding: 14px 32px;
-  background: ${(props) => (props.active ? '#379100' : '#F8F8F8')};
-  color: ${(props) => (props.active ? '#fff' : '#000')};
+  background: ${(props) => (props.active ? '#F8F8F8' : '#379100')};
+  color: ${(props) => (props.active ? '#000' : '#fff')};
   cursor: pointer;
   border-style: none;
-  ${(props) => props.loc === 'right' && 'border-top-left-radius: 10px'};
-  ${(props) => props.loc === 'left' && 'border-top-right-radius: 10px'};
+  ${(props) => props.value === 'origin' && 'border-top-left-radius: 10px'};
+  ${(props) => props.value === 'upcycling' && 'border-top-right-radius: 10px'};
 `;
 
 const SaleContainer = styled.div`
