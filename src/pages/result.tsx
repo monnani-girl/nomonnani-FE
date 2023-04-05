@@ -7,6 +7,7 @@ import { selectedAtom } from '../atoms';
 import { quote } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import Loading from '../components/Loading';
+import { ResultProps } from '../api/types';
 
 import pumkinImg from '../assets/pumpkin.png';
 import broccoliImg from '../assets/broccoli.png';
@@ -16,45 +17,26 @@ import carrotImg from '../assets/carrot.png';
 import cabbageImg from '../assets/cabbage.png';
 import introductionImg from '../assets/introduction.svg';
 
-interface resProps {
-  type: string;
-  sales: {
-    id: number;
-    product: string;
-    type: string;
-    name: string;
-    price: number;
-    place: string;
-    image: string;
-    site: string;
-  }[];
-}
 function Result() {
+  const selected = useRecoilValue(selectedAtom);
+  const [result, setResult] = useState<ResultProps>();
   const [isLoading, setIsLoading] = useState(true);
-  const result = useRecoilValue(selectedAtom);
-  const [res, setRes] = useState({} as resProps);
+  console.log(result);
+
   const [quoteName, setquoteName] = useState('');
   const [quoteText, setquoteText] = useState('');
 
-  const test = {
-    season: result['season'],
-    weather: result['weather'],
-    feel: result['feel'],
-    travel: result['travel'],
-    photo: result['photo'],
-  };
-
   useEffect(() => {
-    getResult(test).then((res) => {
+    getResult(selected).then((res) => {
+      setResult(res);
       setIsLoading(false);
-      setRes(res);
     });
-  }, [result]);
+  }, [selected]);
 
   useEffect(() => {
-    setquoteName(quote[`${res.type}`]?.name);
-    setquoteText(quote[`${res.type}`]?.quote);
-  }, [res]);
+    setquoteName(quote[`${result?.type}`]?.name);
+    setquoteText(quote[`${result?.type}`]?.quote);
+  }, [result]);
 
   const [originActive, setOriginActive] = useState(true);
 
@@ -105,10 +87,10 @@ function Result() {
           </ButtonContainer>
 
           <SaleContainer>
-            <SaleText>못난이 {res.type}의 판매처에요</SaleText>
+            <SaleText>못난이 {result?.type}의 판매처에요</SaleText>
             <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-            {res?.sales?.map((sale) => (
+            {result?.sales?.map((sale) => (
               <SaleBox key={sale.id} to={sale.site} target="_blank">
                 <SaleImage src={sale.image} alt="sale-image" />
                 <SaleTextBox>
