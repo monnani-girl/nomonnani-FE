@@ -3,14 +3,13 @@ import styled from 'styled-components';
 interface ImageProps {
   src: string;
   fileName: string;
-  style?: React.CSSProperties;
   children: React.ReactNode;
 }
 /**
  * @param src 다운로드받을 이미지의 경로 입력 (string)
  * @param fileName src param을 로컬에 저장할 때 사용될 파일명 (string) ex) carrot.png
  */
-const ImgDownloadBtn = ({ src, fileName, style, children }: ImageProps) => {
+const ImgDownloadBtn = ({ src, fileName, children }: ImageProps) => {
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = src;
@@ -22,7 +21,7 @@ const ImgDownloadBtn = ({ src, fileName, style, children }: ImageProps) => {
 
   return (
     <>
-      <DownloadBtn onClick={handleDownload} style={style}>{children}</DownloadBtn>
+      <DownloadBtn onClick={handleDownload}>{children}</DownloadBtn>
     </>
   );
 };
@@ -35,6 +34,7 @@ const DownloadBtn = styled.button`
   padding: 24px 36px;
   border: none;
   border-radius: 65px;
+  background-color: #379100;
   color: #fff;
   opacity: 0.8;
   cursor: pointer;

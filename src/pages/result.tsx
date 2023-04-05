@@ -125,7 +125,6 @@ function Result() {
 
           <SaveShareButtonContainer>
             <ImgDownloadBtn src={getProductImage()} fileName="ddocdarman.png" 
-              style={{"backgroundColor":"#379100"}} 
             >
               저장하기
             </ImgDownloadBtn>
