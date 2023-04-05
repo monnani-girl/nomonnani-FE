@@ -1,11 +1,11 @@
-interface Quote {
+type QuoteType = {
   [type: string]: {
     name: string;
     quote: string;
   };
-}
+};
 
-export const quote: Quote = {
+export const QUOTE: QuoteType = {
   carrot: {
     name: '근육맨 당근',
     quote:

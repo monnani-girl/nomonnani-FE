@@ -4,12 +4,12 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
-import { quote } from '../static/quote';
+import { QUOTE } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import Loading from '../components/Loading';
 import { ResultProps } from '../api/types';
 
-import pumkinImg from '../assets/pumpkin.png';
+import pumpkinImg from '../assets/pumpkin.png';
 import broccoliImg from '../assets/broccoli.png';
 import potatoImg from '../assets/potato.png';
 import tangerineImg from '../assets/tangerine.png';
@@ -20,23 +20,17 @@ import introductionImg from '../assets/introduction.svg';
 function Result() {
   const selected = useRecoilValue(selectedAtom);
   const [result, setResult] = useState<ResultProps>();
+  const [resultType, setResultType] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   console.log(result);
-
-  const [quoteName, setquoteName] = useState('');
-  const [quoteText, setquoteText] = useState('');
 
   useEffect(() => {
     getResult(selected).then((res) => {
       setResult(res);
+      setResultType(res.type);
       setIsLoading(false);
     });
   }, [selected]);
-
-  useEffect(() => {
-    setquoteName(quote[`${result?.type}`]?.name);
-    setquoteText(quote[`${result?.type}`]?.quote);
-  }, [result]);
 
   const [originActive, setOriginActive] = useState(true);
 
@@ -45,12 +39,12 @@ function Result() {
   };
 
   const getProductImage = () => {
-    if (quoteName === '스윗한 밤호박') return pumkinImg;
-    else if (quoteName === '키다리 브로콜리') return broccoliImg;
-    else if (quoteName === '코훌쩍 아기감자') return potatoImg;
-    else if (quoteName === '화가난 한라봉') return tangerineImg;
-    else if (quoteName === '멋쟁이 고깔오빠') return cabbageImg;
-    else if (quoteName === '근육맨 당근') return carrotImg;
+    if (resultType === 'pumpkin') return pumpkinImg;
+    else if (resultType === 'broccoli') return broccoliImg;
+    else if (resultType === 'potato') return potatoImg;
+    else if (resultType === 'tangerine') return tangerineImg;
+    else if (resultType === 'carrot') return cabbageImg;
+    else if (resultType === 'cabbage') return carrotImg;
   };
 
   return (
@@ -63,8 +57,8 @@ function Result() {
             <Title>나의 못난이</Title>
             <ResultImage src={getProductImage()} alt="result-image" />
 
-            <ResultName>{quoteName}</ResultName>
-            <ResultDescription>{quoteText}</ResultDescription>
+            <ResultName>{QUOTE[resultType].name}</ResultName>
+            <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
           </div>
           <CommonDescription>
             <img src={introductionImg} alt="introduction" />
