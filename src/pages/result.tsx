@@ -22,6 +22,7 @@ function Result() {
   const [result, setResult] = useState<ResultProps>();
   const [resultType, setResultType] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [saleType, setSaleType] = useState('origin');
 
   useEffect(() => {
     getResult(selected).then((res) => {
@@ -30,8 +31,6 @@ function Result() {
       setIsLoading(false);
     });
   }, [selected]);
-
-  const [saleType, setSaleType] = useState('origin');
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
     const {
@@ -45,8 +44,8 @@ function Result() {
     else if (resultType === 'broccoli') return broccoliImg;
     else if (resultType === 'potato') return potatoImg;
     else if (resultType === 'tangerine') return tangerineImg;
-    else if (resultType === 'carrot') return cabbageImg;
-    else if (resultType === 'cabbage') return carrotImg;
+    else if (resultType === 'cabbage') return cabbageImg;
+    else if (resultType === 'carrot') return carrotImg;
   };
 
   return (
