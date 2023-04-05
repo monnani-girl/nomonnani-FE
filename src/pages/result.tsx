@@ -195,8 +195,8 @@ const SaleButton = styled.button<{ loc: string; active: boolean }>`
   font-size: 18px;
   font-weight: 600;
   padding: 14px 32px;
-  background: ${(props) => (props.active ? '#379100' : '#F8F8F8')};
-  color: ${(props) => (props.active ? '#fff' : '#000')};
+  background: ${(props) => (props.active ? 'var(--primary)' : 'var(--grey)')};
+  color: ${(props) => (props.active ? 'var(--white)' : 'var(--black)')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.loc === 'right' && 'border-top-left-radius: 10px'};
@@ -205,7 +205,7 @@ const SaleButton = styled.button<{ loc: string; active: boolean }>`
 
 const SaleContainer = styled.div`
   padding: 32px 20px;
-  background: #f8f8f8;
+  background: var(--grey);
 `;
 
 const SaleText = styled.div`
@@ -224,12 +224,12 @@ const SaleBox = styled(Link)`
   height: 150px;
   padding: 12px;
   margin-bottom: 14px;
-  background: #ffffff;
+  background: var(--white);
   border: 1px solid #f0f0f0;
   color: inherit;
   text-decoration: none;
   &:hover {
-    border: 2px solid #379100;
+    border: 2px solid var(--primary);
   }
 `;
 
@@ -270,7 +270,7 @@ const SaveShareButton = styled.button<{ bgColor: string }>`
   border: none;
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
-  color: #fff;
+  color: var(--white);
   opacity: 0.8;
   cursor: pointer;
 `;

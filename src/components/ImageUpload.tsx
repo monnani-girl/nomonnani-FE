@@ -79,8 +79,8 @@ const FileInput = styled.input`
 const FileSelctButton = styled.button`
   width: 198px;
   height: 198px;
-  background-color: #f5f2f0;
-  color: #001358;
+  background-color: var(--light-beige);
+  color: var(--secondary);
   border: none;
   margin-bottom: 24px;
   cursor: pointer;
@@ -90,8 +90,8 @@ const FindButton = styled.button<{ disabled: boolean }>`
   width: 284px;
   height: 72px;
   font-size: 24px;
-  color: #fff;
-  background-color: #379100;
+  color: var(--white);
+  background-color: var(--primary);
   border-radius: 100px;
   border: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};

@@ -55,7 +55,7 @@ const CharacterImg = styled.img`
 `;
 
 const Text = styled.div`
-  color: #000000;
+  color: var(--black);
   width: 171px;
   height: 33px;
 

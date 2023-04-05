@@ -56,8 +56,8 @@ const Select = () => {
         percent={currentStep}
         strokeWidth={3}
         trailWidth={3}
-        strokeColor="#379100"
-        trailColor="#e3f2ff"
+        strokeColor="var(--primary)"
+        trailColor="var(--sub)"
         style={{ width: '333px', marginTop: '46px' }}
       />
       {currentStep === 20 && <FirstStep />}
@@ -88,8 +88,6 @@ const Select = () => {
               </UploadButton>
             </UploadBtnContainer>
           )}
-
-          {/* <FindButton>캐릭터 찾기</FindButton> */}
         </>
       )}
       <BtnContainer>
@@ -121,11 +119,11 @@ const HeaderLogo = styled.img`
 
 const ButtonType = {
   bgcolor: {
-    prev: '#F5F2F0',
+    prev: 'var(--light-beige)',
     next: 'rgba(245,242,240,0.5)',
   },
   color: {
-    prev: '#525463',
+    prev: 'var(--sub-black)',
     next: 'rgba(82,84,99,0.5)',
   },
 };
@@ -159,20 +157,19 @@ const Button = styled.button<ButtonProps>`
       ? ButtonType.color.prev
       : props.disabled
       ? ButtonType.color.next
-      : '#379100'};
+      : 'var(--primary)'};
   border: ${(props) =>
     props.prev
       ? 'none'
       : props.disabled
       ? ButtonType.bgcolor.next
-      : '1px solid #379100'};
+      : '1px solid var(--primary)'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 16px;
   line-height: 52px;
   text-align: center;
   border-radius: 48px;
-  font-family: 'Gmarket Sans';
   font-style: normal;
   font-weight: 400;
 `;
@@ -185,7 +182,7 @@ const StepTitle = styled.div`
 const StepSubText = styled.div`
   font-size: 16px;
   margin-top: 10px;
-  color: #818181;
+  color: var(--darkgrey);
 `;
 
 const UploadButton = styled.button`
@@ -193,12 +190,12 @@ const UploadButton = styled.button`
   height: 136px;
   border: 1px solid #e1e1e1;
   border-radius: 90px;
-  background: #ffffff;
-  color: #001358;
+  background: var(--white);
+  color: var(--secondary);
   cursor: pointer;
   font-size: 18px;
   &:hover {
-    border: 2px solid #379100;
+    border: 2px solid var(--primary);
   }
 `;
 
@@ -212,10 +209,10 @@ const UploadBtnContainer = styled.div`
 const FindButton = styled.button`
   width: 284px;
   height: 72px;
-  background-color: #f5f2f0;
+  background-color: var(--light-beige);
   opacity: 0.5;
   border-radius: 100px;
-  color: #525463;
+  color: var(--secondary);
   font-size: 24px;
   border: none;
   cursor: not-allowed;
