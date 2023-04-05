@@ -63,7 +63,7 @@ const Button = styled(Link)`
   align-items: center;
   font-size: 22px;
   border: none;
-  background: #379100;
+  background: var(--primary);
   color: #ffffff;
   border-radius: 100px;
   cursor: pointer;
