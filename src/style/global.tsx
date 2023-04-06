@@ -49,7 +49,7 @@ table {
 }
 
 body{
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Gmarket Sans';
     max-width: 486px;
     min-width: 486px;
     margin: 0 auto;
