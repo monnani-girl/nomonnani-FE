@@ -6,11 +6,10 @@ import FirstStep from '../components/selectItem/FirstStep';
 import SecondStep from '../components/selectItem/SecondStep';
 import ThirdStep from '../components/selectItem/ThirdStep';
 import FourthStep from '../components/selectItem/FourthStep';
-import { useRecoilState } from 'recoil';
-import { selectedAtom } from '../atoms';
 import WebcamCapture from '../components/WebcamCapture';
 import ImageFileUpload from '../components/ImageUpload';
 import { SelectedProps } from '../api/types';
+import { useNavigate } from 'react-router-dom';
 
 interface ButtonProps {
   label?: string;
@@ -24,8 +23,9 @@ const PERCENTAGE = 100 / STEP;
 const steps = ['season', 'weather', 'feel', 'travel', 'photo'];
 
 const Select = () => {
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
-  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
   const [uploadType, setUploadType] = useState('');
 
   const isActivePrevBtn = currentStep !== PERCENTAGE;
@@ -54,7 +54,7 @@ const Select = () => {
 
   return (
     <Container>
-      <HeaderLogo src={headerLogo} />
+      <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
       <Line
         percent={currentStep}
         strokeWidth={3}
@@ -118,6 +118,7 @@ export default Select;
 
 const HeaderLogo = styled.img`
   width: 17px;
+  cursor: pointer;
 `;
 
 const ButtonType = {

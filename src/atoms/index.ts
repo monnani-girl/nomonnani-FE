@@ -1,5 +1,11 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { SelectedProps } from '../api/types';
+
+const { persistAtom } = recoilPersist({
+  key: 'selected-persist',
+  storage: sessionStorage,
+});
 
 export const selectedAtom = atom<SelectedProps>({
   key: 'selected',
@@ -10,4 +16,5 @@ export const selectedAtom = atom<SelectedProps>({
     travel: '',
     photo: '',
   },
+  effects_UNSTABLE: [persistAtom],
 });
