@@ -9,6 +9,7 @@ import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
 import Loading from '../components/Loading';
 import { ResultProps } from '../api/types';
+import headerLogo from '../assets/header.png';
 
 import pumpkinImg from '../assets/pumpkin.png';
 import broccoliImg from '../assets/broccoli.png';
@@ -54,14 +55,13 @@ function Result() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div>
-          <div>
-            <Title>나의 못난이</Title>
-            <ResultImage src={getProductImage()} alt="result-image" />
+        <FlexBox>
+          <HeaderLogo src={headerLogo} />
+          <ResultImage src={getProductImage()} alt="result-image" />
 
-            <ResultName>{QUOTE[resultType].name}</ResultName>
-            <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
-          </div>
+          <ResultSubName>나는 못난이</ResultSubName>
+          <ResultName>{QUOTE[resultType].name}</ResultName>
+          <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
           <CommonDescription>
             <img src={introductionImg} alt="introduction" />
           </CommonDescription>
@@ -132,13 +132,25 @@ function Result() {
               공유하기
             </SaveShareButton>
           </SaveShareButtonContainer>
-        </div>
+        </FlexBox>
       )}
     </>
   );
 }
 
 export default Result;
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HeaderLogo = styled.img`
+  width: 17px;
+  margin: 0 auto;
+`;
 
 const Title = styled.div`
   font-size: 18px;
@@ -154,16 +166,27 @@ const ResultImage = styled.img`
   margin: auto;
 `;
 
+const ResultSubName = styled.div`
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Gmarket Sans';
+  color: var(--darkgrey);
+`;
+
 const ResultName = styled.div`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: 40px 0 18px 0;
+  color: var(--black);
+  margin: 6px 0 16px 0;
 `;
 
 const ResultDescription = styled.div`
-  font-size: 14px;
-  color: #555555;
+  font-size: 16px;
+  font-family: 'Noto Sans KR';
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--black);
 `;
 
 const CommonDescription = styled.div`
