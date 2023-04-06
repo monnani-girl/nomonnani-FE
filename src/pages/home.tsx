@@ -2,8 +2,17 @@ import styled from 'styled-components';
 import mainImage from '../assets/main.png';
 import LogoImage from '../assets/logo.png';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useResetRecoilState } from 'recoil';
+import { selectedAtom } from '../atoms';
 
 function Home() {
+  const resetSelected = useResetRecoilState(selectedAtom);
+
+  useEffect(() => {
+    resetSelected();
+  }, []);
+
   return (
     <Body>
       <Image src={mainImage} alt="main-character" />
