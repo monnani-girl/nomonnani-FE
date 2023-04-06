@@ -70,26 +70,28 @@ const Select = () => {
       {currentStep === 100 && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
           {uploadType === 'upload' && <ImageFileUpload />}
           {uploadType === 'capture' && <WebcamCapture />}
 
           {!uploadType && (
-            <UploadBtnContainer>
-              <UploadButton value="upload" onClick={handleUploadBtn}>
-                사진 업로드
-              </UploadButton>
-              <UploadButton
-                value="capture"
-                onClick={() =>
-                  alert(
-                    'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)',
-                  )
-                }
-              >
-                사진 촬영
-              </UploadButton>
-            </UploadBtnContainer>
+          <UploadButton value="upload" onClick={handleUploadBtn}>
+            얼굴이 잘리지 않은<br/>사진을 올려주세요
+          </UploadButton>
+            // <UploadBtnContainer>
+            //   <UploadButton value="upload" onClick={handleUploadBtn}>
+            //     사진 업로드
+            //   </UploadButton>
+            //   <UploadButton
+            //     value="capture"
+            //     onClick={() =>
+            //       alert(
+            //         'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)',
+            //       )
+            //     }
+            //   >
+            //     사진 촬영
+            //   </UploadButton>
+            // </UploadBtnContainer>
           )}
         </>
       )}
@@ -187,19 +189,38 @@ const StepSubText = styled.div`
   color: var(--darkgrey);
 `;
 
+// const UploadButton = styled.button`
+//   width: 136px;
+//   height: 136px;
+//   border: 1px solid #e1e1e1;
+//   border-radius: 90px;
+//   font-size: 18px;
+//   font-weight: 400;
+//   font-family: 'Gmarket Sans';
+//   background: var(--white);
+//   color: var(--secondary);
+//   cursor: pointer;
+//   &:hover {
+//     border: 2px solid var(--primary);
+//   }
+// `;
+
 const UploadButton = styled.button`
-  width: 136px;
-  height: 136px;
+  width: 198px;
+  height: 198px;
   border: 1px solid #e1e1e1;
-  border-radius: 90px;
-  font-size: 18px;
+  margin-top: 96px;
+  border-radius: 20px;
+  font-size: 16px;
   font-weight: 400;
-  font-family: 'Gmarket Sans';
+  line-height: 21px;
+  font-family: 'Noto Sans KR';
   background: var(--white);
-  color: var(--secondary);
+  color: var(--darkgrey);
   cursor: pointer;
   &:hover {
     border: 2px solid var(--primary);
+    transition: 0.3s ease;
   }
 `;
 
