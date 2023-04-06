@@ -27,8 +27,8 @@ function Result() {
 
   useEffect(() => {
     getResult(selected).then((res) => {
-      setResult(res);
-      setResultType(res.type);
+      setResult(res.result);
+      setResultType(res.result.type);
       setIsLoading(false);
     });
   }, [selected]);
@@ -107,8 +107,8 @@ function Result() {
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <SaveShareButton 
-              bgColor="#379100" 
+            <SaveShareButton
+              bgColor="#379100"
               onClick={() =>
                 handleImageDownload({
                   src: `${getProductImage()}`,
