@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getResult } from '../api';
@@ -19,19 +19,30 @@ import cabbageImg from '../assets/cabbage.png';
 import introductionImg from '../assets/introduction.svg';
 
 function Result() {
+  const navigate = useNavigate();
+
   const selected = useRecoilValue(selectedAtom);
   const [result, setResult] = useState<ResultProps>();
   const [resultType, setResultType] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState('');
   const [saleType, setSaleType] = useState('origin');
 
   useEffect(() => {
     getResult(selected).then((res) => {
-      setResult(res);
-      setResultType(res.type);
-      setIsLoading(false);
+      if (res.result) {
+        setResult(res.result);
+        setResultType(res.result.type);
+        setIsLoading(false);
+      } else {
+        setIsError(res.message);
+        //TODO: 에러 모달 컴포넌트로 교체
+        alert(res.message);
+        //TODO: select 라우팅 후 사진 선택 페이지로 이동
+        navigate('/');
+      }
     });
-  }, [selected]);
+  }, []);
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
     const {
