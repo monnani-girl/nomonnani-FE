@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
-import { quote } from '../static/quote';
+import { QUOTE } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
+import { handleImageDownload } from '../utils/ImageDownload';
 import Loading from '../components/Loading';
+import { ResultProps } from '../api/types';
 
-import pumkinImg from '../assets/pumpkin.png';
+import pumpkinImg from '../assets/pumpkin.png';
 import broccoliImg from '../assets/broccoli.png';
 import potatoImg from '../assets/potato.png';
 import tangerineImg from '../assets/tangerine.png';
@@ -16,59 +18,35 @@ import carrotImg from '../assets/carrot.png';
 import cabbageImg from '../assets/cabbage.png';
 import introductionImg from '../assets/introduction.svg';
 
-interface resProps {
-  type: string;
-  sales: {
-    id: number;
-    product: string;
-    type: string;
-    name: string;
-    price: number;
-    place: string;
-    image: string;
-    site: string;
-  }[];
-}
 function Result() {
+  const selected = useRecoilValue(selectedAtom);
+  const [result, setResult] = useState<ResultProps>();
+  const [resultType, setResultType] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const result = useRecoilValue(selectedAtom);
-  const [res, setRes] = useState({} as resProps);
-  const [quoteName, setquoteName] = useState('');
-  const [quoteText, setquoteText] = useState('');
-
-  const test = {
-    season: result['season'],
-    weather: result['weather'],
-    feel: result['feel'],
-    travel: result['travel'],
-    photo: result['photo'],
-  };
+  const [saleType, setSaleType] = useState('origin');
 
   useEffect(() => {
-    getResult(test).then((res) => {
+    getResult(selected).then((res) => {
+      setResult(res);
+      setResultType(res.type);
       setIsLoading(false);
-      setRes(res);
     });
-  }, [result]);
+  }, [selected]);
 
-  useEffect(() => {
-    setquoteName(quote[`${res.type}`]?.name);
-    setquoteText(quote[`${res.type}`]?.quote);
-  }, [res]);
-
-  const [originActive, setOriginActive] = useState(true);
-
-  const onClickSaleButton = () => {
-    setOriginActive((prev) => !prev);
+  const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    setSaleType(value);
   };
 
   const getProductImage = () => {
-    if (quoteName === '스윗한 밤호박') return pumkinImg;
-    else if (quoteName === '키다리 브로콜리') return broccoliImg;
-    else if (quoteName === '코훌쩍 아기감자') return potatoImg;
-    else if (quoteName === '화가난 한라봉') return tangerineImg;
-    else if (quoteName === '멋쟁이 고깔오빠') return cabbageImg;
-    else if (quoteName === '근육맨 당근') return carrotImg;
+    if (resultType === 'pumpkin') return pumpkinImg;
+    else if (resultType === 'broccoli') return broccoliImg;
+    else if (resultType === 'potato') return potatoImg;
+    else if (resultType === 'tangerine') return tangerineImg;
+    else if (resultType === 'cabbage') return cabbageImg;
+    else if (resultType === 'carrot') return carrotImg;
   };
 
   return (
@@ -81,23 +59,23 @@ function Result() {
             <Title>나의 못난이</Title>
             <ResultImage src={getProductImage()} alt="result-image" />
 
-            <ResultName>{quoteName}</ResultName>
-            <ResultDescription>{quoteText}</ResultDescription>
+            <ResultName>{QUOTE[resultType].name}</ResultName>
+            <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
           </div>
           <CommonDescription>
             <img src={introductionImg} alt="introduction" />
           </CommonDescription>
           <ButtonContainer>
             <SaleButton
-              loc="right"
-              active={originActive}
+              value="origin"
+              active={saleType === 'origin'}
               onClick={onClickSaleButton}
             >
               못난이 파는 곳
             </SaleButton>
             <SaleButton
-              loc="left"
-              active={!originActive}
+              value="upcycling"
+              active={saleType === 'upcycling'}
               onClick={onClickSaleButton}
             >
               못난이의 재탄생
@@ -105,25 +83,41 @@ function Result() {
           </ButtonContainer>
 
           <SaleContainer>
-            <SaleText>못난이 {res.type}의 판매처에요</SaleText>
+            <SaleText>못난이 {QUOTE[resultType].type}의 판매처에요</SaleText>
             <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-            {res?.sales?.map((sale) => (
-              <SaleBox key={sale.id} to={sale.site} target="_blank">
-                <SaleImage src={sale.image} alt="sale-image" />
-                <SaleTextBox>
-                  <div>
-                    <SalePlace>{sale.place}</SalePlace>
-                    <SaleName>{sale.name}</SaleName>
-                  </div>
-                  <SalePrice>{sale.price}원</SalePrice>
-                </SaleTextBox>
-              </SaleBox>
-            ))}
+            {result?.sales
+              .filter(
+                (sale) =>
+                  sale.type ===
+                  (saleType === 'origin' ? '원물판매자' : '업사이클링'),
+              )
+              .map((sale) => (
+                <SaleBox key={sale.id} to={sale.site} target="_blank">
+                  <SaleImage src={sale.image} alt="sale-image" />
+                  <SaleTextBox>
+                    <div>
+                      <SalePlace>{sale.place}</SalePlace>
+                      <SaleName>{sale.name}</SaleName>
+                    </div>
+                    <SalePrice>{sale.price}원</SalePrice>
+                  </SaleTextBox>
+                </SaleBox>
+              ))}
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <SaveShareButton bgColor="#379100">저장하기</SaveShareButton>
+            <SaveShareButton 
+              bgColor="#379100" 
+              onClick={() =>
+                handleImageDownload({
+                  src: `${getProductImage()}`,
+                  fileName: 'ddokdarman.png',
+                })
+              }
+            >
+              저장하기
+            </SaveShareButton>
             <SaveShareButton
               bgColor="#379100"
               onClick={() =>
@@ -191,7 +185,7 @@ const ButtonContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
 `;
 
-const SaleButton = styled.button<{ loc: string; active: boolean }>`
+const SaleButton = styled.button<{ value: string; active: boolean }>`
   font-size: 18px;
   font-weight: 600;
   padding: 14px 32px;
@@ -199,8 +193,8 @@ const SaleButton = styled.button<{ loc: string; active: boolean }>`
   color: ${(props) => (props.active ? 'var(--white)' : 'var(--black)')};
   cursor: pointer;
   border-style: none;
-  ${(props) => props.loc === 'right' && 'border-top-left-radius: 10px'};
-  ${(props) => props.loc === 'left' && 'border-top-right-radius: 10px'};
+  ${(props) => props.value === 'origin' && 'border-top-left-radius: 10px'};
+  ${(props) => props.value === 'upcycling' && 'border-top-right-radius: 10px'};
 `;
 
 const SaleContainer = styled.div`

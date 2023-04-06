@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
 import WebcamCapture from '../components/WebcamCapture';
 import ImageFileUpload from '../components/ImageUpload';
+import { SelectedProps } from '../api/types';
 
 interface ButtonProps {
   label?: string;
@@ -28,13 +29,15 @@ const Select = () => {
   const [uploadType, setUploadType] = useState('');
 
   const isActivePrevBtn = currentStep !== PERCENTAGE;
-  const isActiveNextBtn =
-    currentStep !== 100 &&
-    Boolean(selectedState[steps[currentStep / PERCENTAGE - 1]]);
+  //TODO: 다음 버튼 활성화 로직 수정 필요
+  const isActiveNextBtn = currentStep !== 100;
+  // Boolean(
+  //   selectedState[steps[currentStep / PERCENTAGE - 1] as SelectedProps],
+  // );
 
   const handlePrevStep = () => {
     setCurrentStep(
-      currentStep > PERCENTAGE ? currentStep - PERCENTAGE : currentStep
+      currentStep > PERCENTAGE ? currentStep - PERCENTAGE : currentStep,
     );
   };
 
@@ -80,7 +83,7 @@ const Select = () => {
                 value="capture"
                 onClick={() =>
                   alert(
-                    'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)'
+                    'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)',
                   )
                 }
               >
