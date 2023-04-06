@@ -143,7 +143,7 @@ const BtnContainer = styled.div`
   min-width: 486px;
   max-width: 486px;
   justify-content: space-around;
-  margin: 59px 0 125px 0;
+  margin: 60px 0 125px 0;
 `;
 
 const Button = styled.button<ButtonProps>`
@@ -169,11 +169,10 @@ const Button = styled.button<ButtonProps>`
       : '1px solid var(--primary)'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  font-size: 16px;
-  line-height: 52px;
+  font-family: 'Gmarket Sans';
+  font-size: 14px;
   text-align: center;
   border-radius: 48px;
-  font-style: normal;
   font-weight: 400;
 `;
 

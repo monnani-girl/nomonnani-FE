@@ -81,7 +81,7 @@ const Title = styled.div`
   line-height: 24px;
   letter-spacing: 0em;
   text-align: center;
-  margin: 10px 0 59px 0;
+  margin: 10px 0 34px 0;
 
   color: var(--black);
 `;
@@ -104,7 +104,7 @@ const SelectItem = styled.button<{ selected: boolean }>`
   outline: none;
   border: none;
   cursor: pointer;
-  margin: 16px 0;
+  margin: 8px 0;
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 400;
@@ -113,5 +113,6 @@ const SelectItem = styled.button<{ selected: boolean }>`
 
   &:hover {
     border: 2px solid var(--primary);
+    transition: 0.3s ease;
   }
 `;
