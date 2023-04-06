@@ -57,7 +57,7 @@ const Select = () => {
         strokeWidth={3}
         trailWidth={3}
         strokeColor="var(--primary)"
-        trailColor="var(--sub)"
+        trailColor="var(--progress-trail)"
         style={{ width: '333px', marginTop: '46px' }}
       />
       {currentStep === 20 && <FirstStep />}
@@ -119,7 +119,7 @@ const HeaderLogo = styled.img`
 
 const ButtonType = {
   bgcolor: {
-    prev: 'var(--light-beige)',
+    prev: 'var(--background)',
     next: 'rgba(245,242,240,0.5)',
   },
   color: {
@@ -209,7 +209,7 @@ const UploadBtnContainer = styled.div`
 const FindButton = styled.button`
   width: 284px;
   height: 72px;
-  background-color: var(--light-beige);
+  background-color: var(--background);
   opacity: 0.5;
   border-radius: 100px;
   color: var(--secondary);

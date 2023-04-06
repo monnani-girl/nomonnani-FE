@@ -79,7 +79,7 @@ const FileInput = styled.input`
 const FileSelctButton = styled.button`
   width: 198px;
   height: 198px;
-  background-color: var(--light-beige);
+  background-color: var(--background);
   color: var(--secondary);
   border: none;
   margin-bottom: 24px;
