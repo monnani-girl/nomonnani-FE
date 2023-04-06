@@ -39,28 +39,34 @@ const IntroContainer = styled.div`
 `;
 
 const Title = styled.img`
-  width: 152px;
+  width: 158px;
   height: 60px;
   margin-top: 12px;
 `;
 
 const SubTitle = styled.div`
   font-size: 14px;
-  margin-top: 32px;
+  margin-top: 28px;
+  color: var(--secondary);
 `;
 
 const Description = styled.div`
+  font-family: 'Noto Sans KR';
   font-size: 18px;
-  margin: 32px 0;
+  margin-top: 28px;
+  line-height: 26px;
 `;
 
 const Button = styled(Link)`
+  font-size: 'Gmarket Sans';
   width: 250px;
   height: 72px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 22px;
+  font-weight: 400;
+  margin-top: 30px;
   border: none;
   background: var(--primary);
   color: var(--white);
