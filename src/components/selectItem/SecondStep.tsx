@@ -97,12 +97,12 @@ const SelectItem = styled.button<{ selected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) => (props.selected ? 'var(--primary)' : 'var(--white)')};
-  color: ${(props) => (props.selected ? 'var(--white)' : 'var(--secondary)')};
+  background-color: ${(props) => (props.selected ? 'var(--primary-opacity)' : 'var(--white)')};
+  color: ${(props) => (props.selected ? 'var(--primary)' : 'var(--secondary)')};
+  border: ${(props) => props.selected ? '1px solid var(--primary)' : 'none'};
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
   border-radius: 40px;
   outline: none;
-  border: none;
   cursor: pointer;
   margin: 8px 0;
   font-family: 'Noto Sans KR';
@@ -112,7 +112,7 @@ const SelectItem = styled.button<{ selected: boolean }>`
   line-height: 24px;
 
   &:hover {
-    border: 2px solid var(--primary);
+    border: 1px solid var(--primary);
     transition: 0.3s ease;
   }
 `;

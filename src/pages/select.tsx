@@ -192,10 +192,12 @@ const UploadButton = styled.button`
   height: 136px;
   border: 1px solid #e1e1e1;
   border-radius: 90px;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'Gmarket Sans';
   background: var(--white);
   color: var(--secondary);
   cursor: pointer;
-  font-size: 18px;
   &:hover {
     border: 2px solid var(--primary);
   }
