@@ -107,8 +107,8 @@ function Result() {
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <SaveShareButton 
-              bgColor="#379100" 
+            <SaveShareButton
+              bgColor="#379100"
               onClick={() =>
                 handleImageDownload({
                   src: `${getProductImage()}`,
@@ -189,8 +189,8 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   font-size: 18px;
   font-weight: 600;
   padding: 14px 32px;
-  background: ${(props) => (props.active ? 'var(--primary)' : 'var(--grey)')};
-  color: ${(props) => (props.active ? 'var(--white)' : 'var(--black)')};
+  background: ${(props) => (props.active ? 'var(--grey)' : 'var(--primary)')};
+  color: ${(props) => (props.active ? 'var(--black)' : 'var(--white)')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.value === 'origin' && 'border-top-left-radius: 10px'};
