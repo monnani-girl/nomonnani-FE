@@ -154,13 +154,13 @@ const Button = styled.button<ButtonProps>`
       ? ButtonType.bgcolor.prev
       : props.disabled
       ? ButtonType.bgcolor.next
-      : 'rgba(55,145,0,0.08)'};
+      : 'var(--primary)'};
   color: ${(props) =>
     props.prev
       ? ButtonType.color.prev
       : props.disabled
       ? ButtonType.color.next
-      : 'var(--primary)'};
+      : 'var(--white)'};
   border: ${(props) =>
     props.prev
       ? 'none'
