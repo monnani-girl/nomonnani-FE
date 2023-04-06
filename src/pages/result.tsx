@@ -6,6 +6,7 @@ import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
 import { QUOTE } from '../static/quote';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
+import { handleImageDownload } from '../utils/ImageDownload';
 import Loading from '../components/Loading';
 import { ResultProps } from '../api/types';
 
@@ -106,7 +107,17 @@ function Result() {
           </SaleContainer>
 
           <SaveShareButtonContainer>
-            <SaveShareButton bgColor="#379100">저장하기</SaveShareButton>
+            <SaveShareButton 
+              bgColor="#379100" 
+              onClick={() =>
+                handleImageDownload({
+                  src: `${getProductImage()}`,
+                  fileName: 'ddokdarman.png',
+                })
+              }
+            >
+              저장하기
+            </SaveShareButton>
             <SaveShareButton
               bgColor="#379100"
               onClick={() =>
