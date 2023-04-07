@@ -23,7 +23,7 @@ function Home() {
           나와 닮은 귀여운 제주 못나니 <br />
           농산물 캐릭터를 찾아보세요!
         </Description>
-        <Button to="/select">닮은꼴 찾으러 가기</Button>
+        <Button to="/select/1">닮은꼴 찾으러 가기</Button>
       </IntroContainer>
     </Body>
   );
