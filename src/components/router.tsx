@@ -9,7 +9,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/result" element={<Result />} />
-        <Route path="/select" element={<Select />} />
+        <Route path="/select/:step" element={<Select />} />
       </Routes>
     </BrowserRouter>
   );

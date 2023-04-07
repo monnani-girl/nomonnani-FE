@@ -9,40 +9,40 @@ import FourthStep from '../components/selectItem/FourthStep';
 import WebcamCapture from '../components/WebcamCapture';
 import ImageFileUpload from '../components/ImageUpload';
 import { SelectedProps } from '../api/types';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import SelectItem from '../components/SelectItem';
+import { useRecoilValue } from 'recoil';
+import { selectedAtom } from '../atoms';
 
 interface ButtonProps {
-  label?: string;
-  prev?: boolean;
-  onClick?: () => void;
+  prev?: string;
+  disabled?: boolean;
 }
 
+const TOTAL_STEPS = 5;
 const STEP = 5;
 const PERCENTAGE = 100 / STEP;
 
-const steps = ['season', 'weather', 'feel', 'travel', 'photo'];
+const SELECTED_STEPS = ['season', 'weather', 'feel', 'travel', 'photo'];
 
 const Select = () => {
   const navigate = useNavigate();
+  const { step } = useParams();
+  const [curStep, setCurStep] = useState(Number(step));
+  const selectedState = useRecoilValue(selectedAtom);
 
   const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
   const [uploadType, setUploadType] = useState('');
 
-  const isActivePrevBtn = currentStep !== PERCENTAGE;
-  //TODO: 다음 버튼 활성화 로직 수정 필요
-  const isActiveNextBtn = currentStep !== 100;
-  // Boolean(
-  //   selectedState[steps[currentStep / PERCENTAGE - 1] as SelectedProps],
-  // );
-
   const handlePrevStep = () => {
+    setCurStep((prev) => (prev === 1 ? 1 : prev - 1));
     setCurrentStep(
       currentStep > PERCENTAGE ? currentStep - PERCENTAGE : currentStep,
     );
   };
 
   const handleNextStep = () => {
+    setCurStep((prev) => (prev === TOTAL_STEPS ? TOTAL_STEPS : prev + 1));
     setCurrentStep(currentStep < 100 ? currentStep + PERCENTAGE : currentStep);
   };
 
@@ -64,11 +64,11 @@ const Select = () => {
         trailColor="var(--progress-trail)"
         style={{ width: '333px', marginTop: '46px' }}
       />
-      {currentStep === 20 && <SelectItem step={1} />}
-      {currentStep === 40 && <SelectItem step={2} />}
-      {currentStep === 60 && <SelectItem step={3} />}
-      {currentStep === 80 && <SelectItem step={4} />}
-      {currentStep === 100 && (
+      {step === '1' && <SelectItem step={1} />}
+      {step === '2' && <SelectItem step={2} />}
+      {step === '3' && <SelectItem step={3} />}
+      {step === '4' && <SelectItem step={4} />}
+      {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
           <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
@@ -96,17 +96,22 @@ const Select = () => {
       )}
       <BtnContainer>
         <Button
-          label="Prev Step"
-          prev
+          to={`/select/${curStep === 1 ? 1 : curStep - 1}`}
           onClick={handlePrevStep}
-          disabled={!isActivePrevBtn}
+          prev={true.toString()}
+          disabled={step === '1'}
         >
           이전
         </Button>
         <Button
-          label="Next Step"
+          to={`/select/${curStep === TOTAL_STEPS ? TOTAL_STEPS : curStep + 1}`}
           onClick={handleNextStep}
-          disabled={!isActiveNextBtn}
+          disabled={
+            step === String(TOTAL_STEPS) ||
+            !Boolean(
+              selectedState[SELECTED_STEPS[curStep - 1] as keyof SelectedProps],
+            )
+          }
         >
           다음
         </Button>
@@ -148,7 +153,7 @@ const BtnContainer = styled.div`
   margin: 59px 0 125px 0;
 `;
 
-const Button = styled.button<ButtonProps>`
+const Button = styled(Link)<ButtonProps>`
   width: 79px;
   height: 52px;
   background-color: ${(props) =>
