@@ -10,6 +10,7 @@ import WebcamCapture from '../components/WebcamCapture';
 import ImageFileUpload from '../components/ImageUpload';
 import { SelectedProps } from '../api/types';
 import { useNavigate } from 'react-router-dom';
+import SelectItem from '../components/SelectItem';
 
 interface ButtonProps {
   label?: string;
@@ -63,10 +64,10 @@ const Select = () => {
         trailColor="var(--progress-trail)"
         style={{ width: '333px', marginTop: '46px' }}
       />
-      {currentStep === 20 && <FirstStep />}
-      {currentStep === 40 && <SecondStep />}
-      {currentStep === 60 && <ThirdStep />}
-      {currentStep === 80 && <FourthStep />}
+      {currentStep === 20 && <SelectItem step={1} />}
+      {currentStep === 40 && <SelectItem step={2} />}
+      {currentStep === 60 && <SelectItem step={3} />}
+      {currentStep === 80 && <SelectItem step={4} />}
       {currentStep === 100 && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>

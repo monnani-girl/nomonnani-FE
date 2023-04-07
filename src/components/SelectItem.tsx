@@ -9,7 +9,7 @@ interface SelectItemProps {
   step: number;
 }
 
-const SelectItem = ({ step = 1 }: SelectItemProps) => {
+const SelectItem = ({ step }: SelectItemProps) => {
   const stepName = SELECT_OPTIONS[step - 1].name as keyof SelectedProps;
 
   const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
@@ -20,7 +20,7 @@ const SelectItem = ({ step = 1 }: SelectItemProps) => {
     } = e;
 
     setSelectedState((prev) => {
-      const newObj = { ...prev, stepName: value };
+      const newObj = { ...prev, [stepName]: value };
       return newObj;
     });
   };
