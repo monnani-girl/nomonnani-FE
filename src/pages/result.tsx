@@ -97,7 +97,7 @@ function Result() {
             <SaleText>못난이 {QUOTE[resultType].type}의 판매처에요</SaleText>
             <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-            {result?.sales
+            {result?.products
               .filter(
                 (sale) =>
                   sale.type ===
