@@ -9,6 +9,7 @@ import SelectItem from '../components/SelectItem';
 import { useRecoilValue } from 'recoil';
 import { selectedAtom } from '../atoms';
 
+//TODO: static으로 빼기
 const TOTAL_STEPS = 5;
 const PERCENTAGE = 100 / TOTAL_STEPS;
 const SELECTED_STEPS = ['season', 'weather', 'feel', 'travel', 'photo'];
@@ -16,28 +17,13 @@ const SELECTED_STEPS = ['season', 'weather', 'feel', 'travel', 'photo'];
 const Select = () => {
   const navigate = useNavigate();
   const { step } = useParams();
-  const [curStep, setCurStep] = useState(Number(step));
   const selectedState = useRecoilValue(selectedAtom);
-
-  const [curPercent, setCurPercent] = useState(PERCENTAGE);
-
-  const handlePrevStep = () => {
-    setCurStep((prev) => (prev === 1 ? 1 : prev - 1));
-    setCurPercent(
-      curPercent > PERCENTAGE ? curPercent - PERCENTAGE : curPercent,
-    );
-  };
-
-  const handleNextStep = () => {
-    setCurStep((prev) => (prev === TOTAL_STEPS ? TOTAL_STEPS : prev + 1));
-    setCurPercent(curPercent < 100 ? curPercent + PERCENTAGE : curPercent);
-  };
 
   return (
     <Container>
       <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
       <Line
-        percent={curPercent}
+        percent={Number(step) * PERCENTAGE}
         strokeWidth={3}
         trailWidth={3}
         strokeColor="var(--primary)"
@@ -57,20 +43,22 @@ const Select = () => {
       )}
       <BtnContainer>
         <Button
-          to={`/select/${curStep === 1 ? 1 : curStep - 1}`}
-          onClick={handlePrevStep}
+          to={`/select/${step === '1' ? 1 : Number(step) - 1}`}
           prev={true.toString()}
           disabled={step === '1'}
         >
           이전
         </Button>
         <Button
-          to={`/select/${curStep === TOTAL_STEPS ? TOTAL_STEPS : curStep + 1}`}
-          onClick={handleNextStep}
+          to={`/select/${
+            step === String(TOTAL_STEPS) ? TOTAL_STEPS : Number(step) + 1
+          }`}
           disabled={
             step === String(TOTAL_STEPS) ||
             !Boolean(
-              selectedState[SELECTED_STEPS[curStep - 1] as keyof SelectedProps],
+              selectedState[
+                SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps
+              ],
             )
           }
         >
