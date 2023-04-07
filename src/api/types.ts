@@ -1,4 +1,4 @@
-export type Sales = {
+export type Products = {
   id: number;
   product: string;
   type: string;
@@ -11,7 +11,7 @@ export type Sales = {
 
 export interface ResultProps {
   type: string;
-  sales: Sales[];
+  products: Products[];
 }
 
 export interface SelectedProps {
