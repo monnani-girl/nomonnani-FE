@@ -1,28 +1,14 @@
-import React from 'react';
-import { RecoilRoot, atom, useRecoilState } from 'recoil';
+import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+import { SelectedProps } from '../api/types';
 
-export const firstState = atom<string>({
-  key: 'firstSelected',
-  default: '',
+const { persistAtom } = recoilPersist({
+  key: 'selected-persist',
+  storage: sessionStorage,
 });
 
-export const secondState = atom<string>({
-  key: 'secondSelected',
-  default: '',
-});
-
-export const thirdState = atom<string>({
-  key: 'thirdSelected',
-  default: '',
-});
-
-export const fourthState = atom<string>({
-  key: 'fourthSeleted',
-  default: '',
-});
-
-export const selectedAtom = atom<Record<string, string>>({
-  key: 'selectedAtom',
+export const selectedAtom = atom<SelectedProps>({
+  key: 'selected',
   default: {
     season: '',
     weather: '',
@@ -30,4 +16,5 @@ export const selectedAtom = atom<Record<string, string>>({
     travel: '',
     photo: '',
   },
+  effects_UNSTABLE: [persistAtom],
 });

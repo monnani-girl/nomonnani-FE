@@ -1,112 +1,67 @@
 import styled from 'styled-components';
-import { ChangeEvent, FormEvent, useState } from 'react';
 import { Line } from 'rc-progress';
 import headerLogo from '../assets/header.png';
-import FirstStep from '../components/selectItem/FirstStep';
-import SecondStep from '../components/selectItem/SecondStep';
-import ThirdStep from '../components/selectItem/ThirdStep';
-import FourthStep from '../components/selectItem/FourthStep';
-import { useRecoilState } from 'recoil';
-import { selectedAtom } from '../atoms';
-import WebcamCapture from '../components/WebcamCapture';
-import { useQuery } from 'react-query';
-import { getResult, ResultProps } from '../api';
 import ImageFileUpload from '../components/ImageUpload';
+import { SelectedProps } from '../api/types';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import SelectItem from '../components/SelectItem';
+import { useRecoilValue } from 'recoil';
+import { selectedAtom } from '../atoms';
 
-interface ButtonProps {
-  label?: string;
-  prev?: boolean;
-  onClick?: () => void;
-}
-
-const STEP = 5;
-const PERCENTAGE = 100 / STEP;
-
-const steps = ['season', 'weather', 'feel', 'travel', 'photo'];
+//TODO: static으로 빼기
+const TOTAL_STEPS = 5;
+const PERCENTAGE = 100 / TOTAL_STEPS;
+const SELECTED_STEPS = ['season', 'weather', 'feel', 'travel', 'photo'];
 
 const Select = () => {
-  const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
-  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
-  const [uploadType, setUploadType] = useState('');
+  const navigate = useNavigate();
+  const { step } = useParams();
+  const selectedState = useRecoilValue(selectedAtom);
 
-  const isActivePrevBtn = currentStep !== PERCENTAGE;
-  const isActiveNextBtn =
-    currentStep !== 100 &&
-    Boolean(selectedState[steps[currentStep / PERCENTAGE - 1]]);
-
-  const handlePrevStep = () => {
-    setCurrentStep(
-      currentStep > PERCENTAGE ? currentStep - PERCENTAGE : currentStep
+  const disabledPrevBtn = step === '1';
+  const disabledNextBtn =
+    step === String(TOTAL_STEPS) ||
+    !Boolean(
+      selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
-  };
-
-  const handleNextStep = () => {
-    setCurrentStep(currentStep < 100 ? currentStep + PERCENTAGE : currentStep);
-  };
-
-  const handleUploadBtn = (e: FormEvent<HTMLButtonElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setUploadType(value);
-  };
 
   return (
     <Container>
-      <HeaderLogo src={headerLogo} />
+      <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
       <Line
-        percent={currentStep}
+        percent={Number(step) * PERCENTAGE}
         strokeWidth={3}
         trailWidth={3}
-        strokeColor="#379100"
-        trailColor="#e3f2ff"
+        strokeColor="var(--primary)"
+        trailColor="var(--progress-trail)"
         style={{ width: '333px', marginTop: '46px' }}
       />
-      {currentStep === 20 && <FirstStep />}
-      {currentStep === 40 && <SecondStep />}
-      {currentStep === 60 && <ThirdStep />}
-      {currentStep === 80 && <FourthStep />}
-      {currentStep === 100 && (
+      {step === '1' && <SelectItem step={1} />}
+      {step === '2' && <SelectItem step={2} />}
+      {step === '3' && <SelectItem step={3} />}
+      {step === '4' && <SelectItem step={4} />}
+      {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
           <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
-          {uploadType === 'upload' && <ImageFileUpload />}
-          {uploadType === 'capture' && <WebcamCapture />}
-
-          {!uploadType && (
-            <UploadBtnContainer>
-              <UploadButton value="upload" onClick={handleUploadBtn}>
-                사진 업로드
-              </UploadButton>
-              <UploadButton
-                value="capture"
-                onClick={() =>
-                  alert(
-                    'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)'
-                  )
-                }
-              >
-                사진 촬영
-              </UploadButton>
-            </UploadBtnContainer>
-          )}
-
-          {/* <FindButton>캐릭터 찾기</FindButton> */}
+          <ImageFileUpload />
         </>
       )}
       <BtnContainer>
         <Button
-          label="Prev Step"
-          prev
-          onClick={handlePrevStep}
-          disabled={!isActivePrevBtn}
+          to={
+            disabledPrevBtn ? `/select/${step}` : `/select/${Number(step) - 1}`
+          }
+          prev={true.toString()}
+          disabled={disabledPrevBtn}
         >
           이전
         </Button>
         <Button
-          label="Next Step"
-          onClick={handleNextStep}
-          disabled={!isActiveNextBtn}
+          to={
+            disabledNextBtn ? `/select/${step}` : `/select/${Number(step) + 1}`
+          }
+          disabled={disabledNextBtn}
         >
           다음
         </Button>
@@ -119,15 +74,16 @@ export default Select;
 
 const HeaderLogo = styled.img`
   width: 17px;
+  cursor: pointer;
 `;
 
 const ButtonType = {
   bgcolor: {
-    prev: '#F5F2F0',
+    prev: 'var(--background)',
     next: 'rgba(245,242,240,0.5)',
   },
   color: {
-    prev: '#525463',
+    prev: 'var(--sub-black)',
     next: 'rgba(82,84,99,0.5)',
   },
 };
@@ -147,7 +103,7 @@ const BtnContainer = styled.div`
   margin: 59px 0 125px 0;
 `;
 
-const Button = styled.button<ButtonProps>`
+const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
   width: 79px;
   height: 52px;
   background-color: ${(props) =>
@@ -161,20 +117,19 @@ const Button = styled.button<ButtonProps>`
       ? ButtonType.color.prev
       : props.disabled
       ? ButtonType.color.next
-      : '#379100'};
+      : 'var(--primary)'};
   border: ${(props) =>
     props.prev
       ? 'none'
       : props.disabled
       ? ButtonType.bgcolor.next
-      : '1px solid #379100'};
+      : '1px solid var(--primary)'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 16px;
   line-height: 52px;
   text-align: center;
   border-radius: 48px;
-  font-family: 'Gmarket Sans';
   font-style: normal;
   font-weight: 400;
 `;
@@ -187,7 +142,7 @@ const StepTitle = styled.div`
 const StepSubText = styled.div`
   font-size: 16px;
   margin-top: 10px;
-  color: #818181;
+  color: var(--darkgrey);
 `;
 
 const UploadButton = styled.button`
@@ -195,12 +150,12 @@ const UploadButton = styled.button`
   height: 136px;
   border: 1px solid #e1e1e1;
   border-radius: 90px;
-  background: #ffffff;
-  color: #001358;
+  background: var(--white);
+  color: var(--secondary);
   cursor: pointer;
   font-size: 18px;
   &:hover {
-    border: 2px solid #379100;
+    border: 2px solid var(--primary);
   }
 `;
 
@@ -214,10 +169,10 @@ const UploadBtnContainer = styled.div`
 const FindButton = styled.button`
   width: 284px;
   height: 72px;
-  background-color: #f5f2f0;
+  background-color: var(--background);
   opacity: 0.5;
   border-radius: 100px;
-  color: #525463;
+  color: var(--secondary);
   font-size: 24px;
   border: none;
   cursor: not-allowed;

@@ -8,7 +8,7 @@ import pumpkin from '../assets/pumpkin.png';
 import tangerine from '../assets/tangerine.png';
 
 const Loading = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images: string[] = [
     carrot,
     cabbage,
@@ -55,7 +55,7 @@ const CharacterImg = styled.img`
 `;
 
 const Text = styled.div`
-  color: #000000;
+  color: var(--black);
   width: 171px;
   height: 33px;
 

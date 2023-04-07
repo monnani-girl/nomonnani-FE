@@ -2,8 +2,17 @@ import styled from 'styled-components';
 import mainImage from '../assets/main.png';
 import LogoImage from '../assets/logo.png';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useResetRecoilState } from 'recoil';
+import { selectedAtom } from '../atoms';
 
 function Home() {
+  const resetSelected = useResetRecoilState(selectedAtom);
+
+  useEffect(() => {
+    resetSelected();
+  }, []);
+
   return (
     <Body>
       <Image src={mainImage} alt="main-character" />
@@ -14,7 +23,7 @@ function Home() {
           나와 닮은 귀여운 제주 못나니 <br />
           농산물 캐릭터를 찾아보세요!
         </Description>
-        <Button to="/select">닮은꼴 찾으러 가기</Button>
+        <Button to="/select/1">닮은꼴 찾으러 가기</Button>
       </IntroContainer>
     </Body>
   );
@@ -55,7 +64,6 @@ const Description = styled.div`
 `;
 
 const Button = styled(Link)`
-  font-family: 'Gmarket Sans';
   width: 250px;
   height: 72px;
   display: flex;
@@ -63,8 +71,8 @@ const Button = styled(Link)`
   align-items: center;
   font-size: 22px;
   border: none;
-  background: #379100;
-  color: #ffffff;
+  background: var(--primary);
+  color: var(--white);
   border-radius: 100px;
   cursor: pointer;
 `;

@@ -65,9 +65,8 @@ const SubTitle = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-  color: #525463;
+  color: var(--sub-black);
 
-  font-family: 'Gmarket Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -77,7 +76,6 @@ const SubTitle = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: Gmarket Sans;
   font-size: 24px;
   font-weight: 400;
   line-height: 24px;
@@ -85,7 +83,7 @@ const Title = styled.div`
   text-align: center;
   margin: 10px 0 59px 0;
 
-  color: #000000;
+  color: var(--black);
 `;
 
 const SelectContainer = styled.div`
@@ -99,8 +97,8 @@ const SelectItem = styled.button<{ selected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) => (props.selected ? '#379100' : '#fff')};
-  color: ${(props) => (props.selected ? '#fff' : '#001358')};
+  background: ${(props) => (props.selected ? 'var(--primary)' : 'var(--white)')};
+  color: ${(props) => (props.selected ? 'var(--white)' : 'var(--secondary)')};
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
   border-radius: 40px;
   outline: none;
@@ -114,6 +112,6 @@ const SelectItem = styled.button<{ selected: boolean }>`
   line-height: 24px;
 
   &:hover {
-    border: 2px solid #379100;
+    border: 2px solid var(--primary);
   }
 `;

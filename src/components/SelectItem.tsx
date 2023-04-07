@@ -1,9 +1,17 @@
 import styled from 'styled-components';
 import { FormEvent } from 'react';
 import { useRecoilState } from 'recoil';
-import { selectedAtom } from '../../atoms';
+import { selectedAtom } from '../atoms';
+import { SELECT_OPTIONS } from '../static/select';
+import { SelectedProps } from '../api/types';
 
-const FourthStep = () => {
+interface SelectItemProps {
+  step: number;
+}
+
+const SelectItem = ({ step }: SelectItemProps) => {
+  const stepName = SELECT_OPTIONS[step - 1].name as keyof SelectedProps;
+
   const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
 
   const handleSelectItem = (e: FormEvent<HTMLButtonElement>) => {
@@ -12,54 +20,62 @@ const FourthStep = () => {
     } = e;
 
     setSelectedState((prev) => {
-      const newObj = { ...prev, travel: value };
+      const newObj = { ...prev, [stepName]: value };
       return newObj;
     });
   };
 
   return (
     <>
-      <SubTitle>제주 여행을 가게 된 당신!</SubTitle>
-      <Title>제주 여행의 테마를 골라주세요!</Title>
+      <SubTitle>{SELECT_OPTIONS[step - 1].subTitle}</SubTitle>
+      <Title>{SELECT_OPTIONS[step - 1].title}</Title>
       <SelectContainer>
-        <SelectItem
+        <Item
           id="1"
-          value="shopping"
+          value={SELECT_OPTIONS[step - 1].item1.value}
           onClick={handleSelectItem}
-          selected={selectedState['travel'] === 'shopping'}
+          selected={
+            selectedState[stepName] === SELECT_OPTIONS[step - 1].item1.value
+          }
         >
-          소비가 최고! 쇼핑을 즐기자
-        </SelectItem>
-        <SelectItem
+          {SELECT_OPTIONS[step - 1].item1.text}
+        </Item>
+        <Item
           id="2"
-          value="running"
+          value={SELECT_OPTIONS[step - 1].item2.value}
           onClick={handleSelectItem}
-          selected={selectedState['travel'] === 'running'}
+          selected={
+            selectedState[stepName] === SELECT_OPTIONS[step - 1].item2.value
+          }
         >
-          바다앞에서 러닝하는 건강루틴 실천
-        </SelectItem>
-        <SelectItem
+          {SELECT_OPTIONS[step - 1].item2.text}
+        </Item>
+        <Item
           id="3"
-          value="coffee"
+          value={SELECT_OPTIONS[step - 1].item3.value}
           onClick={handleSelectItem}
-          selected={selectedState['travel'] === 'coffee'}
+          selected={
+            selectedState[stepName] === SELECT_OPTIONS[step - 1].item3.value
+          }
         >
-          분위기 좋은 카페에서 커피 한 잔!
-        </SelectItem>
-        <SelectItem
+          {SELECT_OPTIONS[step - 1].item3.text}
+        </Item>
+        <Item
           id="4"
-          value="eating"
+          value={SELECT_OPTIONS[step - 1].item4.value}
           onClick={handleSelectItem}
-          selected={selectedState['travel'] === 'eating'}
+          selected={
+            selectedState[stepName] === SELECT_OPTIONS[step - 1].item4.value
+          }
         >
-          맛집이 최고지~ 맛집 코스 여행
-        </SelectItem>
+          {SELECT_OPTIONS[step - 1].item4.text}
+        </Item>
       </SelectContainer>
     </>
   );
 };
 
-export default FourthStep;
+export default SelectItem;
 
 const SubTitle = styled.div`
   display: flex;
@@ -91,13 +107,14 @@ const SelectContainer = styled.div`
   flex-direction: column;
 `;
 
-const SelectItem = styled.button<{ selected: boolean }>`
+const Item = styled.button<{ selected: boolean }>`
   width: 332px;
   height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) => (props.selected ? 'var(--primary)' : 'var(--white)')};
+  background: ${(props) =>
+    props.selected ? 'var(--primary)' : 'var(--white)'};
   color: ${(props) => (props.selected ? 'var(--white)' : 'var(--secondary)')};
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
   border-radius: 40px;

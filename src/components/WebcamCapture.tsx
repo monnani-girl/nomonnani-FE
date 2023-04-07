@@ -1,10 +1,8 @@
-import { useCallback, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
 
 const videoConstraints = {
@@ -59,8 +57,8 @@ const FindButton = styled.button`
   width: 284px;
   height: 72px;
   font-size: 24px;
-  color: #fff;
-  background-color: #379100;
+  color: var(--white);
+  background-color: var(--primary);
   border-radius: 100px;
   border: none;
   cursor: pointer;
