@@ -1,12 +1,7 @@
 import styled from 'styled-components';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Line } from 'rc-progress';
 import headerLogo from '../assets/header.png';
-import FirstStep from '../components/selectItem/FirstStep';
-import SecondStep from '../components/selectItem/SecondStep';
-import ThirdStep from '../components/selectItem/ThirdStep';
-import FourthStep from '../components/selectItem/FourthStep';
-import WebcamCapture from '../components/WebcamCapture';
 import ImageFileUpload from '../components/ImageUpload';
 import { SelectedProps } from '../api/types';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -14,15 +9,8 @@ import SelectItem from '../components/SelectItem';
 import { useRecoilValue } from 'recoil';
 import { selectedAtom } from '../atoms';
 
-interface ButtonProps {
-  prev?: string;
-  disabled?: boolean;
-}
-
 const TOTAL_STEPS = 5;
-const STEP = 5;
-const PERCENTAGE = 100 / STEP;
-
+const PERCENTAGE = 100 / TOTAL_STEPS;
 const SELECTED_STEPS = ['season', 'weather', 'feel', 'travel', 'photo'];
 
 const Select = () => {
@@ -31,33 +19,25 @@ const Select = () => {
   const [curStep, setCurStep] = useState(Number(step));
   const selectedState = useRecoilValue(selectedAtom);
 
-  const [currentStep, setCurrentStep] = useState<number>(PERCENTAGE);
-  const [uploadType, setUploadType] = useState('');
+  const [curPercent, setCurPercent] = useState(PERCENTAGE);
 
   const handlePrevStep = () => {
     setCurStep((prev) => (prev === 1 ? 1 : prev - 1));
-    setCurrentStep(
-      currentStep > PERCENTAGE ? currentStep - PERCENTAGE : currentStep,
+    setCurPercent(
+      curPercent > PERCENTAGE ? curPercent - PERCENTAGE : curPercent,
     );
   };
 
   const handleNextStep = () => {
     setCurStep((prev) => (prev === TOTAL_STEPS ? TOTAL_STEPS : prev + 1));
-    setCurrentStep(currentStep < 100 ? currentStep + PERCENTAGE : currentStep);
-  };
-
-  const handleUploadBtn = (e: FormEvent<HTMLButtonElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setUploadType(value);
+    setCurPercent(curPercent < 100 ? curPercent + PERCENTAGE : curPercent);
   };
 
   return (
     <Container>
       <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
       <Line
-        percent={currentStep}
+        percent={curPercent}
         strokeWidth={3}
         trailWidth={3}
         strokeColor="var(--primary)"
@@ -72,26 +52,7 @@ const Select = () => {
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
           <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
-          {uploadType === 'upload' && <ImageFileUpload />}
-          {uploadType === 'capture' && <WebcamCapture />}
-
-          {!uploadType && (
-            <UploadBtnContainer>
-              <UploadButton value="upload" onClick={handleUploadBtn}>
-                사진 업로드
-              </UploadButton>
-              <UploadButton
-                value="capture"
-                onClick={() =>
-                  alert(
-                    'HTTPS 보안 문제로 현재 기기에서 사용할 수 없는 기능입니다. \n업데이트 예정입니다 :)',
-                  )
-                }
-              >
-                사진 촬영
-              </UploadButton>
-            </UploadBtnContainer>
-          )}
+          <ImageFileUpload />
         </>
       )}
       <BtnContainer>
@@ -153,7 +114,7 @@ const BtnContainer = styled.div`
   margin: 59px 0 125px 0;
 `;
 
-const Button = styled(Link)<ButtonProps>`
+const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
   width: 79px;
   height: 52px;
   background-color: ${(props) =>
