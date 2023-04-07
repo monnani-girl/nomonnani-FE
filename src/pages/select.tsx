@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { Line } from 'rc-progress';
 import headerLogo from '../assets/header.png';
 import ImageFileUpload from '../components/ImageUpload';
@@ -18,6 +17,13 @@ const Select = () => {
   const navigate = useNavigate();
   const { step } = useParams();
   const selectedState = useRecoilValue(selectedAtom);
+
+  const disabledPrevBtn = step === '1';
+  const disabledNextBtn =
+    step === String(TOTAL_STEPS) ||
+    !Boolean(
+      selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
+    );
 
   return (
     <Container>
@@ -43,24 +49,19 @@ const Select = () => {
       )}
       <BtnContainer>
         <Button
-          to={`/select/${step === '1' ? 1 : Number(step) - 1}`}
+          to={
+            disabledPrevBtn ? `/select/${step}` : `/select/${Number(step) - 1}`
+          }
           prev={true.toString()}
-          disabled={step === '1'}
+          disabled={disabledPrevBtn}
         >
           이전
         </Button>
         <Button
-          to={`/select/${
-            step === String(TOTAL_STEPS) ? TOTAL_STEPS : Number(step) + 1
-          }`}
-          disabled={
-            step === String(TOTAL_STEPS) ||
-            !Boolean(
-              selectedState[
-                SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps
-              ],
-            )
+          to={
+            disabledNextBtn ? `/select/${step}` : `/select/${Number(step) + 1}`
           }
+          disabled={disabledNextBtn}
         >
           다음
         </Button>
