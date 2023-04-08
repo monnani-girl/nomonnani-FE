@@ -1,17 +1,18 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import { useMutation } from 'react-query';
 import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
-import { QUOTE } from '../static/quote';
+import Loading from '../components/Loading';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
-import Loading from '../components/Loading';
-import { ResultProps } from '../api/types';
-import { useMutation } from 'react-query';
+import { QUOTE } from '../static/quote';
 import { PRODUCT_IMAGES } from '../static/image';
 
+import type { ResultProps } from '../api/types';
+
+import styled from 'styled-components';
 import introductionImg from '../assets/introduction.svg';
 
 function Result() {
@@ -66,7 +67,6 @@ function Result() {
                   src={PRODUCT_IMAGES[resultType]}
                   alt="result-image"
                 />
-
                 <ResultName>{QUOTE[resultType].name}</ResultName>
                 <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
               </div>
