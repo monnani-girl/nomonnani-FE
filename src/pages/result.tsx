@@ -10,18 +10,12 @@ import { handleImageDownload } from '../utils/ImageDownload';
 import Loading from '../components/Loading';
 import { ResultProps } from '../api/types';
 import { useMutation } from 'react-query';
+import { PRODUCT_IMAGES } from '../static/image';
 
-import pumpkinImg from '../assets/pumpkin.png';
-import broccoliImg from '../assets/broccoli.png';
-import potatoImg from '../assets/potato.png';
-import tangerineImg from '../assets/tangerine.png';
-import carrotImg from '../assets/carrot.png';
-import cabbageImg from '../assets/cabbage.png';
 import introductionImg from '../assets/introduction.svg';
 
 function Result() {
   const navigate = useNavigate();
-
   const selected = useRecoilValue(selectedAtom);
   const [result, setResult] = useState<ResultProps>();
   const [resultType, setResultType] = useState('');
@@ -58,15 +52,6 @@ function Result() {
     setSaleType(value);
   };
 
-  const getProductImage = () => {
-    if (resultType === 'pumpkin') return pumpkinImg;
-    else if (resultType === 'broccoli') return broccoliImg;
-    else if (resultType === 'potato') return potatoImg;
-    else if (resultType === 'tangerine') return tangerineImg;
-    else if (resultType === 'cabbage') return cabbageImg;
-    else if (resultType === 'carrot') return carrotImg;
-  };
-
   return (
     <>
       {resultLoading ? (
@@ -77,7 +62,10 @@ function Result() {
             <>
               <div>
                 <Title>나의 못난이</Title>
-                <ResultImage src={getProductImage()} alt="result-image" />
+                <ResultImage
+                  src={PRODUCT_IMAGES[resultType]}
+                  alt="result-image"
+                />
 
                 <ResultName>{QUOTE[resultType].name}</ResultName>
                 <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
@@ -133,7 +121,7 @@ function Result() {
                   bgColor="#379100"
                   onClick={() =>
                     handleImageDownload({
-                      src: `${getProductImage()}`,
+                      src: `${PRODUCT_IMAGES[resultType]}`,
                       fileName: 'ddokdarman.png',
                     })
                   }
