@@ -2,7 +2,6 @@
  * 카카오톡 공유 핸들러
  */
 
-//TODO: link prd url로 변경
 interface IKakaoShareProps {
   title: string;
   description: string;
