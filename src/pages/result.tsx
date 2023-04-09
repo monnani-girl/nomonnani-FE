@@ -8,7 +8,7 @@ import Loading from '../components/Loading';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
 import { QUOTE } from '../static/quote';
-import { PRODUCT_IMAGES } from '../static/image';
+import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
 
 import type { ResultProps } from '../api/types';
 
@@ -132,10 +132,10 @@ function Result() {
                   bgColor="#379100"
                   onClick={() =>
                     handleKaKaoShareBtn({
-                      title: '못나니 근육 당근',
+                      title: QUOTE[resultType].name,
                       description:
-                        '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!!!!!',
-                      imageUrl: 'https://ifh.cc/g/NzSxkR.png',
+                        '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
+                      imageUrl: IMAGE_URLS[resultType],
                     })
                   }
                 >

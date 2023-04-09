@@ -13,3 +13,12 @@ export const PRODUCT_IMAGES: Record<string, string> = {
   carrot: carrotImg,
   cabbage: cabbageImg,
 };
+
+export const IMAGE_URLS: Record<string, string> = {
+  pumpkin: 'https://ifh.cc/g/0wL36s.png',
+  broccoli: 'https://ifh.cc/g/GhCGCs.png',
+  potato: 'https://ifh.cc/g/mQmkYT.png',
+  tangerine: 'https://ifh.cc/g/yNdPm0.png',
+  carrot: 'https://ifh.cc/g/7X0lZ4.png',
+  cabbage: 'https://ifh.cc/g/Tz8szx.png',
+};
