@@ -114,4 +114,7 @@ const FindButton = styled.button<{ disabled: boolean }>`
 const Image = styled.img`
   width: 198px;
   height: 198px;
+  border-radius: 20px;
+  margin-top: 96px;
+  box-shadow: 3px 3px 5px #e1e1e1;
 `;
