@@ -34,7 +34,7 @@ function Result() {
       } else {
         //TODO: 에러 모달 띄우기
         alert(data.message);
-        navigate('/');
+        navigate('/select/5');
       }
     },
     onError: (error) => {
