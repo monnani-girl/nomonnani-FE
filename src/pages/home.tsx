@@ -74,7 +74,6 @@ const Button = styled(Link)`
   justify-content: center;
   align-items: center;
   font-size: 22px;
-  font-weight: 400;
   margin-top: 30px;
   border: none;
   background: var(--primary);

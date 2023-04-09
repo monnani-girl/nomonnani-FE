@@ -134,11 +134,9 @@ const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boole
       : 'visible'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  font-family: 'Gmarket Sans';
   font-size: 14px;
   text-align: center;
   border-radius: 48px;
-  font-weight: 400;
 `;
 
 const StepTitle = styled.div`
@@ -159,7 +157,6 @@ const UploadButton = styled.button`
   margin-top: 96px;
   border-radius: 20px;
   font-size: 16px;
-  font-weight: 400;
   line-height: 21px;
   font-family: 'Noto Sans KR';
   background: var(--white);

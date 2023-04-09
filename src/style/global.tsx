@@ -50,6 +50,7 @@ table {
 
 body{
     font-family: 'Gmarket Sans';
+	font-weight: 400;
     max-width: 400px;
     min-width: 400px;
     margin: 0 auto;

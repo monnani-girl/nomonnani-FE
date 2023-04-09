@@ -186,7 +186,6 @@ const ResultImage = styled.img`
 
 const ResultSubName = styled.div`
   font-size: 16px;
-  font-weight: 400;
   font-family: 'Gmarket Sans';
   color: var(--darkgrey);
 `;
@@ -203,7 +202,6 @@ const ResultDescription = styled.div`
   width: 340px;
   font-size: 16px;
   font-family: 'Noto Sans KR';
-  font-weight: 400;
   line-height: 24px;
   color: var(--black);
 `;
@@ -286,7 +284,6 @@ const SaleTextBox = styled.div`
 const SalePlace = styled.div`
   font-size: 14px;
   font-family: 'Pretendard';
-  font-weight: 400;
   color: #373737;
   margin-bottom: 2px;
 `;
@@ -322,7 +319,6 @@ const SaveShareButton = styled.button<{
 }>`
   font-family: 'Gmarket Sans';
   font-size: 18px;
-  font-weight: 400;
   padding: 24px 34px;
   border: ${(props) => props.border};
   border-radius: 65px;
@@ -335,7 +331,6 @@ const SaveShareButton = styled.button<{
 const Button = styled(Link)`
   font-family: 'Gmarket Sans';
   font-size: 18px;
-  font-weight: 400;
   padding: 24px 34px;
   border: 1px solid #e1e1e1;
   border-radius: 65px;

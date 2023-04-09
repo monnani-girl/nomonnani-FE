@@ -58,9 +58,6 @@ const Text = styled.div`
   color: var(--black);
   width: 171px;
   height: 33px;
-
-  font-family: 'Gmarket Sans';
-  font-weight: 400;
   font-size: 24px;
   text-align: center;
   margin-top: 24px;

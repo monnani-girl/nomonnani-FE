@@ -84,7 +84,6 @@ const SubTitle = styled.div`
   color: var(--sub-black);
 
   font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 
@@ -93,7 +92,6 @@ const SubTitle = styled.div`
 
 const Title = styled.div`
   font-size: 24px;
-  font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: center;
@@ -124,7 +122,6 @@ const Item = styled.button<{ selected: boolean }>`
   margin: 8px 0;
   font-family: 'Noto Sans KR';
   font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 
