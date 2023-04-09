@@ -43,7 +43,6 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
           <ImageFileUpload />
         </>
       )}
@@ -104,8 +103,9 @@ const BtnContainer = styled.div`
 `;
 
 const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
-  width: 79px;
+  width: 75px;
   height: 52px;
+  padding: 15px;
   background-color: ${(props) =>
     props.prev
       ? ButtonType.bgcolor.prev
@@ -143,22 +143,6 @@ const StepSubText = styled.div`
   margin-top: 10px;
   color: var(--darkgrey);
 `;
-
-// const UploadButton = styled.button`
-//   width: 136px;
-//   height: 136px;
-//   border: 1px solid #e1e1e1;
-//   border-radius: 90px;
-//   font-size: 18px;
-//   font-weight: 400;
-//   font-family: 'Gmarket Sans';
-//   background: var(--white);
-//   color: var(--secondary);
-//   cursor: pointer;
-//   &:hover {
-//     border: 2px solid var(--primary);
-//   }
-// `;
 
 const UploadButton = styled.button`
   width: 198px;
