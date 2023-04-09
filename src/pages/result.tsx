@@ -131,24 +131,23 @@ function Result() {
                 >
                   저장하기
                 </SaveShareButton>
+                <SaveShareButton
+                  bgColor="var(--primary)"
+                  color="var(--white)"
+                  border="none"
+                  style={{ padding: '24px 120px', marginTop: '28px' }}
+                  onClick={() =>
+                    handleKaKaoShareBtn({
+                      title: QUOTE[resultType].name,
+                      description:
+                        '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
+                      imageUrl: IMAGE_URLS[resultType],
+                    })
+                  }
+                >
+                  공유하기
+                </SaveShareButton>
               </SaveShareButtonContainer>
-
-              <SaveShareButton
-                bgColor="var(--primary)"
-                color="var(--white)"
-                border="none"
-                style={{ padding: '24px 120px', marginTop: '28px' }}
-                onClick={() =>
-                  handleKaKaoShareBtn({
-                    title: QUOTE[resultType].name,
-                    description:
-                      '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
-                    imageUrl: IMAGE_URLS[resultType],
-                  })
-                }
-              >
-                공유하기
-              </SaveShareButton>
             </FlexBox>
           )}
         </>
@@ -308,9 +307,12 @@ const SalePrice = styled.div`
 `;
 
 const SaveShareButtonContainer = styled(ButtonContainer)`
-  gap: 20px;
+  width: 340px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
   margin-top: 40px;
-  border-radius: 65px;
 `;
 
 const SaveShareButton = styled.button<{
