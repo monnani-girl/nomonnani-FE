@@ -71,7 +71,7 @@ function Result() {
               active={saleType === 'origin'}
               onClick={onClickSaleButton}
             >
-              못난이 파는 곳
+              못난이 만나보기
             </SaleButton>
             <SaleButton
               value="upcycling"
@@ -83,8 +83,8 @@ function Result() {
           </ButtonContainer>
 
           <SaleContainer>
-            <SaleText>못난이 {QUOTE[resultType].type}의 판매처에요</SaleText>
-            <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
+            <SaleText>못난이 '{QUOTE[resultType].type}'의 판매처에요</SaleText>
+            <SaleSubText>다양한 못난이 제품을 만나보세요!</SaleSubText>
 
             {result?.sales
               .filter(
@@ -108,7 +108,9 @@ function Result() {
 
           <SaveShareButtonContainer>
             <SaveShareButton 
-              bgColor="#379100" 
+              bgColor="#e1e1e1" 
+              color="#626471"
+              border="none"
               onClick={() =>
                 handleImageDownload({
                   src: `${getProductImage()}`,
@@ -119,7 +121,9 @@ function Result() {
               저장하기
             </SaveShareButton>
             <SaveShareButton
-              bgColor="#379100"
+              bgColor="var(--primary-opacity)"
+              color="var(--primary)"
+              border="2px solid var(--primary)"
               onClick={() =>
                 handleKaKaoShareBtn({
                   title: '못나니 근육 당근',
@@ -190,7 +194,7 @@ const ResultDescription = styled.div`
 `;
 
 const CommonDescription = styled.div`
-  margin: 36px 0 55px 0;
+  margin: 48px 0 68px 0;
 `;
 
 const CommonText = styled.div`
@@ -209,11 +213,14 @@ const ButtonContainer = styled.div`
 `;
 
 const SaleButton = styled.button<{ value: string; active: boolean }>`
-  font-size: 18px;
-  font-weight: 600;
+  width: 188px;
+  height: 52px;
+  font-size: 16px;
+  font-family: 'Gmarket Sans';
   padding: 14px 32px;
-  background: ${(props) => (props.active ? 'var(--primary)' : 'var(--grey)')};
-  color: ${(props) => (props.active ? 'var(--white)' : 'var(--black)')};
+  font-weight: ${(props) => (props.active ? '600' : '400')};
+  background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
+  color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.value === 'origin' && 'border-top-left-radius: 10px'};
@@ -222,17 +229,19 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
 
 const SaleContainer = styled.div`
   padding: 32px 20px;
-  background: var(--grey);
+  width: 375px;
+  background: var(--white);
 `;
 
 const SaleText = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
 `;
 
 const SaleSubText = styled.div`
-  font-size: 14px;
+  font-size: 16px;
+  font-family: 'Pretendard';
   margin-bottom: 20px;
 `;
 
@@ -240,9 +249,8 @@ const SaleBox = styled(Link)`
   display: flex;
   height: 150px;
   padding: 12px;
-  margin-bottom: 14px;
   background: var(--white);
-  border: 1px solid #f0f0f0;
+  border-bottom: 1px solid #dddddf;
   color: inherit;
   text-decoration: none;
   &:hover {
@@ -251,7 +259,10 @@ const SaleBox = styled(Link)`
 `;
 
 const SaleImage = styled.img`
-  margin-right: 18px;
+  width: 88px;
+  height: 95px;
+  border-radius: 4px;
+  margin-right: 13px;
 `;
 
 const SaleTextBox = styled.div`
@@ -262,16 +273,25 @@ const SaleTextBox = styled.div`
 
 const SalePlace = styled.div`
   font-size: 14px;
-  margin-bottom: 6px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  color: #373737;
+  margin-bottom: 2px;
 `;
 
 const SaleName = styled.div`
+  font-family: 'Pretendard';
+  color: var(--black);
   font-size: 16px;
   font-weight: 700;
+  margin-bottom: 22px;
 `;
 
 const SalePrice = styled.div`
+  color: var(--secondary);
+  font-family: 'Pretendard';
   font-size: 16px;
+  font-weight: 500;
 `;
 
 const SaveShareButtonContainer = styled(ButtonContainer)`
@@ -280,14 +300,14 @@ const SaveShareButtonContainer = styled(ButtonContainer)`
   border-radius: 65px;
 `;
 
-const SaveShareButton = styled.button<{ bgColor: string }>`
+const SaveShareButton = styled.button<{ bgColor: string, color: string, border: string }>`
   font-size: 18px;
   font-weight: 600;
   padding: 24px 36px;
-  border: none;
+  border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
-  color: var(--white);
+  color: ${(props) => props.color};
   opacity: 0.8;
   cursor: pointer;
 `;
