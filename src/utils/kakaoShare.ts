@@ -2,7 +2,6 @@
  * 카카오톡 공유 핸들러
  */
 
-//TODO: link prd url로 변경
 interface IKakaoShareProps {
   title: string;
   description: string;
@@ -33,8 +32,8 @@ export const handleKaKaoShareBtn = ({
       {
         title: '닮은꼴 캐릭터 찾기',
         link: {
-          mobileWebUrl: 'https://developers.kakao.com',
-          webUrl: 'https://developers.kakao.com',
+          mobileWebUrl: 'https://ddokdarman.site',
+          webUrl: 'https://ddokdarman.site',
         },
       },
     ],
