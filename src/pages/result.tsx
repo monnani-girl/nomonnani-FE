@@ -137,7 +137,7 @@ function Result() {
                 bgColor="var(--primary)"
                 color="var(--white)"
                 border="none"
-                style={{ width: '300px', marginTop: '28px' }}
+                style={{ padding: '24px 120px', marginTop: '28px' }}
                 onClick={() =>
                   handleKaKaoShareBtn({
                     title: QUOTE[resultType].name,
@@ -321,7 +321,7 @@ const SaveShareButton = styled.button<{
   font-family: 'Gmarket Sans';
   font-size: 18px;
   font-weight: 400;
-  padding: 24px 36px;
+  padding: 24px 34px;
   border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
@@ -334,7 +334,7 @@ const Button = styled(Link)`
   font-family: 'Gmarket Sans';
   font-size: 18px;
   font-weight: 400;
-  padding: 24px 36px;
+  padding: 24px 34px;
   border: 1px solid #e1e1e1;
   border-radius: 65px;
   background-color: var(--background);
