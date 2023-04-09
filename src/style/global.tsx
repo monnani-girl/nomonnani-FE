@@ -50,8 +50,8 @@ table {
 
 body{
     font-family: 'Gmarket Sans';
-    max-width: 486px;
-    min-width: 486px;
+    max-width: 400px;
+    min-width: 400px;
     margin: 0 auto;
     padding: 30px;
     line-height: 1.5;

@@ -99,18 +99,19 @@ function Result() {
                     <div>
                       <SalePlace>{sale.place}</SalePlace>
                       <SaleName>{sale.name}</SaleName>
+                      <SalePrice>{sale.price}원</SalePrice>
                     </div>
-                    <SalePrice>{sale.price}원</SalePrice>
                   </SaleTextBox>
                 </SaleBox>
               ))}
           </SaleContainer>
 
           <SaveShareButtonContainer>
+            <Button to="/">다시하기</Button>
             <SaveShareButton 
-              bgColor="#e1e1e1" 
-              color="#626471"
-              border="none"
+              bgColor="var(--primary-opacity)"
+              color="var(--primary)"
+              border="2px solid var(--primary)"
               onClick={() =>
                 handleImageDownload({
                   src: `${getProductImage()}`,
@@ -120,10 +121,12 @@ function Result() {
             >
               저장하기
             </SaveShareButton>
-            <SaveShareButton
-              bgColor="var(--primary-opacity)"
-              color="var(--primary)"
-              border="2px solid var(--primary)"
+          </SaveShareButtonContainer>
+          <SaveShareButton
+              bgColor="var(--primary)"
+              color="var(--white)"
+              border="none"
+              style={{"width":"300px", "marginTop":"28px"}}
               onClick={() =>
                 handleKaKaoShareBtn({
                   title: '못나니 근육 당근',
@@ -132,10 +135,9 @@ function Result() {
                   imageUrl: 'https://ifh.cc/g/NzSxkR.png',
                 })
               }
-            >
-              공유하기
-            </SaveShareButton>
-          </SaveShareButtonContainer>
+          >
+            공유하기
+          </SaveShareButton>
         </FlexBox>
       )}
     </>
@@ -203,10 +205,6 @@ const CommonText = styled.div`
   margin-bottom: 15px;
 `;
 
-const CommonSubText = styled.div`
-  font-size: 16px;
-`;
-
 const ButtonContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -247,7 +245,7 @@ const SaleSubText = styled.div`
 
 const SaleBox = styled(Link)`
   display: flex;
-  height: 150px;
+  height: 140px;
   padding: 12px;
   background: var(--white);
   border-bottom: 1px solid #dddddf;
@@ -301,13 +299,27 @@ const SaveShareButtonContainer = styled(ButtonContainer)`
 `;
 
 const SaveShareButton = styled.button<{ bgColor: string, color: string, border: string }>`
+  font-family: 'Gmarket Sans';
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   padding: 24px 36px;
   border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
+  opacity: 0.8;
+  cursor: pointer;
+`;
+
+const Button = styled(Link)`
+  font-family: 'Gmarket Sans';
+  font-size: 18px;
+  font-weight: 400;
+  padding: 24px 36px;
+  border: 1px solid #e1e1e1;
+  border-radius: 65px;
+  background-color: var(--background);
+  color: var(--darkgrey);
   opacity: 0.8;
   cursor: pointer;
 `;
