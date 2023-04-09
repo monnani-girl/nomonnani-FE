@@ -62,7 +62,10 @@ function Result() {
           {resultSuccess && (
             <FlexBox>
               <HeaderLogo src={headerLogo} />
-              <ResultImage src={getProductImage()} alt="result-image" />
+              <ResultImage
+                src={PRODUCT_IMAGES[resultType]}
+                alt="result-image"
+              />
 
               <ResultSubName>나는 못난이</ResultSubName>
               <ResultName>{QUOTE[resultType].name}</ResultName>
@@ -128,23 +131,24 @@ function Result() {
                 >
                   저장하기
                 </SaveShareButton>
-                <SaveShareButton
-                  bgColor="var(--primary)"
-                  color="var(--white)"
-                  border="none"
-                  style={{"width":"300px", "marginTop":"28px"}}
-                  onClick={() =>
-                    handleKaKaoShareBtn({
-                      title: QUOTE[resultType].name,
-                      description:
-                        '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
-                      imageUrl: IMAGE_URLS[resultType],
-                    })
-                  }
-                >
-                  공유하기
-                </SaveShareButton>
               </SaveShareButtonContainer>
+
+              <SaveShareButton
+                bgColor="var(--primary)"
+                color="var(--white)"
+                border="none"
+                style={{ width: '300px', marginTop: '28px' }}
+                onClick={() =>
+                  handleKaKaoShareBtn({
+                    title: QUOTE[resultType].name,
+                    description:
+                      '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
+                    imageUrl: IMAGE_URLS[resultType],
+                  })
+                }
+              >
+                공유하기
+              </SaveShareButton>
             </FlexBox>
           )}
         </>
@@ -307,7 +311,11 @@ const SaveShareButtonContainer = styled(ButtonContainer)`
   border-radius: 65px;
 `;
 
-const SaveShareButton = styled.button<{ bgColor: string, color: string, border: string }>`
+const SaveShareButton = styled.button<{
+  bgColor: string;
+  color: string;
+  border: string;
+}>`
   font-family: 'Gmarket Sans';
   font-size: 18px;
   font-weight: 400;
