@@ -24,6 +24,7 @@ const Select = () => {
     !Boolean(
       selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
+  const visibleNextBtn = step === '5';
 
   return (
     <Container>
@@ -61,6 +62,7 @@ const Select = () => {
             disabledNextBtn ? `/select/${step}` : `/select/${Number(step) + 1}`
           }
           disabled={disabledNextBtn}
+          visibled={visibleNextBtn}
         >
           다음
         </Button>
@@ -102,7 +104,7 @@ const BtnContainer = styled.div`
   margin: 60px 0 125px 0;
 `;
 
-const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
+const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boolean }>`
   width: 75px;
   height: 52px;
   padding: 15px;
@@ -124,6 +126,12 @@ const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
       : props.disabled
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
+  visibility: ${(props) =>
+    props.prev
+      ? 'visible'
+      : props.visibled
+      ? 'hidden'
+      : 'visible'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-family: 'Gmarket Sans';
