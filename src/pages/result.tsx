@@ -1,47 +1,49 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import { useMutation } from 'react-query';
 import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
-import { QUOTE } from '../static/quote';
+import Loading from '../components/Loading';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
-import Loading from '../components/Loading';
-import { ResultProps } from '../api/types';
+import { QUOTE } from '../static/quote';
+import { PRODUCT_IMAGES } from '../static/image';
 
-import pumpkinImg from '../assets/pumpkin.png';
-import broccoliImg from '../assets/broccoli.png';
-import potatoImg from '../assets/potato.png';
-import tangerineImg from '../assets/tangerine.png';
-import carrotImg from '../assets/carrot.png';
-import cabbageImg from '../assets/cabbage.png';
+import type { ResultProps } from '../api/types';
+
+import styled from 'styled-components';
 import introductionImg from '../assets/introduction.svg';
 
 function Result() {
   const navigate = useNavigate();
-
   const selected = useRecoilValue(selectedAtom);
   const [result, setResult] = useState<ResultProps>();
   const [resultType, setResultType] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState('');
   const [saleType, setSaleType] = useState('origin');
 
-  useEffect(() => {
-    getResult(selected).then((res) => {
-      if (res.result) {
-        setResult(res.result);
-        setResultType(res.result.type);
-        setIsLoading(false);
+  const {
+    mutate: resultMutation,
+    isLoading: resultLoading,
+    isSuccess: resultSuccess,
+  } = useMutation(getResult, {
+    onSuccess: (data) => {
+      if (data.result) {
+        setResult(data.result);
+        setResultType(data.result.type);
       } else {
-        setIsError(res.message);
-        //TODO: 에러 모달 컴포넌트로 교체
-        alert(res.message);
-        //TODO: select 라우팅 후 사진 선택 페이지로 이동
-        navigate('/');
+        //TODO: 에러 모달 띄우기
+        alert(data.message);
+        navigate('/select/5');
       }
-    });
+    },
+    onError: (error) => {
+      navigate('/');
+    },
+  });
+
+  useEffect(() => {
+    resultMutation(selected);
   }, []);
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
@@ -51,99 +53,98 @@ function Result() {
     setSaleType(value);
   };
 
-  const getProductImage = () => {
-    if (resultType === 'pumpkin') return pumpkinImg;
-    else if (resultType === 'broccoli') return broccoliImg;
-    else if (resultType === 'potato') return potatoImg;
-    else if (resultType === 'tangerine') return tangerineImg;
-    else if (resultType === 'cabbage') return cabbageImg;
-    else if (resultType === 'carrot') return carrotImg;
-  };
-
   return (
     <>
-      {isLoading ? (
+      {resultLoading ? (
         <Loading />
       ) : (
-        <div>
-          <div>
-            <Title>나의 못난이</Title>
-            <ResultImage src={getProductImage()} alt="result-image" />
+        <>
+          {resultSuccess && (
+            <>
+              <div>
+                <Title>나의 못난이</Title>
+                <ResultImage
+                  src={PRODUCT_IMAGES[resultType]}
+                  alt="result-image"
+                />
+                <ResultName>{QUOTE[resultType].name}</ResultName>
+                <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
+              </div>
+              <CommonDescription>
+                <img src={introductionImg} alt="introduction" />
+              </CommonDescription>
+              <ButtonContainer>
+                <SaleButton
+                  value="origin"
+                  active={saleType === 'origin'}
+                  onClick={onClickSaleButton}
+                >
+                  못난이 파는 곳
+                </SaleButton>
+                <SaleButton
+                  value="upcycling"
+                  active={saleType === 'upcycling'}
+                  onClick={onClickSaleButton}
+                >
+                  못난이의 재탄생
+                </SaleButton>
+              </ButtonContainer>
 
-            <ResultName>{QUOTE[resultType].name}</ResultName>
-            <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
-          </div>
-          <CommonDescription>
-            <img src={introductionImg} alt="introduction" />
-          </CommonDescription>
-          <ButtonContainer>
-            <SaleButton
-              value="origin"
-              active={saleType === 'origin'}
-              onClick={onClickSaleButton}
-            >
-              못난이 파는 곳
-            </SaleButton>
-            <SaleButton
-              value="upcycling"
-              active={saleType === 'upcycling'}
-              onClick={onClickSaleButton}
-            >
-              못난이의 재탄생
-            </SaleButton>
-          </ButtonContainer>
+              <SaleContainer>
+                <SaleText>
+                  못난이 {QUOTE[resultType].type}의 판매처에요
+                </SaleText>
+                <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
 
-          <SaleContainer>
-            <SaleText>못난이 {QUOTE[resultType].type}의 판매처에요</SaleText>
-            <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
+                {result?.products
+                  .filter(
+                    (product) =>
+                      product.type ===
+                      (saleType === 'origin' ? '원물판매자' : '업사이클링'),
+                  )
+                  .map((product) => (
+                    <SaleBox key={product.id} to={product.site} target="_blank">
+                      <SaleImage src={product.image} alt="sale-image" />
+                      <SaleTextBox>
+                        <div>
+                          <SalePlace>{product.place}</SalePlace>
+                          <SaleName>{product.name}</SaleName>
+                        </div>
+                        <SalePrice>{product.price}원</SalePrice>
+                      </SaleTextBox>
+                    </SaleBox>
+                  ))}
+              </SaleContainer>
 
-            {result?.products
-              .filter(
-                (sale) =>
-                  sale.type ===
-                  (saleType === 'origin' ? '원물판매자' : '업사이클링'),
-              )
-              .map((sale) => (
-                <SaleBox key={sale.id} to={sale.site} target="_blank">
-                  <SaleImage src={sale.image} alt="sale-image" />
-                  <SaleTextBox>
-                    <div>
-                      <SalePlace>{sale.place}</SalePlace>
-                      <SaleName>{sale.name}</SaleName>
-                    </div>
-                    <SalePrice>{sale.price}원</SalePrice>
-                  </SaleTextBox>
-                </SaleBox>
-              ))}
-          </SaleContainer>
-
-          <SaveShareButtonContainer>
-            <SaveShareButton
-              bgColor="#379100"
-              onClick={() =>
-                handleImageDownload({
-                  src: `${getProductImage()}`,
-                  fileName: 'ddokdarman.png',
-                })
-              }
-            >
-              저장하기
-            </SaveShareButton>
-            <SaveShareButton
-              bgColor="#379100"
-              onClick={() =>
-                handleKaKaoShareBtn({
-                  title: '못나니 근육 당근',
-                  description:
-                    '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!!!!!',
-                  imageUrl: 'https://ifh.cc/g/NzSxkR.png',
-                })
-              }
-            >
-              공유하기
-            </SaveShareButton>
-          </SaveShareButtonContainer>
-        </div>
+              <SaveShareButtonContainer>
+                <SaveShareButton
+                  bgColor="#379100"
+                  onClick={() =>
+                    handleImageDownload({
+                      src: `${PRODUCT_IMAGES[resultType]}`,
+                      fileName: 'ddokdarman.png',
+                    })
+                  }
+                >
+                  저장하기
+                </SaveShareButton>
+                <SaveShareButton
+                  bgColor="#379100"
+                  onClick={() =>
+                    handleKaKaoShareBtn({
+                      title: '못나니 근육 당근',
+                      description:
+                        '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!!!!!',
+                      imageUrl: 'https://ifh.cc/g/NzSxkR.png',
+                    })
+                  }
+                >
+                  공유하기
+                </SaveShareButton>
+              </SaveShareButtonContainer>
+            </>
+          )}
+        </>
       )}
     </>
   );
