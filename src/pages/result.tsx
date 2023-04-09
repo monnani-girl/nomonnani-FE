@@ -14,6 +14,7 @@ import type { ResultProps } from '../api/types';
 
 import styled from 'styled-components';
 import introductionImg from '../assets/introduction.svg';
+import Modal from '../components/Modal';
 
 function Result() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function Result() {
   const [result, setResult] = useState<ResultProps>();
   const [resultType, setResultType] = useState('');
   const [saleType, setSaleType] = useState('origin');
+  const [modalOpen, setModalOpen] = useState(false);
 
   const {
     mutate: resultMutation,
@@ -52,6 +54,10 @@ function Result() {
     } = e;
     setSaleType(value);
   };
+
+  const showModal = () => {
+    setModalOpen(true);
+  }
 
   return (
     <>
