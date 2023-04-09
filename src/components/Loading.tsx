@@ -51,7 +51,7 @@ const Container = styled.div`
 `;
 
 const CharacterImg = styled.img`
-  width: 149px;
+  width: 170px;
 `;
 
 const Text = styled.div`
@@ -63,4 +63,5 @@ const Text = styled.div`
   font-weight: 400;
   font-size: 24px;
   text-align: center;
+  margin-top: 24px;
 `;

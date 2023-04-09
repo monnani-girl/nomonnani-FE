@@ -201,6 +201,7 @@ const ResultName = styled.div`
 `;
 
 const ResultDescription = styled.div`
+  width: 340px;
   font-size: 16px;
   font-family: 'Noto Sans KR';
   font-weight: 400;
@@ -266,6 +267,7 @@ const SaleBox = styled(Link)`
   text-decoration: none;
   &:hover {
     border: 2px solid var(--primary);
+    border-radius: 10px;
   }
 `;
 

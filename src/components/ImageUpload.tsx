@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { selectedAtom } from '../atoms';
+import camera from '../assets/camera.png';
 
 const ImageFileUpload = () => {
   const navigate = useNavigate();
@@ -53,7 +54,8 @@ const ImageFileUpload = () => {
           <Image src={imageSrc} alt="uploaded-file" />
         ) : (
           <FileSelctButton onClick={handleUploadClick}>
-            얼굴이 잘리지 않은 <br />사진을 업로드해주세요
+            <CameraImg src={camera} alt='camera' /><br />
+            얼굴이 잘리지 않은 <br />사진을 올려주세요
           </FileSelctButton>
         )}
       </label>
@@ -74,6 +76,11 @@ const FileInput = styled.input`
   display: none;
 `;
 
+const CameraImg = styled.img`
+  width: 32px;
+  margin-bottom: 14px;
+`;
+
 const FileSelctButton = styled.button`
   width: 198px;
   height: 198px;
@@ -85,6 +92,7 @@ const FileSelctButton = styled.button`
   box-shadow: 3px 3px 5px #e1e1e1;
   font-family: 'Noto Sank KR';
   font-size: 16px;
+  font-weight: 400;
   margin-top: 96px;
   cursor: pointer;
 `;
