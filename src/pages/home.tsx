@@ -67,7 +67,6 @@ const Description = styled.div`
 `;
 
 const Button = styled(Link)`
-  font-family: 'Gmarket Sans';
   width: 250px;
   height: 72px;
   display: flex;

@@ -101,7 +101,6 @@ const FindButton = styled.button<{ disabled: boolean }>`
   width: 284px;
   height: 72px;
   font-size: 24px;
-  font-family: 'Gmarket Sans';
   font-weight: 400;
   margin-top: 40px;
   color: var(--white);

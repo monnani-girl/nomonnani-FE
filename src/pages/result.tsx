@@ -186,7 +186,6 @@ const ResultImage = styled.img`
 
 const ResultSubName = styled.div`
   font-size: 16px;
-  font-family: 'Gmarket Sans';
   color: var(--darkgrey);
 `;
 
@@ -225,7 +224,6 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   width: 188px;
   height: 52px;
   font-size: 16px;
-  font-family: 'Gmarket Sans';
   padding: 14px 32px;
   font-weight: ${(props) => (props.active ? '600' : '400')};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
