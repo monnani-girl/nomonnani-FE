@@ -33,8 +33,8 @@ export const handleKaKaoShareBtn = ({
       {
         title: '닮은꼴 캐릭터 찾기',
         link: {
-          mobileWebUrl: 'https://developers.kakao.com',
-          webUrl: 'https://developers.kakao.com',
+          mobileWebUrl: 'https://ddokdarman.site',
+          webUrl: 'https://ddokdarman.site',
         },
       },
     ],
