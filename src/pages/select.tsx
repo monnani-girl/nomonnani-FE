@@ -43,7 +43,6 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
           <ImageFileUpload />
         </>
       )}
@@ -62,6 +61,7 @@ const Select = () => {
             disabledNextBtn ? `/select/${step}` : `/select/${Number(step) + 1}`
           }
           disabled={disabledNextBtn}
+          visibled={step === String(TOTAL_STEPS)}
         >
           다음
         </Button>
@@ -100,42 +100,46 @@ const BtnContainer = styled.div`
   min-width: 486px;
   max-width: 486px;
   justify-content: space-around;
-  margin: 59px 0 125px 0;
+  margin: 60px 0 125px 0;
 `;
 
-const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
-  width: 79px;
+const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boolean }>`
+  width: 75px;
   height: 52px;
+  padding: 15px;
   background-color: ${(props) =>
     props.prev
       ? ButtonType.bgcolor.prev
       : props.disabled
       ? ButtonType.bgcolor.next
-      : 'rgba(55,145,0,0.08)'};
+      : 'var(--primary)'};
   color: ${(props) =>
     props.prev
       ? ButtonType.color.prev
       : props.disabled
       ? ButtonType.color.next
-      : 'var(--primary)'};
+      : 'var(--white)'};
   border: ${(props) =>
     props.prev
       ? 'none'
       : props.disabled
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
+  visibility: ${(props) =>
+    props.prev
+      ? 'visible'
+      : props.visibled
+      ? 'hidden'
+      : 'visible'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  font-size: 16px;
-  line-height: 52px;
+  font-size: 14px;
   text-align: center;
   border-radius: 48px;
-  font-style: normal;
-  font-weight: 400;
 `;
 
 const StepTitle = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 77px;
 `;
 
@@ -146,16 +150,20 @@ const StepSubText = styled.div`
 `;
 
 const UploadButton = styled.button`
-  width: 136px;
-  height: 136px;
+  width: 198px;
+  height: 198px;
   border: 1px solid #e1e1e1;
-  border-radius: 90px;
+  margin-top: 96px;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 21px;
+  font-family: 'Noto Sans KR';
   background: var(--white);
-  color: var(--secondary);
+  color: var(--darkgrey);
   cursor: pointer;
-  font-size: 18px;
   &:hover {
     border: 2px solid var(--primary);
+    transition: 0.3s ease;
   }
 `;
 

@@ -7,13 +7,13 @@ import { selectedAtom } from '../atoms';
 import Loading from '../components/Loading';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
+import headerLogo from '../assets/header.png';
+import introductionImg from '../assets/introduction.svg';
 import { QUOTE } from '../static/quote';
 import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
+import styled from 'styled-components';
 
 import type { ResultProps } from '../api/types';
-
-import styled from 'styled-components';
-import introductionImg from '../assets/introduction.svg';
 
 function Result() {
   const navigate = useNavigate();
@@ -60,16 +60,16 @@ function Result() {
       ) : (
         <>
           {resultSuccess && (
-            <>
-              <div>
-                <Title>나의 못난이</Title>
-                <ResultImage
-                  src={PRODUCT_IMAGES[resultType]}
-                  alt="result-image"
-                />
-                <ResultName>{QUOTE[resultType].name}</ResultName>
-                <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
-              </div>
+            <FlexBox>
+              <HeaderLogo src={headerLogo} />
+              <ResultImage
+                src={PRODUCT_IMAGES[resultType]}
+                alt="result-image"
+              />
+
+              <ResultSubName>나는 못난이</ResultSubName>
+              <ResultName>{QUOTE[resultType].name}</ResultName>
+              <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
               <CommonDescription>
                 <img src={introductionImg} alt="introduction" />
               </CommonDescription>
@@ -79,7 +79,7 @@ function Result() {
                   active={saleType === 'origin'}
                   onClick={onClickSaleButton}
                 >
-                  못난이 파는 곳
+                  못난이 만나보기
                 </SaleButton>
                 <SaleButton
                   value="upcycling"
@@ -117,8 +117,11 @@ function Result() {
               </SaleContainer>
 
               <SaveShareButtonContainer>
+                <Button to="/">다시하기</Button>
                 <SaveShareButton
-                  bgColor="#379100"
+                  bgColor="var(--primary-opacity)"
+                  color="var(--primary)"
+                  border="2px solid var(--primary)"
                   onClick={() =>
                     handleImageDownload({
                       src: `${PRODUCT_IMAGES[resultType]}`,
@@ -129,7 +132,10 @@ function Result() {
                   저장하기
                 </SaveShareButton>
                 <SaveShareButton
-                  bgColor="#379100"
+                  bgColor="var(--primary)"
+                  color="var(--white)"
+                  border="none"
+                  style={{ padding: '24px 120px', marginTop: '28px' }}
                   onClick={() =>
                     handleKaKaoShareBtn({
                       title: QUOTE[resultType].name,
@@ -142,7 +148,7 @@ function Result() {
                   공유하기
                 </SaveShareButton>
               </SaveShareButtonContainer>
-            </>
+            </FlexBox>
           )}
         </>
       )}
@@ -152,6 +158,18 @@ function Result() {
 
 export default Result;
 
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HeaderLogo = styled.img`
+  width: 17px;
+  margin: 0 auto;
+`;
+
 const Title = styled.div`
   font-size: 18px;
   font-weight: 600;
@@ -160,26 +178,35 @@ const Title = styled.div`
 `;
 
 const ResultImage = styled.img`
-  width: 333px;
-  height: 333px;
+  width: 406px;
   display: block;
-  margin: auto;
+  align-self: center;
+  margin-top: 30px;
+`;
+
+const ResultSubName = styled.div`
+  font-size: 16px;
+  color: var(--darkgrey);
 `;
 
 const ResultName = styled.div`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: 40px 0 18px 0;
+  color: var(--black);
+  margin: 6px 0 16px 0;
 `;
 
 const ResultDescription = styled.div`
-  font-size: 14px;
-  color: #555555;
+  width: 340px;
+  font-size: 16px;
+  font-family: 'Noto Sans KR';
+  line-height: 24px;
+  color: var(--black);
 `;
 
 const CommonDescription = styled.div`
-  margin: 36px 0 55px 0;
+  margin: 48px 0 68px 0;
 `;
 
 const CommonText = styled.div`
@@ -188,21 +215,20 @@ const CommonText = styled.div`
   margin-bottom: 15px;
 `;
 
-const CommonSubText = styled.div`
-  font-size: 16px;
-`;
-
 const ButtonContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 `;
 
 const SaleButton = styled.button<{ value: string; active: boolean }>`
-  font-size: 18px;
-  font-weight: 600;
+  width: 188px;
+  height: 52px;
+  font-size: 16px;
   padding: 14px 32px;
-  background: ${(props) => (props.active ? 'var(--grey)' : 'var(--primary)')};
-  color: ${(props) => (props.active ? 'var(--black)' : 'var(--white)')};
+  font-family: 'Gmarket Sans';
+  font-weight: ${(props) => (props.active ? '600' : '400')};
+  background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
+  color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.value === 'origin' && 'border-top-left-radius: 10px'};
@@ -211,36 +237,41 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
 
 const SaleContainer = styled.div`
   padding: 32px 20px;
-  background: var(--grey);
+  width: 375px;
+  background: var(--white);
 `;
 
 const SaleText = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
 `;
 
 const SaleSubText = styled.div`
-  font-size: 14px;
+  font-size: 16px;
+  font-family: 'Pretendard';
   margin-bottom: 20px;
 `;
 
 const SaleBox = styled(Link)`
   display: flex;
-  height: 150px;
+  height: 140px;
   padding: 12px;
-  margin-bottom: 14px;
   background: var(--white);
-  border: 1px solid #f0f0f0;
+  border-bottom: 1px solid #dddddf;
   color: inherit;
   text-decoration: none;
   &:hover {
     border: 2px solid var(--primary);
+    border-radius: 10px;
   }
 `;
 
 const SaleImage = styled.img`
-  margin-right: 18px;
+  width: 88px;
+  height: 95px;
+  border-radius: 4px;
+  margin-right: 13px;
 `;
 
 const SaleTextBox = styled.div`
@@ -251,32 +282,59 @@ const SaleTextBox = styled.div`
 
 const SalePlace = styled.div`
   font-size: 14px;
-  margin-bottom: 6px;
+  font-family: 'Pretendard';
+  color: #373737;
+  margin-bottom: 2px;
 `;
 
 const SaleName = styled.div`
+  font-family: 'Pretendard';
+  color: var(--black);
   font-size: 16px;
   font-weight: 700;
+  margin-bottom: 22px;
 `;
 
 const SalePrice = styled.div`
+  color: var(--secondary);
+  font-family: 'Pretendard';
   font-size: 16px;
+  font-weight: 500;
 `;
 
 const SaveShareButtonContainer = styled(ButtonContainer)`
-  gap: 20px;
+  width: 340px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
   margin-top: 40px;
-  border-radius: 65px;
 `;
 
-const SaveShareButton = styled.button<{ bgColor: string }>`
+const SaveShareButton = styled.button<{
+  bgColor: string;
+  color: string;
+  border: string;
+}>`
+  font-family: 'Gmarket Sans';
   font-size: 18px;
-  font-weight: 600;
-  padding: 24px 36px;
-  border: none;
+  padding: 24px 34px;
+  border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
-  color: var(--white);
+  color: ${(props) => props.color};
+  opacity: 0.8;
+  cursor: pointer;
+`;
+
+const Button = styled(Link)`
+  font-family: 'Gmarket Sans';
+  font-size: 18px;
+  padding: 24px 34px;
+  border: 1px solid #e1e1e1;
+  border-radius: 65px;
+  background-color: var(--background);
+  color: var(--darkgrey);
   opacity: 0.8;
   cursor: pointer;
 `;

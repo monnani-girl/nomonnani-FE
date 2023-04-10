@@ -1,5 +1,6 @@
 :root {
     --primary: #379100;
+    --primary-opacity: rgba(55, 145, 0, 0.08);
     --secondary: #001358;
     --progress-trail: #E3F2FF;
     --black: #000000;
