@@ -178,10 +178,10 @@ const Title = styled.div`
 `;
 
 const ResultImage = styled.img`
-  width: 333px;
-  height: 333px;
+  width: 406px;
   display: block;
-  margin: auto;
+  align-self: center;
+  margin-top: 30px;
 `;
 
 const ResultSubName = styled.div`
@@ -225,6 +225,7 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   height: 52px;
   font-size: 16px;
   padding: 14px 32px;
+  font-family: 'Gmarket Sans';
   font-weight: ${(props) => (props.active ? '600' : '400')};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
   color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
