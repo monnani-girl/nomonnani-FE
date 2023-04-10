@@ -100,8 +100,8 @@ const FileSelctButton = styled.button`
 const FindButton = styled.button<{ disabled: boolean }>`
   width: 284px;
   height: 72px;
+  font-family: 'Gmarket Sans';
   font-size: 24px;
-  font-weight: 400;
   margin-top: 40px;
   color: var(--white);
   background-color: var(--primary);
