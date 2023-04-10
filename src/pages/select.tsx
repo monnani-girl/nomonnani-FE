@@ -24,7 +24,6 @@ const Select = () => {
     !Boolean(
       selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
-  const visibleNextBtn = step === '5';
 
   return (
     <Container>
@@ -62,7 +61,7 @@ const Select = () => {
             disabledNextBtn ? `/select/${step}` : `/select/${Number(step) + 1}`
           }
           disabled={disabledNextBtn}
-          visibled={visibleNextBtn}
+          visibled={step === String(TOTAL_STEPS)}
         >
           다음
         </Button>
