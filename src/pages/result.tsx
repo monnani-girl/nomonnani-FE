@@ -207,9 +207,9 @@ const DescriptionImage = styled.img`
   margin: 48px 0 68px 0;
 `;
 
+
 const SaleContainer = styled.div`
   width: 100%;
-  /* min-width: 350px; */
 `;
 
 const ButtonContainer = styled.div`
@@ -288,6 +288,7 @@ const SaleName = styled.div`
   color: var(--black);
   font-size: 16px;
   font-weight: 700;
+  margin-bottom: 22px;
 `;
 
 const SalePrice = styled.div`
