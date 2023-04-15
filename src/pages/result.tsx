@@ -170,13 +170,6 @@ const HeaderLogo = styled.img`
   margin: 0 auto;
 `;
 
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 44px;
-`;
-
 const ResultImage = styled.img`
   width: 406px;
   display: block;
@@ -207,12 +200,6 @@ const ResultDescription = styled.div`
 
 const CommonDescription = styled.div`
   margin: 48px 0 68px 0;
-`;
-
-const CommonText = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 15px;
 `;
 
 const ButtonContainer = styled.div`
