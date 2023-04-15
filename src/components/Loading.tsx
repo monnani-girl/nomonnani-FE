@@ -32,7 +32,7 @@ const Loading = () => {
         src={images[currentImageIndex]}
         alt={`Image ${currentImageIndex + 1}`}
       />
-      <Text>캐릭터 찾는 중...</Text>
+      <Text>닮은꼴 캐릭터 찾는 중...</Text>
     </Container>
   );
 };
@@ -44,9 +44,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 400px;
-  height: 300px;
-  padding: 20px;
   margin-top: 120px;
 `;
 
@@ -56,9 +53,6 @@ const CharacterImg = styled.img`
 
 const Text = styled.div`
   color: var(--black);
-  width: 171px;
-  height: 33px;
   font-size: 24px;
-  text-align: center;
   margin-top: 24px;
 `;

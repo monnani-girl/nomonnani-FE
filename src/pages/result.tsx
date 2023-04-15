@@ -70,50 +70,55 @@ function Result() {
               <ResultSubName>나는 못난이</ResultSubName>
               <ResultName>{QUOTE[resultType].name}</ResultName>
               <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
-              <CommonDescription>
-                <img src={introductionImg} alt="introduction" />
-              </CommonDescription>
-              <ButtonContainer>
-                <SaleButton
-                  value="origin"
-                  active={saleType === 'origin'}
-                  onClick={onClickSaleButton}
-                >
-                  못난이 만나보기
-                </SaleButton>
-                <SaleButton
-                  value="upcycling"
-                  active={saleType === 'upcycling'}
-                  onClick={onClickSaleButton}
-                >
-                  못난이의 재탄생
-                </SaleButton>
-              </ButtonContainer>
+              <DescriptionImage src={introductionImg} alt="introduction" />
 
               <SaleContainer>
-                <SaleText>
-                  못난이 {QUOTE[resultType].type}의 판매처에요
-                </SaleText>
-                <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
+                <ButtonContainer>
+                  <SaleButton
+                    value="origin"
+                    active={saleType === 'origin'}
+                    onClick={onClickSaleButton}
+                  >
+                    못난이 만나보기
+                  </SaleButton>
+                  <SaleButton
+                    value="upcycling"
+                    active={saleType === 'upcycling'}
+                    onClick={onClickSaleButton}
+                  >
+                    못난이의 재탄생
+                  </SaleButton>
+                </ButtonContainer>
 
-                {result?.products
-                  .filter(
-                    (product) =>
-                      product.type ===
-                      (saleType === 'origin' ? '원물판매자' : '업사이클링'),
-                  )
-                  .map((product) => (
-                    <SaleBox key={product.id} to={product.site} target="_blank">
-                      <SaleImage src={product.image} alt="sale-image" />
-                      <SaleTextBox>
-                        <div>
-                          <SalePlace>{product.place}</SalePlace>
-                          <SaleName>{product.name}</SaleName>
-                        </div>
-                        <SalePrice>{product.price}원</SalePrice>
-                      </SaleTextBox>
-                    </SaleBox>
-                  ))}
+                <SaleBoxContainer>
+                  <SaleText>
+                    못난이 '{QUOTE[resultType].type}'의 판매처에요
+                  </SaleText>
+                  <SaleSubText>다양한 못난이 제품을 만나보세요!</SaleSubText>
+
+                  {result?.products
+                    .filter(
+                      (product) =>
+                        product.type ===
+                        (saleType === 'origin' ? '원물판매자' : '업사이클링'),
+                    )
+                    .map((product) => (
+                      <SaleBox
+                        key={product.id}
+                        to={product.site}
+                        target="_blank"
+                      >
+                        <SaleImage src={product.image} alt="sale-image" />
+                        <SaleTextBox>
+                          <div>
+                            <SalePlace>{product.place}</SalePlace>
+                            <SaleName>{product.name}</SaleName>
+                          </div>
+                          <SalePrice>{product.price}원</SalePrice>
+                        </SaleTextBox>
+                      </SaleBox>
+                    ))}
+                </SaleBoxContainer>
               </SaleContainer>
 
               <SaveShareButtonContainer>
@@ -170,15 +175,8 @@ const HeaderLogo = styled.img`
   margin: 0 auto;
 `;
 
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 44px;
-`;
-
 const ResultImage = styled.img`
-  width: 406px;
+  width: 100%;
   display: block;
   align-self: center;
   margin-top: 30px;
@@ -198,21 +196,19 @@ const ResultName = styled.div`
 `;
 
 const ResultDescription = styled.div`
-  width: 340px;
   font-size: 16px;
   font-family: 'Noto Sans KR';
   line-height: 24px;
   color: var(--black);
 `;
 
-const CommonDescription = styled.div`
+const DescriptionImage = styled.img`
+  width: 100%;
   margin: 48px 0 68px 0;
 `;
 
-const CommonText = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 15px;
+const SaleContainer = styled.div`
+  width: 100%;
 `;
 
 const ButtonContainer = styled.div`
@@ -221,10 +217,9 @@ const ButtonContainer = styled.div`
 `;
 
 const SaleButton = styled.button<{ value: string; active: boolean }>`
-  width: 188px;
   height: 52px;
   font-size: 16px;
-  padding: 14px 32px;
+  padding: 12px auto;
   font-family: 'Gmarket Sans';
   font-weight: ${(props) => (props.active ? '600' : '400')};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
@@ -235,9 +230,9 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   ${(props) => props.value === 'upcycling' && 'border-top-right-radius: 10px'};
 `;
 
-const SaleContainer = styled.div`
+const SaleBoxContainer = styled.div`
+  width: inherit;
   padding: 32px 20px;
-  width: 375px;
   background: var(--white);
 `;
 
@@ -253,14 +248,15 @@ const SaleSubText = styled.div`
   margin-bottom: 20px;
 `;
 
-const SaleBox = styled(Link)`
+const SaleBox = styled(Link)<{ last?: boolean }>`
   display: flex;
+  align-items: center;
   height: 140px;
   padding: 12px;
   background: var(--white);
-  border-bottom: 1px solid #dddddf;
   color: inherit;
   text-decoration: none;
+  border-bottom: 1px solid #dddddf;
   &:hover {
     border: 2px solid var(--primary);
     border-radius: 10px;
@@ -275,6 +271,7 @@ const SaleImage = styled.img`
 `;
 
 const SaleTextBox = styled.div`
+  height: 95px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -284,7 +281,6 @@ const SalePlace = styled.div`
   font-size: 14px;
   font-family: 'Pretendard';
   color: #373737;
-  margin-bottom: 2px;
 `;
 
 const SaleName = styled.div`
@@ -292,7 +288,6 @@ const SaleName = styled.div`
   color: var(--black);
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 22px;
 `;
 
 const SalePrice = styled.div`
@@ -303,7 +298,6 @@ const SalePrice = styled.div`
 `;
 
 const SaveShareButtonContainer = styled(ButtonContainer)`
-  width: 340px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -318,7 +312,7 @@ const SaveShareButton = styled.button<{
 }>`
   font-family: 'Gmarket Sans';
   font-size: 18px;
-  padding: 24px 34px;
+  padding: 24px 30px;
   border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
@@ -330,7 +324,7 @@ const SaveShareButton = styled.button<{
 const Button = styled(Link)`
   font-family: 'Gmarket Sans';
   font-size: 18px;
-  padding: 24px 34px;
+  padding: 24px 30px;
   border: 1px solid #e1e1e1;
   border-radius: 65px;
   background-color: var(--background);
