@@ -92,9 +92,9 @@ function Result() {
 
               <SaleContainer>
                 <SaleText>
-                  못난이 {QUOTE[resultType].type}의 판매처에요
+                  못난이 '{QUOTE[resultType].type}'의 판매처에요
                 </SaleText>
-                <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
+                <SaleSubText>다양한 못난이 제품을 만나보세요!</SaleSubText>
 
                 {result?.products
                   .filter(
@@ -253,14 +253,15 @@ const SaleSubText = styled.div`
   margin-bottom: 20px;
 `;
 
-const SaleBox = styled(Link)`
+const SaleBox = styled(Link)<{ last?: boolean }>`
   display: flex;
+  align-items: center;
   height: 140px;
   padding: 12px;
   background: var(--white);
-  border-bottom: 1px solid #dddddf;
   color: inherit;
   text-decoration: none;
+  border-bottom: 1px solid #dddddf;
   &:hover {
     border: 2px solid var(--primary);
     border-radius: 10px;
@@ -278,13 +279,13 @@ const SaleTextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 95px;
 `;
 
 const SalePlace = styled.div`
   font-size: 14px;
   font-family: 'Pretendard';
   color: #373737;
-  margin-bottom: 2px;
 `;
 
 const SaleName = styled.div`
@@ -292,7 +293,6 @@ const SaleName = styled.div`
   color: var(--black);
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 22px;
 `;
 
 const SalePrice = styled.div`
