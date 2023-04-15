@@ -207,7 +207,6 @@ const DescriptionImage = styled.img`
   margin: 48px 0 68px 0;
 `;
 
-
 const SaleContainer = styled.div`
   width: 100%;
 `;
@@ -232,6 +231,7 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
 `;
 
 const SaleBoxContainer = styled.div`
+  width: inherit;
   padding: 32px 20px;
   background: var(--white);
 `;
@@ -271,10 +271,10 @@ const SaleImage = styled.img`
 `;
 
 const SaleTextBox = styled.div`
+  height: 95px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 95px;
 `;
 
 const SalePlace = styled.div`
@@ -288,7 +288,6 @@ const SaleName = styled.div`
   color: var(--black);
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 22px;
 `;
 
 const SalePrice = styled.div`

@@ -52,7 +52,7 @@ body{
 	min-width: 370px;
     max-width: 400px;
     margin: 0 auto;
-    padding: 30px;
+    padding: 20px;
     line-height: 1.5;
     background-color: #fffbf8;
 }
