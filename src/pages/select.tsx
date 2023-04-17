@@ -7,6 +7,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import SelectItem from '../components/SelectItem';
 import { useRecoilValue } from 'recoil';
 import { selectedAtom } from '../atoms';
+import { getResult } from '../api';
+import { useMutation } from 'react-query';
+import Loading from '../components/Loading';
+import { useEffect } from 'react';
 
 //TODO: static으로 빼기
 const TOTAL_STEPS = 5;
@@ -24,6 +28,30 @@ const Select = () => {
     !Boolean(
       selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
+
+  const {
+    data: resultData,
+    mutate: resultMutation,
+    isLoading: resultLoading,
+    isSuccess: resultSuccess,
+  } = useMutation(getResult);
+
+  const handleCaptureClick = () => {
+    resultMutation(selectedState);
+  };
+
+  useEffect(() => {
+    if (resultSuccess) {
+      if (resultData.result) navigate('/result', { state: resultData.result });
+      else {
+        //TODO: 에러 모달 처리
+        alert(resultData.message);
+        navigate('/select/5');
+      }
+    }
+  }, [resultSuccess]);
+
+  if (resultLoading) return <Loading />;
 
   return (
     <Container>
@@ -43,7 +71,7 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <ImageFileUpload onClickCapture={() => navigate('/result')} />
+          <ImageFileUpload onClickCapture={handleCaptureClick} />
         </>
       )}
       <BtnContainer>
