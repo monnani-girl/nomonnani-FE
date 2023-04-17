@@ -1,26 +1,22 @@
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { selectedAtom } from '../atoms';
 import camera from '../assets/camera.png';
 
-const ImageFileUpload = () => {
-  const navigate = useNavigate();
-  const [imageSrc, setImageSrc] = useState('');
-  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
-  const inputRef = useRef(null);
+interface ImageFileUploadProps {
+  onClickCapture: () => void;
+}
 
-  const disableButton = Boolean(!imageSrc);
+const ImageFileUpload = ({ onClickCapture }: ImageFileUploadProps) => {
+  const [imageSrc, setImageSrc] = useState('');
+  const setSelectedState = useSetRecoilState(selectedAtom);
+  const inputRef = useRef(null);
 
   const handleUploadClick = () => {
     if (inputRef.current) {
       (inputRef.current as any).click();
     }
-  };
-
-  const handleCapture = () => {
-    navigate('/result', { state: { imageSrc } });
   };
 
   const encodeFileToBase64 = (fileBlob: any) => {
@@ -54,12 +50,14 @@ const ImageFileUpload = () => {
           <Image src={imageSrc} alt="uploaded-file" />
         ) : (
           <FileSelctButton onClick={handleUploadClick}>
-            <CameraImg src={camera} alt='camera' /><br />
-            얼굴이 잘리지 않은 <br />사진을 올려주세요
+            <CameraImg src={camera} alt="camera" />
+            <br />
+            얼굴이 잘리지 않은 <br />
+            사진을 올려주세요
           </FileSelctButton>
         )}
       </label>
-      <FindButton onClick={handleCapture} disabled={disableButton}>
+      <FindButton onClick={onClickCapture} disabled={Boolean(!imageSrc)}>
         닮은꼴 찾기
       </FindButton>
     </>
@@ -67,10 +65,6 @@ const ImageFileUpload = () => {
 };
 
 export default ImageFileUpload;
-
-const WebCamContainer = styled.div`
-  margin: 39px 0 15px 0;
-`;
 
 const FileInput = styled.input`
   display: none;

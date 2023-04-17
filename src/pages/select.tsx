@@ -43,7 +43,7 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <ImageFileUpload />
+          <ImageFileUpload onClickCapture={() => navigate('/result')} />
         </>
       )}
       <BtnContainer>
@@ -103,7 +103,11 @@ const BtnContainer = styled.div`
   margin: 60px 0 125px 0;
 `;
 
-const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boolean }>`
+const Button = styled(Link)<{
+  prev?: string;
+  disabled: boolean;
+  visibled?: boolean;
+}>`
   width: 75px;
   height: 52px;
   padding: 15px;
@@ -126,11 +130,7 @@ const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boole
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
   visibility: ${(props) =>
-    props.prev
-      ? 'visible'
-      : props.visibled
-      ? 'hidden'
-      : 'visible'};
+    props.prev ? 'visible' : props.visibled ? 'hidden' : 'visible'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 14px;
