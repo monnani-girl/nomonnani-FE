@@ -101,7 +101,7 @@ const UploadButton = styled(Link)`
     border: none;
     background-color: var(--primary);
     color: var(--white);
-    border-radius: 0 0 0 4px;
+    border-radius: 0 0 4px 0;
     font-family: 'Gmarket Sans';
     font-weight: 400;
     font-size: 16px;
