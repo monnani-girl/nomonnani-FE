@@ -5,10 +5,10 @@ import { selectedAtom } from '../atoms';
 import camera from '../assets/camera.png';
 
 interface ImageFileUploadProps {
-  onClickCapture: () => void;
+  onClickButton: () => void;
 }
 
-const ImageFileUpload = ({ onClickCapture }: ImageFileUploadProps) => {
+const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
   const [imageSrc, setImageSrc] = useState('');
   const setSelectedState = useSetRecoilState(selectedAtom);
   const inputRef = useRef(null);
@@ -57,7 +57,7 @@ const ImageFileUpload = ({ onClickCapture }: ImageFileUploadProps) => {
           </FileSelctButton>
         )}
       </label>
-      <FindButton onClick={onClickCapture} disabled={Boolean(!imageSrc)}>
+      <FindButton onClick={onClickButton} disabled={Boolean(!imageSrc)}>
         닮은꼴 찾기
       </FindButton>
     </>

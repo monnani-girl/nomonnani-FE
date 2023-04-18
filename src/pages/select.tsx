@@ -71,7 +71,7 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <ImageFileUpload onClickCapture={handleCaptureClick} />
+          <ImageFileUpload onClickButton={handleCaptureClick} />
         </>
       )}
       <BtnContainer>
