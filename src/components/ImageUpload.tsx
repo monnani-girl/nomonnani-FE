@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import { ChangeEvent, useRef, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
 import camera from '../assets/camera.png';
+import styled from 'styled-components';
 
 interface ImageFileUploadProps {
   onClickButton: () => void;
@@ -19,20 +19,29 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
     }
   };
 
-  const encodeFileToBase64 = (fileBlob: any) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-
-    return new Promise<void>((resolve) => {
-      reader.onload = async () => {
-        setImageSrc(reader.result as any);
-        const imageBytes = (reader.result as string).split(',')[1];
-        setSelectedState((prev) => {
-          const newObj = { ...prev, photo: imageBytes };
-          return newObj;
-        });
+  const encodeFileToBase64 = (fileObj: File) => {
+    return new Promise(() => {
+      const reader = new FileReader();
+      reader.readAsDataURL(fileObj);
+      reader.onload = () => {
+        setImageSrc(reader.result as string);
+        const encoded = (reader.result as string).split(',')[1];
+        setSelectedState((prev) => ({ ...prev, photo: encoded }));
       };
     });
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { files },
+    } = e;
+
+    if (files) {
+      encodeFileToBase64(files[0]);
+    } else {
+      //TODO: 에러 처리
+      alert('이미지를 업로드하는 데 오류가 발생했습니다.');
+    }
   };
 
   return (
@@ -44,7 +53,7 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
           accept="image/*"
           name="file"
           ref={inputRef}
-          onChange={(e) => encodeFileToBase64(e.target.files![0])}
+          onChange={handleImageChange}
         />
         {imageSrc ? (
           <Image src={imageSrc} alt="uploaded-file" />
