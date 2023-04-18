@@ -34,6 +34,7 @@ const Select = () => {
     mutate: resultMutation,
     isLoading: resultLoading,
     isSuccess: resultSuccess,
+    isError: resultError,
   } = useMutation(getResult);
 
   const handleCaptureClick = () => {
@@ -52,6 +53,7 @@ const Select = () => {
   }, [resultSuccess]);
 
   if (resultLoading) return <Loading />;
+  // if (resultError) return <div>에러가 발생했습니다</div>; //TODO: 에러 노드 처리
 
   return (
     <Container>

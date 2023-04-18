@@ -19,16 +19,15 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
     }
   };
 
+  //TODO: utils로 빼기
   const encodeFileToBase64 = (fileObj: File) => {
-    return new Promise(() => {
-      const reader = new FileReader();
-      reader.readAsDataURL(fileObj);
-      reader.onload = () => {
-        setImageSrc(reader.result as string);
-        const encoded = (reader.result as string).split(',')[1];
-        setSelectedState((prev) => ({ ...prev, photo: encoded }));
-      };
-    });
+    const reader = new FileReader();
+    reader.readAsDataURL(fileObj);
+    reader.onload = () => {
+      setImageSrc(reader.result as string);
+      const encoded = (reader.result as string).split(',')[1];
+      setSelectedState((prev) => ({ ...prev, photo: encoded }));
+    };
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,9 +37,6 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
 
     if (files) {
       encodeFileToBase64(files[0]);
-    } else {
-      //TODO: 에러 처리
-      alert('이미지를 업로드하는 데 오류가 발생했습니다.');
     }
   };
 
