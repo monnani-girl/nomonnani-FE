@@ -82,11 +82,9 @@ const SubTitle = styled.div`
   align-items: center;
   text-align: center;
   color: var(--sub-black);
-
   font-style: normal;
   font-size: 16px;
   line-height: 24px;
-
   margin-top: 48px;
 `;
 
@@ -96,7 +94,6 @@ const Title = styled.div`
   letter-spacing: 0em;
   text-align: center;
   margin: 10px 0 34px 0;
-
   color: var(--black);
 `;
 
