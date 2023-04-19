@@ -7,6 +7,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import SelectItem from '../components/SelectItem';
 import { useRecoilValue } from 'recoil';
 import { selectedAtom } from '../atoms';
+import { getResult } from '../api';
+import { useMutation } from 'react-query';
+import Loading from '../components/Loading';
+import { useEffect } from 'react';
 
 //TODO: static으로 빼기
 const TOTAL_STEPS = 5;
@@ -24,6 +28,32 @@ const Select = () => {
     !Boolean(
       selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
+
+  const {
+    data: resultData,
+    mutate: resultMutation,
+    isLoading: resultLoading,
+    isSuccess: resultSuccess,
+    isError: resultError,
+  } = useMutation(getResult);
+
+  const handleCaptureClick = () => {
+    resultMutation(selectedState);
+  };
+
+  useEffect(() => {
+    if (resultSuccess) {
+      if (resultData.result) navigate('/result', { state: resultData.result });
+      else {
+        //TODO: 에러 모달 처리
+        alert(resultData.message);
+        navigate('/select/5');
+      }
+    }
+  }, [resultSuccess]);
+
+  if (resultLoading) return <Loading />;
+  // if (resultError) return <div>에러가 발생했습니다</div>; //TODO: 에러 노드 처리
 
   return (
     <Container>
@@ -43,7 +73,7 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <ImageFileUpload />
+          <ImageFileUpload onClickButton={handleCaptureClick} />
         </>
       )}
       <BtnContainer>
@@ -103,7 +133,11 @@ const BtnContainer = styled.div`
   margin: 60px 0 125px 0;
 `;
 
-const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boolean }>`
+const Button = styled(Link)<{
+  prev?: string;
+  disabled: boolean;
+  visibled?: boolean;
+}>`
   width: 75px;
   height: 52px;
   padding: 15px;
@@ -126,11 +160,7 @@ const Button = styled(Link)<{ prev?: string; disabled: boolean, visibled?: boole
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
   visibility: ${(props) =>
-    props.prev
-      ? 'visible'
-      : props.visibled
-      ? 'hidden'
-      : 'visible'};
+    props.prev ? 'visible' : props.visibled ? 'hidden' : 'visible'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 14px;
