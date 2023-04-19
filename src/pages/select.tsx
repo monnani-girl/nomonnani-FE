@@ -64,8 +64,9 @@ const Select = () => {
         trailWidth={3}
         strokeColor="var(--primary)"
         trailColor="var(--progress-trail)"
-        style={{ width: '333px', marginTop: '46px' }}
+        style={{ maxWidth: '333px', marginTop: '46px' }}
       />
+
       {step === '1' && <SelectItem step={1} />}
       {step === '2' && <SelectItem step={2} />}
       {step === '3' && <SelectItem step={3} />}
@@ -76,6 +77,7 @@ const Select = () => {
           <ImageFileUpload onClickButton={handleCaptureClick} />
         </>
       )}
+
       <BtnContainer>
         <Button
           to={
@@ -126,11 +128,10 @@ const Container = styled.div`
 `;
 
 const BtnContainer = styled.div`
+  width: 100%;
   display: flex;
-  min-width: 486px;
-  max-width: 486px;
-  justify-content: space-around;
-  margin: 60px 0 125px 0;
+  justify-content: space-between;
+  margin-top: 60px;
 `;
 
 const Button = styled(Link)<{
