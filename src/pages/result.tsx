@@ -129,10 +129,8 @@ function Result() {
                   border="2px solid var(--primary)"
                   onClick={() =>
                     handleImageDownload({
-                      title: `${QUOTE[resultType].name}`,
                       src: `${PRODUCT_IMAGES[resultType]}`,
                       fileName: 'ddokdarman.png',
-                      text: `${QUOTE[resultType].quote}`,
                     })
                   }
                 >
