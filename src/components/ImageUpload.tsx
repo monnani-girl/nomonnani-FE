@@ -116,5 +116,5 @@ const Image = styled.img`
   border-radius: 20px;
   margin-top: 96px;
   box-shadow: 3px 3px 5px #e1e1e1;
-  object-fit: cover;
+  object-fit: contain;
 `;
