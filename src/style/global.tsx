@@ -46,15 +46,20 @@ table {
 }
 
 body{
-    font-family: 'Gmarket Sans';
-	font-weight: 400;
-	width: 100%;
-	min-width: 370px;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    line-height: 1.5;
-    background-color: #fffbf8;
+  @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }  
+  font-family: 'GmarketSansMedium';
+  width: 100%;
+  min-width: 370px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.5;
+  background-color: #fffbf8;
 }
 a{
   text-decoration: none;

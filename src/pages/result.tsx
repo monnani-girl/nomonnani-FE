@@ -172,7 +172,7 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   height: 52px;
   font-size: 16px;
   padding: 12px auto;
-  font-family: 'Gmarket Sans';
+  font-family: 'GmarketSansMedium';
   font-weight: ${(props) => (props.active ? '600' : '400')};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
   color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
@@ -262,7 +262,7 @@ const SaveShareButton = styled.button<{
   color: string;
   border: string;
 }>`
-  font-family: 'Gmarket Sans';
+  font-family: 'GmarketSansMedium';
   font-size: 18px;
   padding: 24px 30px;
   border: ${(props) => props.border};
@@ -274,7 +274,7 @@ const SaveShareButton = styled.button<{
 `;
 
 const Button = styled(Link)`
-  font-family: 'Gmarket Sans';
+  font-family: 'GmarketSansMedium';
   font-size: 18px;
   padding: 24px 30px;
   border: 1px solid #e1e1e1;
