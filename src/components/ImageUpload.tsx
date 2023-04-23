@@ -99,7 +99,7 @@ const FileSelctButton = styled.button`
 const FindButton = styled.button<{ disabled: boolean }>`
   width: 284px;
   height: 72px;
-  font-family: 'Gmarket Sans';
+  font-family: 'GmarketSansMedium';
   font-size: 24px;
   margin-top: 40px;
   color: var(--white);
@@ -115,4 +115,5 @@ const Image = styled.img`
   border-radius: 20px;
   margin-top: 96px;
   box-shadow: 3px 3px 5px #e1e1e1;
+  object-fit: contain;
 `;
