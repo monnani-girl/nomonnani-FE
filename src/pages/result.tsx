@@ -1,52 +1,24 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { useMutation } from 'react-query';
-import { getResult } from '../api';
-import { selectedAtom } from '../atoms';
-import Loading from '../components/Loading';
+import { FormEvent, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
+import headerLogo from '../assets/header.png';
+import introductionImg from '../assets/introduction.svg';
 import { QUOTE } from '../static/quote';
 import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
+import styled from 'styled-components';
+import Modal from '../components/Modal';
 
 import type { ResultProps } from '../api/types';
 
-import styled from 'styled-components';
-import introductionImg from '../assets/introduction.svg';
-import Modal from '../components/Modal';
+type LocationType = {
+  state: ResultProps;
+};
 
 function Result() {
-  const navigate = useNavigate();
-  const selected = useRecoilValue(selectedAtom);
-  const [result, setResult] = useState<ResultProps>();
-  const [resultType, setResultType] = useState('');
+  const { state: result } = useLocation() as LocationType;
   const [saleType, setSaleType] = useState('origin');
   const [modalOpen, setModalOpen] = useState(false);
-
-  const {
-    mutate: resultMutation,
-    isLoading: resultLoading,
-    isSuccess: resultSuccess,
-  } = useMutation(getResult, {
-    onSuccess: (data) => {
-      if (data.result) {
-        setResult(data.result);
-        setResultType(data.result.type);
-      } else {
-        //TODO: 에러 모달 띄우기
-        alert(data.message);
-        navigate('/select/5');
-      }
-    },
-    onError: (error) => {
-      navigate('/');
-    },
-  });
-
-  useEffect(() => {
-    resultMutation(selected);
-  }, []);
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
     const {
@@ -60,142 +32,141 @@ function Result() {
   }
 
   return (
-    <>
-      {resultLoading ? (
-        <Loading />
-      ) : (
-        <>
-          {resultSuccess && (
-            <>
-              <div>
-                <Title>나의 못난이</Title>
-                <ResultImage
-                  src={PRODUCT_IMAGES[resultType]}
-                  alt="result-image"
-                />
-                <ResultName>{QUOTE[resultType].name}</ResultName>
-                <ResultDescription>{QUOTE[resultType].quote}</ResultDescription>
-              </div>
-              <CommonDescription>
-                <img src={introductionImg} alt="introduction" />
-              </CommonDescription>
-              <ButtonContainer>
-                <SaleButton
-                  value="origin"
-                  active={saleType === 'origin'}
-                  onClick={onClickSaleButton}
-                >
-                  못난이 파는 곳
-                </SaleButton>
-                <SaleButton
-                  value="upcycling"
-                  active={saleType === 'upcycling'}
-                  onClick={onClickSaleButton}
-                >
-                  못난이의 재탄생
-                </SaleButton>
-              </ButtonContainer>
+    <FlexBox>
+      <HeaderLogo src={headerLogo} />
+      <ResultImage src={PRODUCT_IMAGES[result.type]} alt="result-image" />
 
-              <SaleContainer>
-                <SaleText>
-                  못난이 {QUOTE[resultType].type}의 판매처에요
-                </SaleText>
-                <SaleSubText>다양한 못난이 제품을 만나보세요</SaleSubText>
+      <ResultSubName>나는 못난이</ResultSubName>
+      <ResultName>{QUOTE[result.type].name}</ResultName>
+      <ResultDescription>{QUOTE[result.type].quote}</ResultDescription>
+      <DescriptionImage src={introductionImg} alt="introduction" />
 
-                {result?.products
-                  .filter(
-                    (product) =>
-                      product.type ===
-                      (saleType === 'origin' ? '원물판매자' : '업사이클링'),
-                  )
-                  .map((product) => (
-                    <SaleBox key={product.id} to={product.site} target="_blank">
-                      <SaleImage src={product.image} alt="sale-image" />
-                      <SaleTextBox>
-                        <div>
-                          <SalePlace>{product.place}</SalePlace>
-                          <SaleName>{product.name}</SaleName>
-                        </div>
-                        <SalePrice>{product.price}원</SalePrice>
-                      </SaleTextBox>
-                    </SaleBox>
-                  ))}
-              </SaleContainer>
+      <SaleContainer>
+        <ButtonContainer>
+          <SaleButton
+            value="origin"
+            active={saleType === 'origin'}
+            onClick={onClickSaleButton}
+          >
+            못난이 만나보기
+          </SaleButton>
+          <SaleButton
+            value="upcycling"
+            active={saleType === 'upcycling'}
+            onClick={onClickSaleButton}
+          >
+            못난이의 재탄생
+          </SaleButton>
+        </ButtonContainer>
 
-              <SaveShareButtonContainer>
-                <SaveShareButton
-                  bgColor="#379100"
-                  onClick={() =>
-                    handleImageDownload({
-                      src: `${PRODUCT_IMAGES[resultType]}`,
-                      fileName: 'ddokdarman.png',
-                    })
-                  }
-                >
-                  저장하기
-                </SaveShareButton>
-                <SaveShareButton
-                  bgColor="#379100"
-                  onClick={() =>
-                    handleKaKaoShareBtn({
-                      title: QUOTE[resultType].name,
-                      description:
-                        '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
-                      imageUrl: IMAGE_URLS[resultType],
-                    })
-                  }
-                >
-                  공유하기
-                </SaveShareButton>
-              </SaveShareButtonContainer>
-            </>
-          )}
-        </>
-      )}
-    </>
+        <SaleBoxContainer>
+          <SaleText>못난이 '{QUOTE[result.type].type}'의 판매처에요</SaleText>
+          <SaleSubText>다양한 못난이 제품을 만나보세요!</SaleSubText>
+
+          {result?.products
+            .filter(
+              (product) =>
+                product.type ===
+                (saleType === 'origin' ? '원물판매자' : '업사이클링'),
+            )
+            .map((product) => (
+              <SaleBox key={product.id} to={product.site} target="_blank">
+                <SaleImage src={product.image} alt="sale-image" />
+                <SaleTextBox>
+                  <div>
+                    <SalePlace>{product.place}</SalePlace>
+                    <SaleName>{product.name}</SaleName>
+                  </div>
+                  <SalePrice>{product.price}원</SalePrice>
+                </SaleTextBox>
+              </SaleBox>
+            ))}
+        </SaleBoxContainer>
+      </SaleContainer>
+
+      <SaveShareButtonContainer>
+        <Button to="/">다시하기</Button>
+        <SaveShareButton
+          bgColor="var(--primary-opacity)"
+          color="var(--primary)"
+          border="2px solid var(--primary)"
+          onClick={() =>
+            handleImageDownload({
+              src: `${PRODUCT_IMAGES[result.type]}`,
+              fileName: 'ddokdarman.png',
+            })
+          }
+        >
+          저장하기
+        </SaveShareButton>
+        <SaveShareButton
+          bgColor="var(--primary)"
+          color="var(--white)"
+          border="none"
+          style={{ padding: '24px 120px', marginTop: '28px' }}
+          onClick={() =>
+            handleKaKaoShareBtn({
+              title: QUOTE[result.type].name,
+              description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
+              imageUrl: IMAGE_URLS[result.type],
+            })
+          }
+        >
+          공유하기
+        </SaveShareButton>
+      </SaveShareButtonContainer>
+    </FlexBox>
   );
 }
 
 export default Result;
 
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 44px;
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HeaderLogo = styled.img`
+  width: 17px;
+  margin: 0 auto;
 `;
 
 const ResultImage = styled.img`
-  width: 333px;
-  height: 333px;
+  width: 100%;
   display: block;
-  margin: auto;
+  align-self: center;
+  margin-top: 30px;
+`;
+
+const ResultSubName = styled.div`
+  font-size: 16px;
+  color: var(--darkgrey);
 `;
 
 const ResultName = styled.div`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: 40px 0 18px 0;
+  color: var(--black);
+  margin: 6px 0 16px 0;
 `;
 
 const ResultDescription = styled.div`
-  font-size: 14px;
-  color: #555555;
-`;
-
-const CommonDescription = styled.div`
-  margin: 36px 0 55px 0;
-`;
-
-const CommonText = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 15px;
-`;
-
-const CommonSubText = styled.div`
   font-size: 16px;
+  font-family: 'Noto Sans KR';
+  line-height: 24px;
+  color: var(--black);
+`;
+
+const DescriptionImage = styled.img`
+  width: 100%;
+  margin: 48px 0 68px 0;
+`;
+
+const SaleContainer = styled.div`
+  width: 100%;
 `;
 
 const ButtonContainer = styled.div`
@@ -204,52 +175,61 @@ const ButtonContainer = styled.div`
 `;
 
 const SaleButton = styled.button<{ value: string; active: boolean }>`
-  font-size: 18px;
-  font-weight: 600;
-  padding: 14px 32px;
-  background: ${(props) => (props.active ? 'var(--grey)' : 'var(--primary)')};
-  color: ${(props) => (props.active ? 'var(--black)' : 'var(--white)')};
+  height: 52px;
+  font-size: 16px;
+  padding: 12px auto;
+  font-family: 'Gmarket Sans';
+  font-weight: ${(props) => (props.active ? '600' : '400')};
+  background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
+  color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
   border-style: none;
   ${(props) => props.value === 'origin' && 'border-top-left-radius: 10px'};
   ${(props) => props.value === 'upcycling' && 'border-top-right-radius: 10px'};
 `;
 
-const SaleContainer = styled.div`
+const SaleBoxContainer = styled.div`
+  width: inherit;
   padding: 32px 20px;
-  background: var(--grey);
+  background: var(--white);
 `;
 
 const SaleText = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
 `;
 
 const SaleSubText = styled.div`
-  font-size: 14px;
+  font-size: 16px;
+  font-family: 'Pretendard';
   margin-bottom: 20px;
 `;
 
-const SaleBox = styled(Link)`
+const SaleBox = styled(Link)<{ last?: boolean }>`
   display: flex;
-  height: 150px;
+  align-items: center;
+  height: 140px;
   padding: 12px;
-  margin-bottom: 14px;
   background: var(--white);
-  border: 1px solid #f0f0f0;
   color: inherit;
   text-decoration: none;
+  border-bottom: 1px solid #dddddf;
   &:hover {
     border: 2px solid var(--primary);
+    border-radius: 10px;
   }
 `;
 
 const SaleImage = styled.img`
-  margin-right: 18px;
+  width: 88px;
+  height: 95px;
+  border-radius: 4px;
+  margin-right: 13px;
 `;
 
 const SaleTextBox = styled.div`
+  height: 95px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -257,32 +237,56 @@ const SaleTextBox = styled.div`
 
 const SalePlace = styled.div`
   font-size: 14px;
-  margin-bottom: 6px;
+  font-family: 'Pretendard';
+  color: #373737;
 `;
 
 const SaleName = styled.div`
+  font-family: 'Pretendard';
+  color: var(--black);
   font-size: 16px;
   font-weight: 700;
 `;
 
 const SalePrice = styled.div`
+  color: var(--secondary);
+  font-family: 'Pretendard';
   font-size: 16px;
+  font-weight: 500;
 `;
 
 const SaveShareButtonContainer = styled(ButtonContainer)`
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
   margin-top: 40px;
-  border-radius: 65px;
 `;
 
-const SaveShareButton = styled.button<{ bgColor: string }>`
+const SaveShareButton = styled.button<{
+  bgColor: string;
+  color: string;
+  border: string;
+}>`
+  font-family: 'Gmarket Sans';
   font-size: 18px;
-  font-weight: 600;
-  padding: 24px 36px;
-  border: none;
+  padding: 24px 30px;
+  border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
-  color: var(--white);
+  color: ${(props) => props.color};
+  opacity: 0.8;
+  cursor: pointer;
+`;
+
+const Button = styled(Link)`
+  font-family: 'Gmarket Sans';
+  font-size: 18px;
+  padding: 24px 30px;
+  border: 1px solid #e1e1e1;
+  border-radius: 65px;
+  background-color: var(--background);
+  color: var(--darkgrey);
   opacity: 0.8;
   cursor: pointer;
 `;

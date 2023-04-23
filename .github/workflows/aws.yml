@@ -22,6 +22,10 @@ jobs:
             ${{ runner.OS }}-
       - name: Install Dependencies npm # node module install
         run: npm install
+        
+      - name: Setting .env
+        run: |
+          echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
 
       - name: Build # project build
         run: npm run build

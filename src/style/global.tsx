@@ -26,9 +26,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
-	line-height: 1;
-}
 ol, ul {
 	list-style: none;
 }
@@ -50,10 +47,12 @@ table {
 
 body{
     font-family: 'Gmarket Sans';
-    max-width: 486px;
-    min-width: 486px;
+	font-weight: 400;
+	width: 100%;
+	min-width: 370px;
+    max-width: 400px;
     margin: 0 auto;
-    padding: 30px;
+    padding: 20px;
     line-height: 1.5;
     background-color: #fffbf8;
 }

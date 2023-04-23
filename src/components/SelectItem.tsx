@@ -82,23 +82,18 @@ const SubTitle = styled.div`
   align-items: center;
   text-align: center;
   color: var(--sub-black);
-
   font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-
   margin-top: 48px;
 `;
 
 const Title = styled.div`
   font-size: 24px;
-  font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: center;
-  margin: 10px 0 59px 0;
-
+  margin: 10px 0 34px 0;
   color: var(--black);
 `;
 
@@ -114,21 +109,21 @@ const Item = styled.button<{ selected: boolean }>`
   align-items: center;
   justify-content: center;
   background: ${(props) =>
-    props.selected ? 'var(--primary)' : 'var(--white)'};
-  color: ${(props) => (props.selected ? 'var(--white)' : 'var(--secondary)')};
+    props.selected ? 'var(--primary-opacity)' : 'var(--white)'};
+  color: ${(props) => (props.selected ? 'var(--primary)' : 'var(--secondary)')};
+  border: ${(props) => (props.selected ? '1px solid var(--primary)' : 'none')};
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
   border-radius: 40px;
   outline: none;
-  border: none;
   cursor: pointer;
-  margin: 16px 0;
+  margin: 8px 0;
   font-family: 'Noto Sans KR';
   font-style: normal;
-  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 
   &:hover {
-    border: 2px solid var(--primary);
+    border: 1px solid var(--primary);
+    transition: 0.3s ease;
   }
 `;

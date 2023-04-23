@@ -1,16 +1,17 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import styled from 'styled-components';
+import { ChangeEvent, useRef, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
+import camera from '../assets/camera.png';
+import styled from 'styled-components';
 
-const ImageFileUpload = () => {
-  const navigate = useNavigate();
+interface ImageFileUploadProps {
+  onClickButton: () => void;
+}
+
+const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
   const [imageSrc, setImageSrc] = useState('');
-  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
+  const setSelectedState = useSetRecoilState(selectedAtom);
   const inputRef = useRef(null);
-
-  const disableButton = Boolean(!imageSrc);
 
   const handleUploadClick = () => {
     if (inputRef.current) {
@@ -18,49 +19,51 @@ const ImageFileUpload = () => {
     }
   };
 
-  const handleCapture = () => {
-    navigate('/result', { state: { imageSrc } });
+  //TODO: utils로 빼기
+  const encodeFileToBase64 = (fileObj: File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileObj);
+    reader.onload = () => {
+      setImageSrc(reader.result as string);
+      const encoded = (reader.result as string).split(',')[1];
+      setSelectedState((prev) => ({ ...prev, photo: encoded }));
+    };
   };
 
-  const encodeFileToBase64 = (fileBlob: any) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { files },
+    } = e;
 
-    return new Promise<void>((resolve) => {
-      reader.onload = async () => {
-        setImageSrc(reader.result as any);
-        const imageBytes = (reader.result as string).split(',')[1];
-        setSelectedState((prev) => {
-          const newObj = { ...prev, photo: imageBytes };
-          return newObj;
-        });
-      };
-    });
+    if (files) {
+      encodeFileToBase64(files[0]);
+    }
   };
 
   return (
     <>
-      <WebCamContainer>
-        <label htmlFor="image">
-          <FileInput
-            type="file"
-            id="image"
-            accept="image/*"
-            name="file"
-            ref={inputRef}
-            onChange={(e) => encodeFileToBase64(e.target.files![0])}
-          />
-          {imageSrc ? (
-            <Image src={imageSrc} alt="uploaded-file" />
-          ) : (
-            <FileSelctButton onClick={handleUploadClick}>
-              파일 업로드
-            </FileSelctButton>
-          )}
-        </label>
-      </WebCamContainer>
-      <FindButton onClick={handleCapture} disabled={disableButton}>
-        캐릭터 찾기
+      <label htmlFor="image">
+        <FileInput
+          type="file"
+          id="image"
+          accept="image/*"
+          name="file"
+          ref={inputRef}
+          onChange={handleImageChange}
+        />
+        {imageSrc ? (
+          <Image src={imageSrc} alt="uploaded-file" />
+        ) : (
+          <FileSelctButton onClick={handleUploadClick}>
+            <CameraImg src={camera} alt="camera" />
+            <br />
+            얼굴이 잘리지 않은 <br />
+            사진을 올려주세요
+          </FileSelctButton>
+        )}
+      </label>
+      <FindButton onClick={onClickButton} disabled={Boolean(!imageSrc)}>
+        닮은꼴 찾기
       </FindButton>
     </>
   );
@@ -68,28 +71,37 @@ const ImageFileUpload = () => {
 
 export default ImageFileUpload;
 
-const WebCamContainer = styled.div`
-  margin: 39px 0 15px 0;
-`;
-
 const FileInput = styled.input`
   display: none;
+`;
+
+const CameraImg = styled.img`
+  width: 32px;
+  margin-bottom: 14px;
 `;
 
 const FileSelctButton = styled.button`
   width: 198px;
   height: 198px;
-  background-color: var(--background);
-  color: var(--secondary);
-  border: none;
-  margin-bottom: 24px;
+  background-color: var(--white);
+  color: var(--darkgrey);
+  line-height: 21px;
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
+  box-shadow: 3px 3px 5px #e1e1e1;
+  font-family: 'Noto Sank KR';
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 96px;
   cursor: pointer;
 `;
 
 const FindButton = styled.button<{ disabled: boolean }>`
   width: 284px;
   height: 72px;
+  font-family: 'Gmarket Sans';
   font-size: 24px;
+  margin-top: 40px;
   color: var(--white);
   background-color: var(--primary);
   border-radius: 100px;
@@ -100,4 +112,7 @@ const FindButton = styled.button<{ disabled: boolean }>`
 const Image = styled.img`
   width: 198px;
   height: 198px;
+  border-radius: 20px;
+  margin-top: 96px;
+  box-shadow: 3px 3px 5px #e1e1e1;
 `;

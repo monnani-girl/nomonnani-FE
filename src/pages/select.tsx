@@ -7,6 +7,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import SelectItem from '../components/SelectItem';
 import { useRecoilValue } from 'recoil';
 import { selectedAtom } from '../atoms';
+import { getResult } from '../api';
+import { useMutation } from 'react-query';
+import Loading from '../components/Loading';
+import { useEffect } from 'react';
 
 //TODO: static으로 빼기
 const TOTAL_STEPS = 5;
@@ -25,6 +29,32 @@ const Select = () => {
       selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
 
+  const {
+    data: resultData,
+    mutate: resultMutation,
+    isLoading: resultLoading,
+    isSuccess: resultSuccess,
+    isError: resultError,
+  } = useMutation(getResult);
+
+  const handleCaptureClick = () => {
+    resultMutation(selectedState);
+  };
+
+  useEffect(() => {
+    if (resultSuccess) {
+      if (resultData.result) navigate('/result', { state: resultData.result });
+      else {
+        //TODO: 에러 모달 처리
+        alert(resultData.message);
+        navigate('/select/5');
+      }
+    }
+  }, [resultSuccess]);
+
+  if (resultLoading) return <Loading />;
+  // if (resultError) return <div>에러가 발생했습니다</div>; //TODO: 에러 노드 처리
+
   return (
     <Container>
       <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
@@ -34,8 +64,9 @@ const Select = () => {
         trailWidth={3}
         strokeColor="var(--primary)"
         trailColor="var(--progress-trail)"
-        style={{ width: '333px', marginTop: '46px' }}
+        style={{ maxWidth: '333px', marginTop: '46px' }}
       />
+
       {step === '1' && <SelectItem step={1} />}
       {step === '2' && <SelectItem step={2} />}
       {step === '3' && <SelectItem step={3} />}
@@ -43,10 +74,10 @@ const Select = () => {
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <StepSubText>얼굴이 잘리지 않은 사진을 업로드해주세요</StepSubText>
-          <ImageFileUpload />
+          <ImageFileUpload onClickButton={handleCaptureClick} />
         </>
       )}
+
       <BtnContainer>
         <Button
           to={
@@ -62,6 +93,7 @@ const Select = () => {
             disabledNextBtn ? `/select/${step}` : `/select/${Number(step) + 1}`
           }
           disabled={disabledNextBtn}
+          visibled={step === String(TOTAL_STEPS)}
         >
           다음
         </Button>
@@ -96,84 +128,48 @@ const Container = styled.div`
 `;
 
 const BtnContainer = styled.div`
+  width: 100%;
   display: flex;
-  min-width: 486px;
-  max-width: 486px;
-  justify-content: space-around;
-  margin: 59px 0 125px 0;
+  justify-content: space-between;
+  margin-top: 60px;
 `;
 
-const Button = styled(Link)<{ prev?: string; disabled: boolean }>`
-  width: 79px;
+const Button = styled(Link)<{
+  prev?: string;
+  disabled: boolean;
+  visibled?: boolean;
+}>`
+  width: 75px;
   height: 52px;
+  padding: 15px;
   background-color: ${(props) =>
     props.prev
       ? ButtonType.bgcolor.prev
       : props.disabled
       ? ButtonType.bgcolor.next
-      : 'rgba(55,145,0,0.08)'};
+      : 'var(--primary)'};
   color: ${(props) =>
     props.prev
       ? ButtonType.color.prev
       : props.disabled
       ? ButtonType.color.next
-      : 'var(--primary)'};
+      : 'var(--white)'};
   border: ${(props) =>
     props.prev
       ? 'none'
       : props.disabled
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
+  visibility: ${(props) =>
+    props.prev ? 'visible' : props.visibled ? 'hidden' : 'visible'};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  font-size: 16px;
-  line-height: 52px;
+  font-size: 14px;
   text-align: center;
   border-radius: 48px;
-  font-style: normal;
-  font-weight: 400;
 `;
 
 const StepTitle = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 77px;
-`;
-
-const StepSubText = styled.div`
-  font-size: 16px;
-  margin-top: 10px;
-  color: var(--darkgrey);
-`;
-
-const UploadButton = styled.button`
-  width: 136px;
-  height: 136px;
-  border: 1px solid #e1e1e1;
-  border-radius: 90px;
-  background: var(--white);
-  color: var(--secondary);
-  cursor: pointer;
-  font-size: 18px;
-  &:hover {
-    border: 2px solid var(--primary);
-  }
-`;
-
-const UploadBtnContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  margin: 80px 0 66px 0;
-`;
-
-const FindButton = styled.button`
-  width: 284px;
-  height: 72px;
-  background-color: var(--background);
-  opacity: 0.5;
-  border-radius: 100px;
-  color: var(--secondary);
-  font-size: 24px;
-  border: none;
-  cursor: not-allowed;
 `;
