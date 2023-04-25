@@ -1,4 +1,4 @@
-import Router from './components/router';
+import Router from './components/Router';
 import { GlobalStyle } from './style/global';
 import './style/color.css';
 

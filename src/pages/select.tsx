@@ -4,7 +4,7 @@ import headerLogo from '../assets/header.png';
 import ImageFileUpload from '../components/ImageUpload';
 import { SelectedProps } from '../api/types';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import SelectItem from '../components/SelectItem';
+import SelectItems from '../components/SelectItems';
 import { useRecoilValue } from 'recoil';
 import { selectedAtom } from '../atoms';
 import { getResult } from '../api';
@@ -67,10 +67,10 @@ const Select = () => {
         style={{ maxWidth: '333px', marginTop: '46px' }}
       />
 
-      {step === '1' && <SelectItem step={1} />}
-      {step === '2' && <SelectItem step={2} />}
-      {step === '3' && <SelectItem step={3} />}
-      {step === '4' && <SelectItem step={4} />}
+      {step === '1' && <SelectItems step={1} />}
+      {step === '2' && <SelectItems step={2} />}
+      {step === '3' && <SelectItems step={3} />}
+      {step === '4' && <SelectItems step={4} />}
       {step === '5' && (
         <>
           <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
