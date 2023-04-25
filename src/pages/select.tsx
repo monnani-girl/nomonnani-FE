@@ -1,16 +1,17 @@
-import styled from 'styled-components';
+import { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { useRecoilValue } from 'recoil';
 import { Line } from 'rc-progress';
+import { getResult } from '../api';
+import { selectedAtom } from '../atoms';
 import headerLogo from '../assets/header.png';
 import ImageFileUpload from '../components/ImageUpload';
-import { SelectedProps } from '../api/types';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import SelectItems from '../components/SelectItems';
-import { useRecoilValue } from 'recoil';
-import { selectedAtom } from '../atoms';
-import { getResult } from '../api';
-import { useMutation } from 'react-query';
 import Loading from '../components/Loading';
-import { useEffect } from 'react';
+import styled from 'styled-components';
+
+import type { SelectedProps } from '../api/types';
 
 //TODO: static으로 빼기
 const TOTAL_STEPS = 5;
@@ -67,16 +68,15 @@ const Select = () => {
         style={{ maxWidth: '333px', marginTop: '46px' }}
       />
 
-      {step === '1' && <SelectItems step={1} />}
-      {step === '2' && <SelectItems step={2} />}
-      {step === '3' && <SelectItems step={3} />}
-      {step === '4' && <SelectItems step={4} />}
-      {step === '5' && (
-        <>
-          <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <ImageFileUpload onClickButton={handleCaptureClick} />
-        </>
-      )}
+      {step &&
+        (step !== String(TOTAL_STEPS) ? (
+          <SelectItems step={+step} />
+        ) : (
+          <>
+            <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
+            <ImageFileUpload onClickButton={handleCaptureClick} />
+          </>
+        ))}
 
       <BtnContainer>
         <Button
