@@ -1,6 +1,3 @@
-import { FormEvent } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectedAtom } from '../atoms';
 import { SelectedProps } from '../api/types';
 import { SELECT_OPTIONS } from '../static/select';
 import SelectItem from './SelectItem';
@@ -13,16 +10,6 @@ interface SelectItemsProps {
 const SelectItems = ({ step }: SelectItemsProps) => {
   const stepName = SELECT_OPTIONS[step - 1].name as keyof SelectedProps;
 
-  const [selectedState, setSelectedState] = useRecoilState(selectedAtom);
-
-  const handleSelectItems = (e: FormEvent<HTMLButtonElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-
-    setSelectedState((prev) => ({ ...prev, [stepName]: value }));
-  };
-
   return (
     <>
       <SubTitle>{SELECT_OPTIONS[step - 1].subTitle}</SubTitle>
@@ -30,12 +17,10 @@ const SelectItems = ({ step }: SelectItemsProps) => {
       <SelectContainer>
         {SELECT_OPTIONS[step - 1].items.map((item, index) => (
           <SelectItem
-            key={item.text}
-            id={index + '1'}
+            key={`${item.text}-${index}`}
             value={item.value}
-            onClick={handleSelectItems}
-            selected={selectedState[stepName] === item.value}
             text={item.text}
+            stepName={stepName}
           />
         ))}
       </SelectContainer>
