@@ -2,10 +2,10 @@ import { FormEvent, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
-import headerLogo from '../assets/header.png';
 import introductionImg from '../assets/introduction.svg';
 import { QUOTE } from '../static/quote';
 import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
+import Header from '../components/Header';
 import styled from 'styled-components';
 
 import type { ResultProps } from '../api/types';
@@ -27,7 +27,7 @@ function Result() {
 
   return (
     <FlexBox>
-      <HeaderLogo src={headerLogo} />
+      <Header />
       <ResultImage src={PRODUCT_IMAGES[result.type]} alt="result-image" />
 
       <ResultSubName>나는 못난이</ResultSubName>
@@ -120,11 +120,6 @@ const FlexBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const HeaderLogo = styled.img`
-  width: 17px;
-  margin: 0 auto;
 `;
 
 const ResultImage = styled.img`

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Line } from 'rc-progress';
-import headerLogo from '../assets/header.png';
 import ImageFileUpload from '../components/ImageUpload';
 import { SelectedProps } from '../api/types';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -11,6 +10,7 @@ import { getResult } from '../api';
 import { useMutation } from 'react-query';
 import Loading from '../components/Loading';
 import { useEffect } from 'react';
+import Header from '../components/Header';
 
 //TODO: static으로 빼기
 const TOTAL_STEPS = 5;
@@ -57,7 +57,7 @@ const Select = () => {
 
   return (
     <Container>
-      <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
+      <Header />
       <Line
         percent={Number(step) * PERCENTAGE}
         strokeWidth={3}
@@ -103,11 +103,6 @@ const Select = () => {
 };
 
 export default Select;
-
-const HeaderLogo = styled.img`
-  width: 17px;
-  cursor: pointer;
-`;
 
 const ButtonType = {
   bgcolor: {
