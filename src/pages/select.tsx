@@ -5,10 +5,10 @@ import { useRecoilValue } from 'recoil';
 import { Line } from 'rc-progress';
 import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
-import headerLogo from '../assets/header.png';
 import ImageFileUpload from '../components/ImageUpload';
 import SelectItems from '../components/SelectItems';
 import Loading from '../components/Loading';
+import Header from '../components/Header';
 import styled from 'styled-components';
 
 import type { SelectedProps } from '../api/types';
