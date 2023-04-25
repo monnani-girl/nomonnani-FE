@@ -58,7 +58,7 @@ const Select = () => {
 
   return (
     <Container>
-      <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />
+      <Header />
       <Line
         percent={Number(step) * PERCENTAGE}
         strokeWidth={3}
@@ -103,11 +103,6 @@ const Select = () => {
 };
 
 export default Select;
-
-const HeaderLogo = styled.img`
-  width: 17px;
-  cursor: pointer;
-`;
 
 const ButtonType = {
   bgcolor: {
