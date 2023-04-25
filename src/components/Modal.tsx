@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 interface ModalProps {
   contentText: string;
-  buttonText?: string;
-  onClick: () => {};
+  buttonText: string;
+  onClick: () => void;
 }
 const Modal = ({ contentText, buttonText, onClick }: ModalProps) => {
   return (
@@ -41,6 +41,8 @@ const Content = styled.div`
   height: 154px;
   font-size: 18px;
   line-height: 28px;
+  white-space: pre-wrap;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
