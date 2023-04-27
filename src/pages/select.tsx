@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { Line } from 'rc-progress';
-import { getResult } from '../api';
 import { selectedAtom } from '../atoms';
+import { getResult } from '../api';
 import ImageFileUpload from '../components/ImageUpload';
-import SelectItems from '../components/SelectItems';
+import SelectItem from '../components/SelectItem';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
+import Modal from '../components/Modal';
 import styled from 'styled-components';
 
 import type { SelectedProps } from '../api/types';
@@ -22,6 +23,7 @@ const Select = () => {
   const navigate = useNavigate();
   const { step } = useParams();
   const selectedState = useRecoilValue(selectedAtom);
+  const [openModal, setOpenModal] = useState(false);
 
   const disabledPrevBtn = step === '1';
   const disabledNextBtn =
@@ -46,12 +48,21 @@ const Select = () => {
     if (resultSuccess) {
       if (resultData.result) navigate('/result', { state: resultData.result });
       else {
-        //TODO: 에러 모달 처리
-        alert(resultData.message);
-        navigate('/select/5');
+        setOpenModal(true);
+        //TODO: 에러 메시지 전달은?
+        // alert(resultData.message);
       }
     }
   }, [resultSuccess]);
+
+  if (openModal)
+    return (
+      <Modal
+        contentText={`앗, 얼굴이 인식되지 않았어요!\n 정면에서 촬영한 사진을 올려주세요.`}
+        buttonText={`다시 올리기`}
+        onClick={() => setOpenModal(false)}
+      />
+    );
 
   if (resultLoading) return <Loading />;
   // if (resultError) return <div>에러가 발생했습니다</div>; //TODO: 에러 노드 처리
