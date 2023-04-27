@@ -8,12 +8,11 @@ interface ModalProps {
 const Modal = ({ contentText, buttonText, onClick }: ModalProps) => {
   return (
     <>
-      <Dimmed>
-        <Container>
-          <Content>{contentText}</Content>
-          <Button onClick={onClick}>{buttonText}</Button>
-        </Container>
-      </Dimmed>
+      <Dimmed onClick={onClick} />
+      <Container>
+        <Content>{contentText}</Content>
+        <Button onClick={onClick}>{buttonText}</Button>
+      </Container>
     </>
   );
 };
@@ -33,8 +32,9 @@ const Container = styled.div`
   width: 350px;
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  margin: 0 auto;
-  margin-top: 300px;
+  margin-top: 280px;
+  position: fixed;
+  z-index: 9;
 `;
 
 const Content = styled.div`
