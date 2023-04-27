@@ -5,13 +5,14 @@ import { useRecoilValue } from 'recoil';
 import { Line } from 'rc-progress';
 import { selectedAtom } from '../atoms';
 import { getResult } from '../api';
-import { SelectedProps } from '../api/types';
 import ImageFileUpload from '../components/ImageUpload';
 import SelectItem from '../components/SelectItem';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
 import styled from 'styled-components';
+
+import type { SelectedProps } from '../api/types';
 
 //TODO: static으로 빼기
 const TOTAL_STEPS = 5;
@@ -78,16 +79,15 @@ const Select = () => {
         style={{ maxWidth: '333px', marginTop: '46px' }}
       />
 
-      {step === '1' && <SelectItem step={1} />}
-      {step === '2' && <SelectItem step={2} />}
-      {step === '3' && <SelectItem step={3} />}
-      {step === '4' && <SelectItem step={4} />}
-      {step === '5' && (
-        <>
-          <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
-          <ImageFileUpload onClickButton={handleCaptureClick} />
-        </>
-      )}
+      {step &&
+        (step !== String(TOTAL_STEPS) ? (
+          <SelectItems step={+step} />
+        ) : (
+          <>
+            <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
+            <ImageFileUpload onClickButton={handleCaptureClick} />
+          </>
+        ))}
 
       <BtnContainer>
         <Button
