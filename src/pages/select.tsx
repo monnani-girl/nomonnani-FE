@@ -6,7 +6,7 @@ import { Line } from 'rc-progress';
 import { selectedAtom } from '../atoms';
 import { getResult } from '../api';
 import ImageFileUpload from '../components/ImageUpload';
-import SelectItem from '../components/SelectItem';
+import SelectItems from '../components/SelectItems';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
