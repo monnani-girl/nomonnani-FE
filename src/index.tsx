@@ -8,7 +8,9 @@ import ReactGA from 'react-ga';
 
 //TODO: theme 설정
 const theme = {};
-ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID as string);
+if (process.env.RREACT_APP_GOOGLE_ANALYTICS_TRACKING_ID) {
+  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID as string);
+}
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
