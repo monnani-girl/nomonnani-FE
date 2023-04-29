@@ -124,6 +124,7 @@ const FlexBox = styled.div`
 
 const ResultImage = styled.img`
   width: 100%;
+  height: 315px;
   display: block;
   align-self: center;
   margin-top: 30px;
@@ -151,6 +152,7 @@ const ResultDescription = styled.div`
 
 const DescriptionImage = styled.img`
   width: 100%;
+  height: 400px;
   margin: 48px 0 68px 0;
 `;
 
