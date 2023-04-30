@@ -8,7 +8,7 @@ import ReactGA from 'react-ga';
 
 //TODO: theme 설정
 const theme = {};
-if (process.env.RREACT_APP_GOOGLE_ANALYTICS_TRACKING_ID) {
+if (process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID) {
   ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID as string);
 }
 
