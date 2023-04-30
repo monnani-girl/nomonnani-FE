@@ -30,7 +30,7 @@ function Result() {
       <Header />
       <ResultImage src={PRODUCT_IMAGES[result.type]} alt="result-image" />
 
-      <ResultSubName>나는 못난이</ResultSubName>
+      <ResultSubName>나의 닮은꼴 농산물은...</ResultSubName>
       <ResultName>{QUOTE[result.type].name}</ResultName>
       <ResultDescription>{QUOTE[result.type].quote}</ResultDescription>
       <DescriptionImage src={introductionImg} alt="introduction" />
