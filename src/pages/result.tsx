@@ -132,12 +132,13 @@ const ResultImage = styled.img`
 
 const ResultSubName = styled.div`
   font-size: 16px;
+  font-weight: 300;
   color: var(--darkgrey);
 `;
 
 const ResultName = styled.div`
   font-size: 24px;
-  font-weight: 700;
+  font-weight: bold;
   text-align: center;
   color: var(--black);
   margin: 6px 0 16px 0;
@@ -170,7 +171,8 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   font-size: 16px;
   padding: 12px auto;
   font-family: 'GmarketSansMedium';
-  font-weight: ${(props) => (props.active ? '600' : '400')};
+  font-size: ${(props) => (props.active ? '18px' : '17px')};
+  font-weight: ${(props) => (props.active ? 'bold' : 'light')};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
   color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
@@ -187,7 +189,7 @@ const SaleBoxContainer = styled.div`
 
 const SaleText = styled.div`
   font-size: 20px;
-  font-weight: 600;
+  font-weight: bold;
   margin-bottom: 4px;
 `;
 
