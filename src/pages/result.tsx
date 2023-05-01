@@ -137,7 +137,7 @@ const ResultSubName = styled.div`
 
 const ResultName = styled.div`
   font-size: 24px;
-  font-weight: 700;
+  font-family: 'GmarketSansBold';
   text-align: center;
   color: var(--black);
   margin: 6px 0 16px 0;
@@ -167,10 +167,9 @@ const ButtonContainer = styled.div`
 
 const SaleButton = styled.button<{ value: string; active: boolean }>`
   height: 52px;
-  font-size: 16px;
+  font-size: 17px;
   padding: 12px auto;
-  font-family: 'GmarketSansMedium';
-  font-weight: ${(props) => (props.active ? '600' : '400')};
+  font-family: ${(props) => (props.active ? 'GmarketSansBold' : 'GmarketSansMedium')};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
   color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
@@ -187,7 +186,7 @@ const SaleBoxContainer = styled.div`
 
 const SaleText = styled.div`
   font-size: 20px;
-  font-weight: 600;
+  font-family: 'GmarketSansBold';
   margin-bottom: 4px;
 `;
 
