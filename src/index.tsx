@@ -4,9 +4,13 @@ import { ThemeProvider } from 'styled-components';
 import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import ReactGA from 'react-ga';
 
 //TODO: theme 설정
 const theme = {};
+if (process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID) {
+  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID as string);
+}
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(

@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useResetRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
+import { useState } from 'react';
 
 function Home() {
   const resetSelected = useResetRecoilState(selectedAtom);
+  // TODO : 방문자수 api 연결
+  const [visitor,setVisitor] = useState(120230);
 
   useEffect(() => {
     resetSelected();
@@ -20,10 +23,11 @@ function Home() {
         <SubTitle>내가 제주 농산물이라면?</SubTitle>
         <Title src={LogoImage} alt="logo" />
         <Description>
-          나와 닮은 귀여운 제주 못나니 <br />
+          나와 닮은 귀여운 제주 못난이<br />
           농산물 캐릭터를 찾아보세요!
         </Description>
         <Button to="/select/1">닮은꼴 찾으러 가기</Button>
+        {/* <VisitorText>지금까지 {visitor.toLocaleString()}명이 닮은꼴을 찾았어요</VisitorText> */}
       </IntroContainer>
     </Body>
   );
@@ -79,4 +83,13 @@ const Button = styled(Link)`
   color: var(--white);
   border-radius: 100px;
   cursor: pointer;
+`;
+
+const VisitorText = styled.div`
+  font-family: 'Noto Sans KR';
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+  color: var(--primary);
+  margin-top: 20px;
 `;
