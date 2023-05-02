@@ -27,7 +27,7 @@ function Home() {
           농산물 캐릭터를 찾아보세요!
         </Description>
         <Button to="/select/1">닮은꼴 찾으러 가기</Button>
-        <VisitorText>지금까지 {visitor.toLocaleString()}명이 닮은꼴을 찾았어요</VisitorText>
+        {/* <VisitorText>지금까지 {visitor.toLocaleString()}명이 닮은꼴을 찾았어요</VisitorText> */}
       </IntroContainer>
     </Body>
   );
