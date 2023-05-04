@@ -1,4 +1,8 @@
-export const PRODUCT_NAME_ENG2KOR: Record<string, string> = {
+type ProductType = {
+  [type: string]: string;
+};
+
+export const PRODUCT_NAME_ENG2KOR: ProductType = {
   carrot: '당근',
   potato: '감자',
   pumpkin: '밤호박',
