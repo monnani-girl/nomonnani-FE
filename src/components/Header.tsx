@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import headerLogo from '../assets/header.png';
-import { useNavigate } from 'react-router-dom';
+import resultHeaderLogo from '../assets/logo.png';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
-  return <HeaderLogo src={headerLogo} onClick={() => navigate('/')} />;
+  const location = useLocation();
+  const logoSrc = location.pathname === '/result' ? resultHeaderLogo : headerLogo;
+
+  return <HeaderLogo src={logoSrc} width={logoSrc === resultHeaderLogo ? '92px' : '17px'} onClick={() => navigate('/')} />;
 };
 
 export default Header;
 
 const HeaderLogo = styled.img`
-  width: 17px;
+  width: ${(props) => props.width};
   cursor: pointer;
 `;

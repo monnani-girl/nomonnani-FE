@@ -17,6 +17,7 @@ type LocationType = {
 function Result() {
   const { state: result } = useLocation() as LocationType;
   const [saleType, setSaleType] = useState('origin');
+  const resultImageIdx = Math.floor(Math.random() *3);
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
     const {
@@ -28,9 +29,9 @@ function Result() {
   return (
     <FlexBox>
       <Header />
-      <ResultImage src={PRODUCT_IMAGES[result.type]} alt="result-image" />
+      <ResultImage src={PRODUCT_IMAGES[result.type][resultImageIdx]} alt="result-image" />
 
-      <ResultSubName>나는 못난이</ResultSubName>
+      <ResultSubName>나의 닮은꼴 농산물은...</ResultSubName>
       <ResultName>{QUOTE[result.type].name}</ResultName>
       <ResultDescription>{QUOTE[result.type].quote}</ResultDescription>
       <DescriptionImage src={introductionImg} alt="introduction" />
@@ -102,7 +103,7 @@ function Result() {
             handleKaKaoShareBtn({
               title: QUOTE[result.type].name,
               description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
-              imageUrl: IMAGE_URLS[result.type],
+              imageUrl: IMAGE_URLS[result.type][resultImageIdx],
             })
           }
         >
@@ -124,7 +125,7 @@ const FlexBox = styled.div`
 
 const ResultImage = styled.img`
   width: 100%;
-  height: 315px;
+  height: 410px;
   display: block;
   align-self: center;
   margin-top: 30px;
@@ -132,6 +133,7 @@ const ResultImage = styled.img`
 
 const ResultSubName = styled.div`
   font-size: 16px;
+  margin-top: 28px;
   color: var(--darkgrey);
 `;
 
