@@ -12,6 +12,8 @@ export type Products = {
 export interface ResultProps {
   type: string;
   products: Products[];
+  nickname: string;
+  quote: string;
 }
 
 export interface SelectedProps {

@@ -2,10 +2,10 @@ import { FormEvent, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
-import headerLogo from '../assets/header.png';
 import introductionImg from '../assets/introduction.svg';
-import { QUOTE } from '../static/quote';
+import { PRODUCT_NAME_ENG2KOR } from '../static/product';
 import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
+import Header from '../components/Header';
 import styled from 'styled-components';
 
 import type { ResultProps } from '../api/types';
@@ -14,9 +14,13 @@ type LocationType = {
   state: ResultProps;
 };
 
+const RANDOM_COUNT = 3;
+
 function Result() {
   const { state: result } = useLocation() as LocationType;
   const [saleType, setSaleType] = useState('origin');
+
+  const resultImageIdx = Math.floor(Math.random() * RANDOM_COUNT);
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
     const {
@@ -27,12 +31,15 @@ function Result() {
 
   return (
     <FlexBox>
-      <HeaderLogo src={headerLogo} />
-      <ResultImage src={PRODUCT_IMAGES[result.type]} alt="result-image" />
+      <Header />
+      <ResultImage
+        src={PRODUCT_IMAGES[result.type][resultImageIdx]}
+        alt="result-image"
+      />
 
-      <ResultSubName>나는 못난이</ResultSubName>
-      <ResultName>{QUOTE[result.type].name}</ResultName>
-      <ResultDescription>{QUOTE[result.type].quote}</ResultDescription>
+      <ResultSubName>나의 닮은꼴 농산물은...</ResultSubName>
+      <ResultName>{result.nickname}</ResultName>
+      <ResultDescription>{result.quote}</ResultDescription>
       <DescriptionImage src={introductionImg} alt="introduction" />
 
       <SaleContainer>
@@ -54,7 +61,9 @@ function Result() {
         </ButtonContainer>
 
         <SaleBoxContainer>
-          <SaleText>못난이 '{QUOTE[result.type].type}'의 판매처에요</SaleText>
+          <SaleText>
+            못난이 '{PRODUCT_NAME_ENG2KOR[result.type]}'의 판매처에요
+          </SaleText>
           <SaleSubText>다양한 못난이 제품을 만나보세요!</SaleSubText>
 
           {result?.products
@@ -86,7 +95,7 @@ function Result() {
           border="2px solid var(--primary)"
           onClick={() =>
             handleImageDownload({
-              src: `${PRODUCT_IMAGES[result.type]}`,
+              src: PRODUCT_IMAGES[result.type][resultImageIdx],
               fileName: 'ddokdarman.png',
             })
           }
@@ -100,9 +109,9 @@ function Result() {
           style={{ padding: '24px 120px', marginTop: '28px' }}
           onClick={() =>
             handleKaKaoShareBtn({
-              title: QUOTE[result.type].name,
+              title: result.nickname,
               description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
-              imageUrl: IMAGE_URLS[result.type],
+              imageUrl: IMAGE_URLS[result.type][resultImageIdx],
             })
           }
         >
@@ -122,13 +131,9 @@ const FlexBox = styled.div`
   align-items: center;
 `;
 
-const HeaderLogo = styled.img`
-  width: 17px;
-  margin: 0 auto;
-`;
-
 const ResultImage = styled.img`
   width: 100%;
+  height: 410px;
   display: block;
   align-self: center;
   margin-top: 30px;
@@ -136,12 +141,13 @@ const ResultImage = styled.img`
 
 const ResultSubName = styled.div`
   font-size: 16px;
+  margin-top: 28px;
   color: var(--darkgrey);
 `;
 
 const ResultName = styled.div`
   font-size: 24px;
-  font-weight: 700;
+  font-family: 'GmarketSansBold';
   text-align: center;
   color: var(--black);
   margin: 6px 0 16px 0;
@@ -156,6 +162,7 @@ const ResultDescription = styled.div`
 
 const DescriptionImage = styled.img`
   width: 100%;
+  height: 400px;
   margin: 48px 0 68px 0;
 `;
 
@@ -170,10 +177,10 @@ const ButtonContainer = styled.div`
 
 const SaleButton = styled.button<{ value: string; active: boolean }>`
   height: 52px;
-  font-size: 16px;
+  font-size: 17px;
   padding: 12px auto;
-  font-family: 'GmarketSansMedium';
-  font-weight: ${(props) => (props.active ? '600' : '400')};
+  font-family: ${(props) =>
+    props.active ? 'GmarketSansBold' : 'GmarketSansMedium'};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
   color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
@@ -190,7 +197,7 @@ const SaleBoxContainer = styled.div`
 
 const SaleText = styled.div`
   font-size: 20px;
-  font-weight: 600;
+  font-family: 'GmarketSansBold';
   margin-bottom: 4px;
 `;
 

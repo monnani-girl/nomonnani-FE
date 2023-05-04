@@ -77,6 +77,7 @@ const FileInput = styled.input`
 
 const CameraImg = styled.img`
   width: 32px;
+  height: 32px;
   margin-bottom: 14px;
 `;
 
@@ -92,7 +93,7 @@ const FileSelctButton = styled.button`
   font-family: 'Noto Sank KR';
   font-size: 16px;
   font-weight: 400;
-  margin-top: 96px;
+  margin-top: 75px;
   cursor: pointer;
 `;
 
