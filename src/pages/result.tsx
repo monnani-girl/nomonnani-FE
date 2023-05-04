@@ -103,7 +103,7 @@ function Result() {
             handleKaKaoShareBtn({
               title: QUOTE[result.type].name,
               description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
-              imageUrl: IMAGE_URLS[result.type],
+              imageUrl: IMAGE_URLS[result.type][resultImageIdx],
             })
           }
         >
