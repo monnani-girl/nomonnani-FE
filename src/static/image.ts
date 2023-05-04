@@ -27,11 +27,11 @@ export const PRODUCT_IMAGES: Record<string, string[]> = {
   cabbage: [cabbageImg1, cabbageImg2, cabbageImg3],
 };
 
-export const IMAGE_URLS: Record<string, string> = {
-  pumpkin: 'https://ifh.cc/g/0wL36s.png',
-  broccoli: 'https://ifh.cc/g/GhCGCs.png',
-  potato: 'https://ifh.cc/g/mQmkYT.png',
-  tangerine: 'https://ifh.cc/g/yNdPm0.png',
-  carrot: 'https://ifh.cc/g/7X0lZ4.png',
-  cabbage: 'https://ifh.cc/g/Tz8szx.png',
+export const IMAGE_URLS: Record<string, string[]> = {
+  pumpkin: ['https://ifh.cc/g/5qChQv.png', 'https://ifh.cc/g/fBgW3L.png', 'https://ifh.cc/g/Q2yx9b.png'],
+  broccoli: ['https://ifh.cc/g/tAFfOK.png', 'https://ifh.cc/g/SjS46a.png', 'https://ifh.cc/g/B0okjj.png'],
+  potato: ['https://ifh.cc/g/dY1WSH.png', 'https://ifh.cc/g/Qwdnyt.png', 'https://ifh.cc/g/mpc02f.png'],
+  tangerine: ['https://ifh.cc/g/QHj58n.png', 'https://ifh.cc/g/C3WpqN.png', 'https://ifh.cc/g/oxbPkG.png'],
+  carrot: ['https://ifh.cc/g/sAtoV3.png', 'https://ifh.cc/g/D0wtqz.png', 'https://ifh.cc/g/P92wXQ.png'],
+  cabbage: ['https://ifh.cc/g/1L8xVT.png', 'https://ifh.cc/g/gTnMbp.png', 'https://ifh.cc/g/PD1Vfk.png'],
 };
