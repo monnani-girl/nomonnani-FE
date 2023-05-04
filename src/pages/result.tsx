@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
 import introductionImg from '../assets/introduction.svg';
-import { QUOTE } from '../static/quote';
+import { PRODUCT_NAME_ENG2KOR } from '../static/product';
 import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
 import Header from '../components/Header';
 import styled from 'styled-components';
@@ -38,8 +38,8 @@ function Result() {
       />
 
       <ResultSubName>나의 닮은꼴 농산물은...</ResultSubName>
-      <ResultName>{QUOTE[result.type].name}</ResultName>
-      <ResultDescription>{QUOTE[result.type].quote}</ResultDescription>
+      <ResultName>{result.nickname}</ResultName>
+      <ResultDescription>{result.quote}</ResultDescription>
       <DescriptionImage src={introductionImg} alt="introduction" />
 
       <SaleContainer>
@@ -61,7 +61,9 @@ function Result() {
         </ButtonContainer>
 
         <SaleBoxContainer>
-          <SaleText>못난이 '{QUOTE[result.type].type}'의 판매처에요</SaleText>
+          <SaleText>
+            못난이 '{PRODUCT_NAME_ENG2KOR[result.type]}'의 판매처에요
+          </SaleText>
           <SaleSubText>다양한 못난이 제품을 만나보세요!</SaleSubText>
 
           {result?.products
@@ -107,7 +109,7 @@ function Result() {
           style={{ padding: '24px 120px', marginTop: '28px' }}
           onClick={() =>
             handleKaKaoShareBtn({
-              title: QUOTE[result.type].name,
+              title: result.nickname,
               description: '나와 닮은꼴인 제주 못난이 농작물을 찾아보세요!',
               imageUrl: IMAGE_URLS[result.type][resultImageIdx],
             })
