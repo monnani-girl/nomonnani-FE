@@ -25,6 +25,7 @@ jobs:
       - name: Setting .env
         run: |
           echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
+          echo "REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID=${{ secrets.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID }}" >> .env
 
       - name: Build # project build
         run: npm run build
