@@ -14,10 +14,13 @@ type LocationType = {
   state: ResultProps;
 };
 
+const RANDOM_COUNT = 3;
+
 function Result() {
   const { state: result } = useLocation() as LocationType;
   const [saleType, setSaleType] = useState('origin');
-  const resultImageIdx = Math.floor(Math.random() *3);
+
+  const resultImageIdx = Math.floor(Math.random() * RANDOM_COUNT);
 
   const onClickSaleButton = (e: FormEvent<HTMLButtonElement>) => {
     const {
@@ -29,7 +32,10 @@ function Result() {
   return (
     <FlexBox>
       <Header />
-      <ResultImage src={PRODUCT_IMAGES[result.type][resultImageIdx]} alt="result-image" />
+      <ResultImage
+        src={PRODUCT_IMAGES[result.type][resultImageIdx]}
+        alt="result-image"
+      />
 
       <ResultSubName>나의 닮은꼴 농산물은...</ResultSubName>
       <ResultName>{QUOTE[result.type].name}</ResultName>
@@ -87,7 +93,7 @@ function Result() {
           border="2px solid var(--primary)"
           onClick={() =>
             handleImageDownload({
-              src: `${PRODUCT_IMAGES[result.type]}`,
+              src: PRODUCT_IMAGES[result.type][resultImageIdx],
               fileName: 'ddokdarman.png',
             })
           }
@@ -171,7 +177,8 @@ const SaleButton = styled.button<{ value: string; active: boolean }>`
   height: 52px;
   font-size: 17px;
   padding: 12px auto;
-  font-family: ${(props) => (props.active ? 'GmarketSansBold' : 'GmarketSansMedium')};
+  font-family: ${(props) =>
+    props.active ? 'GmarketSansBold' : 'GmarketSansMedium'};
   background: ${(props) => (props.active ? 'var(--white)' : 'var(--grey)')};
   color: ${(props) => (props.active ? 'var(--primary)' : 'var(--darkgrey)')};
   cursor: pointer;
