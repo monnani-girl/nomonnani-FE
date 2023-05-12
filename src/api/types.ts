@@ -23,3 +23,7 @@ export interface SelectedProps {
   travel: string;
   photo: string;
 }
+
+export interface Visitor {
+  session_count: number;
+}
