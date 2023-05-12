@@ -5,16 +5,25 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useResetRecoilState } from 'recoil';
 import { selectedAtom } from '../atoms';
-import { useState } from 'react';
+import { useQuery } from 'react-query';
+import { getVisitors } from '../api';
+
+import type { Visitor } from '../api/types';
 
 function Home() {
   const resetSelected = useResetRecoilState(selectedAtom);
-  // TODO : 방문자수 api 연결
-  const [visitor,setVisitor] = useState(120230);
+  const {
+    data: visitor,
+    isLoading: visitorLoading,
+    isError: visitorError,
+  } = useQuery<Visitor>('visitor', getVisitors);
 
   useEffect(() => {
     resetSelected();
   }, []);
+
+  //TODO: 에러 노드 처리 (feat. Errorboundary)
+  if (visitorError) return <div>에러가 발생했습니다</div>;
 
   return (
     <Body>
@@ -23,11 +32,15 @@ function Home() {
         <SubTitle>내가 제주 농산물이라면?</SubTitle>
         <Title src={LogoImage} alt="logo" />
         <Description>
-          나와 닮은 귀여운 제주 못난이<br />
+          나와 닮은 귀여운 제주 못난이
+          <br />
           농산물 캐릭터를 찾아보세요!
         </Description>
         <Button to="/select/1">닮은꼴 찾으러 가기</Button>
-        {/* <VisitorText>지금까지 {visitor.toLocaleString()}명이 닮은꼴을 찾았어요</VisitorText> */}
+        <VisitorText>
+          지금까지 {!visitorLoading ? visitor?.session_count : 'OO'}명이
+          닮은꼴을 찾았어요
+        </VisitorText>
       </IntroContainer>
     </Body>
   );
@@ -37,7 +50,7 @@ export default Home;
 
 const Body = styled.div`
   text-align: center;
-  margin-top: 80px;
+  margin-top: 50px;
 `;
 
 const Image = styled.img`
