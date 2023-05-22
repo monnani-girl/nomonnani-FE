@@ -38,7 +38,7 @@ const SubTitle = styled.div`
   font-style: normal;
   font-size: 16px;
   line-height: 24px;
-  margin-top: 48px;
+  margin-top: 30px;
 `;
 
 const Title = styled.div`
@@ -46,7 +46,7 @@ const Title = styled.div`
   line-height: 24px;
   letter-spacing: 0em;
   text-align: center;
-  margin: 10px 0 34px 0;
+  margin: 10px 0 20px 0;
   color: var(--black);
 `;
 
