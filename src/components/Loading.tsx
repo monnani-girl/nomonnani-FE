@@ -5,7 +5,11 @@ const Loading = () => {
   return (
     <Container>
       <LoadingGif src={loadingGif} alt="loading" />
-      <Text>닮은꼴 캐릭터 찾는 중...</Text>
+      <Text>
+        잠시만요!<br />
+        닮은꼴 캐릭터를 찾고 있어요
+        <SubText>남은 시간 최대 5초</SubText>
+      </Text>
     </Container>
   );
 };
@@ -16,7 +20,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 120px;
+  margin-top: 100px;
 `;
 
 const LoadingGif = styled.img`
@@ -27,4 +31,12 @@ const Text = styled.div`
   color: var(--black);
   font-size: 24px;
   margin-top: 24px;
+  text-align: center;
+`;
+
+const SubText = styled.div`
+  color: var(--sub-black); 
+  font-size: 16px;
+  margin-top: 10px;
+  text-align: center;
 `;
