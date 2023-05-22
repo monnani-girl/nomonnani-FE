@@ -108,7 +108,7 @@ const FindButton = styled.button<{ disabled: boolean }>`
   height: 72px;
   font-family: 'GmarketSansMedium';
   font-size: 24px;
-  margin-top: 40px;
+  margin-top: ${(props) => (props.disabled ? '40px' : '32px')};
   color: var(--white);
   background-color: var(--primary);
   border-radius: 100px;
@@ -120,6 +120,8 @@ const Image = styled.img`
   width: 198px;
   height: 198px;
   border-radius: 20px;
-  margin-top: 96px;
-  object-fit: contain;
+  margin-top: 54px;
+  border: 1px solid #e1e1e1;
+  object-fit: cover;
+  object-position: center;
 `;
