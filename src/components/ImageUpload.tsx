@@ -59,6 +59,13 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
             <br />
             얼굴이 잘리지 않은 <br />
             사진을 올려주세요
+            <p style={{
+              color: "#FF8D4D",
+              fontSize: "16px",
+              fontFamily: "Noto Sans KR",
+            }}>
+              click!
+            </p>
           </FileSelctButton>
         )}
       </label>
@@ -89,11 +96,10 @@ const FileSelctButton = styled.button`
   line-height: 21px;
   border: 1px solid #e1e1e1;
   border-radius: 20px;
-  box-shadow: 3px 3px 5px #e1e1e1;
   font-family: 'Noto Sank KR';
   font-size: 16px;
   font-weight: 400;
-  margin-top: 75px;
+  margin-top: 54px;
   cursor: pointer;
 `;
 
@@ -115,6 +121,5 @@ const Image = styled.img`
   height: 198px;
   border-radius: 20px;
   margin-top: 96px;
-  box-shadow: 3px 3px 5px #e1e1e1;
   object-fit: contain;
 `;
