@@ -76,7 +76,7 @@ const Select = () => {
         trailWidth={3}
         strokeColor="var(--primary)"
         trailColor="var(--progress-trail)"
-        style={{ maxWidth: '333px', marginTop: '46px' }}
+        style={{ maxWidth: '333px', marginTop: '30px' }}
       />
 
       {step &&
@@ -137,7 +137,7 @@ const BtnContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 60px;
+  margin-top: 30px;
 `;
 
 const Button = styled(Link)<{
