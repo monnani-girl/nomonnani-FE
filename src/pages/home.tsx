@@ -50,7 +50,7 @@ export default Home;
 
 const Body = styled.div`
   text-align: center;
-  margin-top: 20px;
+  margin-top: 3vh;
 `;
 
 const Image = styled.img`
