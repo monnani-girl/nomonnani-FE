@@ -90,9 +90,9 @@ function Result() {
       <SaveShareButtonContainer>
         <Button to="/">다시하기</Button>
         <SaveShareButton
-          bgColor="var(--primary-opacity)"
-          color="var(--primary)"
-          border="2px solid var(--primary)"
+          border="2px solid #e1e1e1"
+          bgColor="var(--background)"
+          color="var(--darkgrey)"
           onClick={() =>
             handleImageDownload({
               src: PRODUCT_IMAGES[result.type][resultImageIdx],
@@ -106,7 +106,7 @@ function Result() {
           bgColor="var(--primary)"
           color="var(--white)"
           border="none"
-          style={{ padding: '24px 120px', marginTop: '28px' }}
+          style={{ padding: '24px 120px', marginTop: '20px' }}
           onClick={() =>
             handleKaKaoShareBtn({
               title: result.nickname,
@@ -271,7 +271,7 @@ const SaveShareButton = styled.button<{
 }>`
   font-family: 'GmarketSansMedium';
   font-size: 18px;
-  padding: 24px 30px;
+  padding: 20px 40px;
   border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
@@ -283,11 +283,11 @@ const SaveShareButton = styled.button<{
 const Button = styled(Link)`
   font-family: 'GmarketSansMedium';
   font-size: 18px;
-  padding: 24px 30px;
-  border: 1px solid #e1e1e1;
+  padding: 20px 40px;
   border-radius: 65px;
-  background-color: var(--background);
-  color: var(--darkgrey);
+  background-color: var(--primary-opacity);
+  color: var(--primary);
+  border: 2px solid var(--primary);
   opacity: 0.8;
   cursor: pointer;
 `;
