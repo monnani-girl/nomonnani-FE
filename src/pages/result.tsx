@@ -80,7 +80,7 @@ function Result() {
                     <SalePlace>{product.place}</SalePlace>
                     <SaleName>{product.name}</SaleName>
                   </div>
-                  <SalePrice>{product.price}원</SalePrice>
+                  <SalePrice>{product.price.toLocaleString()}원</SalePrice>
                 </SaleTextBox>
               </SaleBox>
             ))}
