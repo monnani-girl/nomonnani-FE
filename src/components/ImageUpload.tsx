@@ -59,13 +59,9 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
             <br />
             얼굴이 잘리지 않은 <br />
             사진을 올려주세요
-            <p style={{
-              color: "#FF8D4D",
-              fontSize: "16px",
-              fontFamily: "Noto Sans KR",
-            }}>
+            <PointText>
               click!
-            </p>
+            </PointText>
           </FileSelctButton>
         )}
       </label>
@@ -124,4 +120,10 @@ const Image = styled.img`
   border: 1px solid #e1e1e1;
   object-fit: cover;
   object-position: center;
+`;
+
+const PointText = styled.p`
+  color: #FF8D4D;
+  font-size: 16px;
+  font-family: "Noto Sans KR";
 `;
