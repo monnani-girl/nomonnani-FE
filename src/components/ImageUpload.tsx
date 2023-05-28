@@ -51,20 +51,18 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
           ref={inputRef}
           onChange={handleImageChange}
         />
-        {imageSrc ? (
-          <Image src={imageSrc} alt="uploaded-file" />
-        ) : (
-          <FileSelctButton onClick={handleUploadClick}>
-            <CameraImg src={camera} alt="camera" />
-            <br />
-            얼굴이 잘리지 않은 <br />
-            사진을 올려주세요
-            <PointText>
-              click!
-            </PointText>
-          </FileSelctButton>
-        )}
       </label>
+      {imageSrc ? (
+        <Image src={imageSrc} alt="uploaded-file" />
+      ) : (
+        <FileSelctButton onClick={handleUploadClick}>
+          <CameraImg src={camera} alt="camera" />
+          <br />
+          얼굴이 잘리지 않은 <br />
+          사진을 올려주세요
+          <PointText>click!</PointText>
+        </FileSelctButton>
+      )}
       <FindButton onClick={onClickButton} disabled={Boolean(!imageSrc)}>
         닮은꼴 찾기
       </FindButton>
@@ -87,15 +85,15 @@ const CameraImg = styled.img`
 const FileSelctButton = styled.button`
   width: 198px;
   height: 198px;
+  margin-top: 54px;
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
   background-color: var(--white);
   color: var(--darkgrey);
   line-height: 21px;
-  border: 1px solid #e1e1e1;
-  border-radius: 20px;
   font-family: 'Noto Sank KR';
   font-size: 16px;
   font-weight: 400;
-  margin-top: 54px;
   cursor: pointer;
 `;
 
@@ -104,7 +102,7 @@ const FindButton = styled.button<{ disabled: boolean }>`
   height: 72px;
   font-family: 'GmarketSansMedium';
   font-size: 24px;
-  margin-top: ${(props) => (props.disabled ? '40px' : '32px')};
+  margin-top: 40px;
   color: var(--white);
   background-color: var(--primary);
   border-radius: 100px;
@@ -123,7 +121,7 @@ const Image = styled.img`
 `;
 
 const PointText = styled.p`
-  color: #FF8D4D;
+  color: #ff8d4d;
   font-size: 16px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
 `;
