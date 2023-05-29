@@ -10,6 +10,7 @@ import SelectItems from '../components/SelectItems';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
+import Error from '../components/Error';
 import styled from 'styled-components';
 
 import type { SelectedProps } from '../api/types';
@@ -65,7 +66,7 @@ const Select = () => {
     );
 
   if (resultLoading) return <Loading />;
-  // if (resultError) return <div>에러가 발생했습니다</div>; //TODO: 에러 노드 처리
+  if (resultError) return <Error />;
 
   return (
     <Container>
