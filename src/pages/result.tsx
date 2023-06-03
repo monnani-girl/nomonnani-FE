@@ -106,7 +106,8 @@ function Result() {
           bgColor="var(--primary)"
           color="var(--white)"
           border="none"
-          style={{ padding: '24px 120px', marginTop: '20px' }}
+          padding="24px 120px"
+          marginTop="20px"
           onClick={() =>
             handleKaKaoShareBtn({
               title: result.nickname,
@@ -268,10 +269,13 @@ const SaveShareButton = styled.button<{
   bgColor: string;
   color: string;
   border: string;
+  padding?: string;
+  marginTop?: string;
 }>`
   font-family: 'GmarketSansMedium';
   font-size: 18px;
-  padding: 20px 40px;
+  margin-top: ${(props) => props.marginTop ? props.marginTop : 0};
+  padding: ${(props) => props.padding ? props.padding : "20px 40px"};
   border: ${(props) => props.border};
   border-radius: 65px;
   background-color: ${(props) => props.bgColor};
