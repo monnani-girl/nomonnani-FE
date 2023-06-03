@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { getVisitors } from '../api';
+import { selectedAtom } from '../atoms';
+import Error from '../components/Error';
 import mainImage from '../assets/main.png';
 import LogoImage from '../assets/logo.png';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useResetRecoilState } from 'recoil';
-import { selectedAtom } from '../atoms';
-import { useQuery } from 'react-query';
-import { getVisitors } from '../api';
 
 import type { Visitor } from '../api/types';
 
@@ -22,8 +23,7 @@ function Home() {
     resetSelected();
   }, []);
 
-  //TODO: 에러 노드 처리 (feat. Errorboundary)
-  if (visitorError) return <div>에러가 발생했습니다</div>;
+  if (visitorError) return <Error />;
 
   return (
     <Body>
