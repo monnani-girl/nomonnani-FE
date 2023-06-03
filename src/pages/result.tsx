@@ -134,7 +134,7 @@ const FlexBox = styled.div`
 
 const ResultImage = styled.img`
   width: 100%;
-  height: 355px;
+  max-width: 100%;
   display: block;
   align-self: center;
   margin-top: 30px;
