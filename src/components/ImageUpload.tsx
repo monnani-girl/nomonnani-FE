@@ -42,7 +42,7 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
 
   return (
     <>
-      <label htmlFor="image">
+      <Label htmlFor="image">
         <FileInput
           type="file"
           id="image"
@@ -51,18 +51,18 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
           ref={inputRef}
           onChange={handleImageChange}
         />
-      </label>
-      {imageSrc ? (
-        <Image src={imageSrc} alt="uploaded-file" />
-      ) : (
-        <FileSelctButton onClick={handleUploadClick}>
-          <CameraImg src={camera} alt="camera" />
-          <br />
-          얼굴이 잘리지 않은 <br />
-          사진을 올려주세요
-          <PointText>click!</PointText>
-        </FileSelctButton>
-      )}
+        {imageSrc ? (
+          <Image src={imageSrc} alt="uploaded-file" />
+        ) : (
+          <FileSelctButton onClick={handleUploadClick}>
+            <CameraImg src={camera} alt="camera" />
+            <br />
+            얼굴이 잘리지 않은 <br />
+            사진을 올려주세요
+            <PointText>click!</PointText>
+          </FileSelctButton>
+        )}
+      </Label>
       <FindButton onClick={onClickButton} disabled={Boolean(!imageSrc)}>
         닮은꼴 찾기
       </FindButton>
@@ -71,6 +71,10 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
 };
 
 export default ImageFileUpload;
+
+const Label = styled.label`
+  height: 252px;
+`;
 
 const FileInput = styled.input`
   display: none;
