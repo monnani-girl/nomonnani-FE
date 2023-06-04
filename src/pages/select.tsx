@@ -98,7 +98,7 @@ const Select = () => {
           }
           prev={true.toString()}
           disabled={disabledPrevBtn}
-          visibled={step === '1'}
+          visibled={disabledPrevBtn}
         >
           이전
         </Button>
