@@ -98,6 +98,7 @@ const Select = () => {
           }
           prev={true.toString()}
           disabled={disabledPrevBtn}
+          visibled={disabledPrevBtn}
         >
           이전
         </Button>
@@ -168,8 +169,7 @@ const Button = styled(Link)<{
       : props.disabled
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
-  visibility: ${(props) =>
-    props.prev ? 'visible' : props.visibled ? 'hidden' : 'visible'};
+  visibility: ${(props) => (props.visibled ? 'hidden' : 'visible')};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 14px;
