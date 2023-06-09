@@ -9,12 +9,14 @@ import ReactGA from 'react-ga';
 //TODO: theme 설정
 const theme = {};
 if (process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID) {
-  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID as string);
+  ReactGA.initialize(
+    process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID as string,
+  );
 }
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
@@ -25,5 +27,5 @@ root.render(
         </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
