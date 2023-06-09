@@ -80,19 +80,16 @@ function Result() {
                     <SalePlace>{product.place}</SalePlace>
                     <SaleName>{product.name}</SaleName>
                   </div>
-                  <SalePrice>{product.price}원</SalePrice>
+                  <SalePrice>{product.price.toLocaleString()}원</SalePrice>
                 </SaleTextBox>
               </SaleBox>
             ))}
         </SaleBoxContainer>
       </SaleContainer>
 
-      <SaveShareButtonContainer>
-        <Button to="/">다시하기</Button>
-        <SaveShareButton
-          bgColor="var(--primary-opacity)"
-          color="var(--primary)"
-          border="2px solid var(--primary)"
+      <RestartSaveButtonContainer>
+        <RestartButton to="/">다시하기</RestartButton>
+        <SaveButton
           onClick={() =>
             handleImageDownload({
               src: PRODUCT_IMAGES[result.type][resultImageIdx],
@@ -101,12 +98,8 @@ function Result() {
           }
         >
           저장하기
-        </SaveShareButton>
-        <SaveShareButton
-          bgColor="var(--primary)"
-          color="var(--white)"
-          border="none"
-          style={{ padding: '24px 120px', marginTop: '28px' }}
+        </SaveButton>
+        <ShareButton
           onClick={() =>
             handleKaKaoShareBtn({
               title: result.nickname,
@@ -116,8 +109,8 @@ function Result() {
           }
         >
           공유하기
-        </SaveShareButton>
-      </SaveShareButtonContainer>
+        </ShareButton>
+      </RestartSaveButtonContainer>
     </FlexBox>
   );
 }
@@ -133,7 +126,7 @@ const FlexBox = styled.div`
 
 const ResultImage = styled.img`
   width: 100%;
-  height: 410px;
+  max-width: 100%;
   display: block;
   align-self: center;
   margin-top: 30px;
@@ -256,7 +249,7 @@ const SalePrice = styled.div`
   font-weight: 500;
 `;
 
-const SaveShareButtonContainer = styled(ButtonContainer)`
+const RestartSaveButtonContainer = styled(ButtonContainer)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -264,30 +257,39 @@ const SaveShareButtonContainer = styled(ButtonContainer)`
   margin-top: 40px;
 `;
 
-const SaveShareButton = styled.button<{
-  bgColor: string;
-  color: string;
-  border: string;
-}>`
+const RestartButton = styled(Link)`
   font-family: 'GmarketSansMedium';
   font-size: 18px;
-  padding: 24px 30px;
-  border: ${(props) => props.border};
+  padding: 20px 40px;
+  border: 2px solid var(--primary);
   border-radius: 65px;
-  background-color: ${(props) => props.bgColor};
-  color: ${(props) => props.color};
+  background-color: var(--primary-opacity);
+  color: var(--primary);
   opacity: 0.8;
   cursor: pointer;
 `;
 
-const Button = styled(Link)`
+const SaveButton = styled.button`
   font-family: 'GmarketSansMedium';
   font-size: 18px;
-  padding: 24px 30px;
-  border: 1px solid #e1e1e1;
+  padding: 20px 40px;
+  border: 2px solid var(--primary);
+  border-radius: 65px;
+  background-color: var(--primary);
+  color: var(--white);
+  opacity: 0.8;
+  cursor: pointer;
+`;
+
+const ShareButton = styled.button`
+  font-family: 'GmarketSansMedium';
+  font-size: 18px;
+  padding: 24px 120px;
+  border: none;
   border-radius: 65px;
   background-color: var(--background);
   color: var(--darkgrey);
   opacity: 0.8;
   cursor: pointer;
+  margin-top: 20px;
 `;
