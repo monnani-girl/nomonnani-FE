@@ -12,6 +12,7 @@ import LogoImage from '../assets/logo.png';
 
 import type { Visitor } from '../api/types';
 
+
 function Home() {
   const countUp = useCountUp({ end: 1000 });
   const resetSelected = useResetRecoilState(selectedAtom);
