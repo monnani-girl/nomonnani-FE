@@ -42,7 +42,7 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
 
   return (
     <>
-      <label htmlFor="image">
+      <Label htmlFor="image">
         <FileInput
           type="file"
           id="image"
@@ -59,9 +59,10 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
             <br />
             얼굴이 잘리지 않은 <br />
             사진을 올려주세요
+            <PointText>click!</PointText>
           </FileSelctButton>
         )}
-      </label>
+      </Label>
       <FindButton onClick={onClickButton} disabled={Boolean(!imageSrc)}>
         닮은꼴 찾기
       </FindButton>
@@ -70,6 +71,10 @@ const ImageFileUpload = ({ onClickButton }: ImageFileUploadProps) => {
 };
 
 export default ImageFileUpload;
+
+const Label = styled.label`
+  height: 252px;
+`;
 
 const FileInput = styled.input`
   display: none;
@@ -84,16 +89,15 @@ const CameraImg = styled.img`
 const FileSelctButton = styled.button`
   width: 198px;
   height: 198px;
+  margin-top: 54px;
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
   background-color: var(--white);
   color: var(--darkgrey);
   line-height: 21px;
-  border: 1px solid #e1e1e1;
-  border-radius: 20px;
-  box-shadow: 3px 3px 5px #e1e1e1;
   font-family: 'Noto Sank KR';
   font-size: 16px;
   font-weight: 400;
-  margin-top: 75px;
   cursor: pointer;
 `;
 
@@ -114,7 +118,14 @@ const Image = styled.img`
   width: 198px;
   height: 198px;
   border-radius: 20px;
-  margin-top: 96px;
-  box-shadow: 3px 3px 5px #e1e1e1;
-  object-fit: contain;
+  margin-top: 54px;
+  border: 1px solid #e1e1e1;
+  object-fit: cover;
+  object-position: center;
+`;
+
+const PointText = styled.p`
+  color: #ff8d4d;
+  font-size: 16px;
+  font-family: 'Noto Sans KR';
 `;

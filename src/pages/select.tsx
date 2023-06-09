@@ -10,6 +10,8 @@ import SelectItems from '../components/SelectItems';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
+import Error from '../components/Error';
+
 import styled from 'styled-components';
 
 import type { SelectedProps } from '../api/types';
@@ -65,7 +67,7 @@ const Select = () => {
     );
 
   if (resultLoading) return <Loading />;
-  // if (resultError) return <div>에러가 발생했습니다</div>; //TODO: 에러 노드 처리
+  if (resultError) return <Error />;
 
   return (
     <Container>
@@ -76,7 +78,7 @@ const Select = () => {
         trailWidth={3}
         strokeColor="var(--primary)"
         trailColor="var(--progress-trail)"
-        style={{ maxWidth: '333px', marginTop: '46px' }}
+        style={{ maxWidth: '333px', marginTop: '30px' }}
       />
 
       {step &&
@@ -85,6 +87,7 @@ const Select = () => {
         ) : (
           <>
             <StepTitle>나와 닮은 못난이 캐릭터를 찾아보세요</StepTitle>
+            <NotiText>걱정마세요! 사진은 별도로 저장되지 않습니다.</NotiText>
             <ImageFileUpload onClickButton={handleCaptureClick} />
           </>
         ))}
@@ -96,6 +99,7 @@ const Select = () => {
           }
           prev={true.toString()}
           disabled={disabledPrevBtn}
+          visibled={disabledPrevBtn}
         >
           이전
         </Button>
@@ -137,7 +141,7 @@ const BtnContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 60px;
+  margin-top: 30px;
 `;
 
 const Button = styled(Link)<{
@@ -166,8 +170,7 @@ const Button = styled(Link)<{
       : props.disabled
       ? ButtonType.bgcolor.next
       : '1px solid var(--primary)'};
-  visibility: ${(props) =>
-    props.prev ? 'visible' : props.visibled ? 'hidden' : 'visible'};
+  visibility: ${(props) => (props.visibled ? 'hidden' : 'visible')};
   outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: 14px;
@@ -177,5 +180,11 @@ const Button = styled(Link)<{
 
 const StepTitle = styled.div`
   font-size: 20px;
-  margin-top: 77px;
+  margin-top: 50px;
+`;
+
+const NotiText = styled.div`
+  color: var(--sub-black);
+  font-size: 14px;
+  margin-top: 18px;
 `;

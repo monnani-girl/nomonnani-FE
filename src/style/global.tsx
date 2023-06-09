@@ -69,6 +69,7 @@ body{
   min-width: 370px;
   max-width: 400px;
   margin: 0 auto;
+  margin-top: 3vh;
   padding: 20px;
   line-height: 1.5;
   background-color: #fffbf8;

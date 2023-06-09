@@ -1,20 +1,32 @@
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { getVisitors } from '../api';
+import { selectedAtom } from '../atoms';
+import Error from '../components/Error';
+import useCountUp from '../hooks/useCountUp';
 import mainImage from '../assets/main.png';
 import LogoImage from '../assets/logo.png';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useResetRecoilState } from 'recoil';
-import { selectedAtom } from '../atoms';
-import { useState } from 'react';
+
+import type { Visitor } from '../api/types';
+
 
 function Home() {
+  const countUp = useCountUp({ end: 1000 });
   const resetSelected = useResetRecoilState(selectedAtom);
-  // TODO : 방문자수 api 연결
-  const [visitor,setVisitor] = useState(120230);
+  const {
+    data: visitor,
+    isLoading: visitorLoading,
+    isError: visitorError,
+  } = useQuery<Visitor>('visitor', getVisitors);
 
   useEffect(() => {
     resetSelected();
   }, []);
+
+  if (visitorError) return <Error />;
 
   return (
     <Body>
@@ -23,11 +35,15 @@ function Home() {
         <SubTitle>내가 제주 농산물이라면?</SubTitle>
         <Title src={LogoImage} alt="logo" />
         <Description>
-          나와 닮은 귀여운 제주 못난이<br />
+          나와 닮은 귀여운 제주 못난이
+          <br />
           농산물 캐릭터를 찾아보세요!
         </Description>
         <Button to="/select/1">닮은꼴 찾으러 가기</Button>
-        {/* <VisitorText>지금까지 {visitor.toLocaleString()}명이 닮은꼴을 찾았어요</VisitorText> */}
+        <VisitorText>
+          지금까지 {visitorLoading ? countUp : visitor?.session_count}명이
+          닮은꼴을 찾았어요
+        </VisitorText>
       </IntroContainer>
     </Body>
   );
@@ -37,7 +53,6 @@ export default Home;
 
 const Body = styled.div`
   text-align: center;
-  margin-top: 80px;
 `;
 
 const Image = styled.img`
