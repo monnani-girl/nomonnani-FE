@@ -5,7 +5,7 @@
 ## 🥕 똑닮안 서비스 바로가기   
 👉🏻 **서비스 URL** : **https://ddokdarman.site/**   
 
-서비스의 자세한 설명은 ['똑닮안' Overview](https://github.com/monnani-girl)와 ['똑닮안' 구름톤 전시관](https://9oormthon.goorm.io/cb37a9b5-6a16-4d88-afe9-f4ea9ac9b7bd)에서 확인하실 수 있어요!
+서비스의 자세한 설명은 ['똑닮안' Overview](https://github.com/monnani-girl)와 ['똑닮안' 구름톤 전시관](https://9oormthon.goorm.io/30a437a5-e256-4e9f-8512-1dcfacc0f8af)에서 확인하실 수 있어요!
 ## ⚒️ Front-End 사용 기술 스택
 
 **Stack**|**Version**|**Why**
