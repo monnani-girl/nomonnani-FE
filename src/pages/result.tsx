@@ -1,5 +1,5 @@
-import { FormEvent, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { FormEvent, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { handleKaKaoShareBtn } from '../utils/kakaoShare';
 import { handleImageDownload } from '../utils/ImageDownload';
 import introductionImg from '../assets/introduction.svg';
@@ -7,17 +7,14 @@ import { PRODUCT_NAME_ENG2KOR } from '../static/product';
 import { IMAGE_URLS, PRODUCT_IMAGES } from '../static/image';
 import Header from '../components/Header';
 import styled from 'styled-components';
-
-import type { ResultProps } from '../api/types';
-
-type LocationType = {
-  state: ResultProps;
-};
+import { RESULT } from '../static/result';
+import Loading from '../components/Loading';
 
 const RANDOM_COUNT = 3;
 
 function Result() {
-  const { state: result } = useLocation() as LocationType;
+  const [result, setResult] = useState(RESULT['carrot']);
+  const [isLoading, setIsLoading] = useState(true);
   const [saleType, setSaleType] = useState('origin');
 
   const resultImageIdx = Math.floor(Math.random() * RANDOM_COUNT);
@@ -28,6 +25,12 @@ function Result() {
     } = e;
     setSaleType(value);
   };
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 3000);
+  }, []);
+
+  if (isLoading) return <Loading />;
 
   return (
     <FlexBox>
