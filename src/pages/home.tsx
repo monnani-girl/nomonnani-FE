@@ -15,8 +15,6 @@ function Home() {
     resetSelected();
   }, []);
 
-  if (visitorError) return <Error />;
-
   return (
     <Body>
       <Image src={mainImage} alt="main-character" />

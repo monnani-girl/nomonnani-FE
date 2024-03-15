@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { Line } from 'rc-progress';
 import { selectedAtom } from '../atoms';
@@ -8,7 +7,6 @@ import ImageFileUpload from '../components/ImageUpload';
 import SelectItems from '../components/SelectItems';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
-import Error from '../components/Error';
 
 import styled from 'styled-components';
 
