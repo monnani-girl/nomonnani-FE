@@ -8,6 +8,8 @@ import ImageFileUpload from '../components/ImageUpload';
 import SelectItems from '../components/SelectItems';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
+import Error from '../components/Error';
+
 import styled from 'styled-components';
 
 import type { SelectedProps } from '../api/types';

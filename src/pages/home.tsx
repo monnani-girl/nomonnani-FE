@@ -15,6 +15,8 @@ function Home() {
     resetSelected();
   }, []);
 
+  if (visitorError) return <Error />;
+
   return (
     <Body>
       <Image src={mainImage} alt="main-character" />
@@ -28,10 +30,6 @@ function Home() {
         </Description>
         <Button to="/select/1">닮은꼴 찾으러 가기</Button>
         <VisitorText>지금까지 {countUp}명이 닮은꼴을 찾았어요</VisitorText>
-        {/* <VisitorText>
-          지금까지 {visitorLoading ? countUp : visitor?.session_count}명이
-          닮은꼴을 찾았어요
-        </VisitorText> */}
       </IntroContainer>
     </Body>
   );
