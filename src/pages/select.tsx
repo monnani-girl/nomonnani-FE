@@ -4,14 +4,10 @@ import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { Line } from 'rc-progress';
 import { selectedAtom } from '../atoms';
-import { getResult } from '../api';
 import ImageFileUpload from '../components/ImageUpload';
 import SelectItems from '../components/SelectItems';
-import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
-import Error from '../components/Error';
-
 import styled from 'styled-components';
 
 import type { SelectedProps } from '../api/types';
@@ -34,28 +30,9 @@ const Select = () => {
       selectedState[SELECTED_STEPS[Number(step) - 1] as keyof SelectedProps],
     );
 
-  const {
-    data: resultData,
-    mutate: resultMutation,
-    isLoading: resultLoading,
-    isSuccess: resultSuccess,
-    isError: resultError,
-  } = useMutation(getResult);
-
   const handleCaptureClick = () => {
-    resultMutation(selectedState);
+    navigate('/result');
   };
-
-  useEffect(() => {
-    if (resultSuccess) {
-      if (resultData.result) navigate('/result', { state: resultData.result });
-      else {
-        setOpenModal(true);
-        //TODO: 에러 메시지 전달은?
-        // alert(resultData.message);
-      }
-    }
-  }, [resultSuccess]);
 
   if (openModal)
     return (
@@ -65,9 +42,6 @@ const Select = () => {
         onClick={() => setOpenModal(false)}
       />
     );
-
-  if (resultLoading) return <Loading />;
-  if (resultError) return <Error />;
 
   return (
     <Container>
